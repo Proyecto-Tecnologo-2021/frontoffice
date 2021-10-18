@@ -1,11 +1,41 @@
 @media all and (min-width: 480px) {
-    .Login {
-        padding: 60px 0;
+    /*.Login {*/
+    /*    padding: 60px 0;*/
+    /*}*/
+
+    /*.Login form {*/
+    /*    margin: 0 auto;*/
+    /*    max-width: 320px;*/
+    /*}*/
+
+    #loginDiv{
+        top: 30%;
+        left: -10%;
     }
 
-    .Login form {
-        margin: 0 auto;
-        max-width: 320px;
+    #divLogin{
+        /*background-image: url('../img/back1.jpg');*/
+        background: url('../img/back2.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        position:absolute;
+        top:0px;
+        right:0px;
+        bottom:0px;
+        left:0px;
     }
+
+    #cardLogin{
+        opacity: 90%;
+        /*background-color: rgba(255, 255, 255, 0.7);*/
+        /*background:rgba(56,255,255,0.1);*/
+        /*color: #6dc030;*/
+        top: 30%;
+        left: -10%;
+    }
+
+
 
 }
