@@ -16,7 +16,8 @@ import App from "./App";
 
 ReactDOM.render(
     <BrowserRouter>
-        <App/>
+        <Route path="/" component={App} />
+        {/*<App/>*/}
         {/*<Route path="/admin" render={(props) => <AdminLayout {...props} />} />*/}
         {/*<Redirect from="/" to="/admin/dashboard" />*/}
     </BrowserRouter>,

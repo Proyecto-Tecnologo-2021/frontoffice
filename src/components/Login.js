@@ -13,6 +13,7 @@ import {
     Col,
     ListGroup, ButtonGroup
 } from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 const Login = () => {
     const clickSignIn = () => {
@@ -98,8 +99,8 @@ const Login = () => {
                                                     </div>
                                                 </Col>
                                                 <Col>
-                                                    <label className="d-flex justify-content-end">
-                                                        ¿Olvidó su contraseña? &nbsp;<a href="#">Recupérala</a>
+                                                    <label className="d-flex justify-content-end" style={{width: '300px'}}>
+                                                        ¿Olvidó su contraseña? &nbsp;<a href="#">Recuperar</a>
                                                     </label>
                                                 </Col>
                                             </Row>
@@ -120,7 +121,9 @@ const Login = () => {
                                             <Row>
                                                 <Col>
                                                     <label>
-                                                        ¿Eres nuevo? &nbsp;<a href="#">Crea una cuenta</a>
+                                                        {/*¿Eres nuevo? &nbsp;<a href="/new-user">Crea una cuenta</a>*/}
+                                                        ¿Eres nuevo? &nbsp;
+                                                        <Link to="/new-user">Crea una cuenta</Link>
                                                     </label>
                                                 </Col>
                                             </Row>
