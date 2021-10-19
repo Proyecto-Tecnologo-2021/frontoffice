@@ -19,21 +19,21 @@ function Sidebar({ color, image, routes }) {
         }}
       />
       <div className="sidebar-wrapper">
-        <div className="logo d-flex align-items-center justify-content-start">
-          <a
-            href="#"
-            className="simple-text logo-mini mx-1"
-          >
+        <div className="logo  ">
+          {/*<a*/}
+          {/*  href="#"*/}
+          {/*  className="simple-text logo-mini mx-1"*/}
+          {/*>*/}
             <div className="logo-img">
               <img
-                src={require("assets/img/reactlogo.png").default}
+                src={require("assets/img/logoAppetitTrans.png").default}
                 alt="..."
               />
             </div>
-          </a>
-          <a className="simple-text" href="#">
-            Appetit
-          </a>
+          {/*</a>*/}
+          {/*<a className="simple-text" href="#">*/}
+          {/*  Appetit*/}
+          {/*</a>*/}
         </div>
         <Nav>
           {routes.map((prop, key) => {
@@ -53,7 +53,7 @@ function Sidebar({ color, image, routes }) {
                     activeClassName="active"
                   >
                     <i className={prop.icon} />
-                    <p>{prop.name}</p>
+                    <p style={{color: "#ffffff"}}>{prop.name}</p>
                   </NavLink>
                 </li>
               );

@@ -23,7 +23,7 @@ const NewUser = () => {
                                         <Card.Title as="h4">Nuevo cliente</Card.Title>
                                     </Card.Header>
                                     <Card.Body>
-                                        <Form action='/home'>
+                                        <Form action='#'>
                                             <Row>
                                                 <Col className="pl-1">
                                                     <Form.Group>
