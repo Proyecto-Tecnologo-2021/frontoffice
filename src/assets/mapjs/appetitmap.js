@@ -1,7 +1,19 @@
 /**
  * 
  */
-var $mj = jQuery.noConflict();
+import $ from 'jquery';
+import L from 'leaflet';
+import Proj4 from 'proj4'
+import * as ELG from 'esri-leaflet-geocoder';
+import iconMap from "assets/img/map/iconmap.png";
+// import { Map, TileLayer } from 'react-leaflet';
+
+require('leaflet');
+
+window.jQuery = $;
+window.$ = $;
+global.jQuery = $;
+var $mj = $.noConflict()
 var lat = -34.86157;
 var lon = -56.17938;
 var zoom = 15;
@@ -13,7 +25,7 @@ var results;
 //getParadasCercanas([point32721['x'], point32721['y']], DISTANCIA);
 
 const myIcon = L.icon({
-	iconUrl: '../resources/images/map/iconmap.png',
+	iconUrl: iconMap,
 	iconSize: [32, 43],
 	iconAnchor: [16, 43],
 	popupAnchor: [0, -43]
@@ -26,15 +38,16 @@ const marker = L.marker([lat, lon], {
 	autoPan: true,
 });
 
-var geocodeService = L.esri.Geocoding.geocodeService({
+const geocodeService = ELG.geocodeService({
 	apikey: 'AAPK46e02c88e9284088aa4476b1780a56d1BzwMDybORolvb0Ei8R9aTA6SwflWgmZXBVm9zjrPh5BQQJsGIxtSf8hKHXwVMtN-' // replace with your api key - https://developers.arcgis.com
 });
 
-var searchControl = L.esri.Geocoding.geosearch({
+const searchControl = ELG.geosearch({
 	position: 'topright',
-	placeholder: 'Ingrese direcci\u00F3n o sitio, e.j. Palacio Legislativo, Montevideo',
+	placeholder: 'Ingrese dirección o sitio, e.j. Palacio Legislativo, Montevideo',
 	useMapBounds: false,
-	providers: [L.esri.Geocoding.arcgisOnlineProvider({
+	expanded: true,
+	providers: [ELG.arcgisOnlineProvider({
 		apikey: 'AAPK46e02c88e9284088aa4476b1780a56d1BzwMDybORolvb0Ei8R9aTA6SwflWgmZXBVm9zjrPh5BQQJsGIxtSf8hKHXwVMtN-', // replace with your api key - https://developers.arcgis.com
 		nearby: {
 			lat: lat,
@@ -43,7 +56,7 @@ var searchControl = L.esri.Geocoding.geosearch({
 	})]
 });
 
-function initMap() {
+export function initMap() {
 	map = L.map('map').setView([lat, lon], zoom);
 	new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -75,8 +88,6 @@ function initMap() {
 		});
 	});
 
-
-
 	searchControl.on('results', function(data) {
 		results.clearLayers();
 		for (var i = data.results.length - 1; i >= 0; i--) {
@@ -88,16 +99,13 @@ function initMap() {
 			$mj("input[id*='addPoint']").val(strPOINT);
 			$mj("input[id*='addAddress']").val(data.results[i].properties.ShortLabel);
 			$mj("input[id*='addAddressNumber']").val(data.results[i].properties.AddNum);
-						
-			
 			
 			results.addLayer(L.marker(data.results[i].latlng, { icon: myIcon }).bindPopup(data.results[i].properties.ShortLabel).openPopup());
 		}
 	});
-
 }
 
-function getLocation() {
+export function getLocation() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			lat = position.coords.latitude;
@@ -110,7 +118,7 @@ function getLocation() {
 
 		});
 	} else {
-		Console.log("ERROR GEOLOCALIZANDO");
+		// Console.log("ERROR GEOLOCALIZANDO");
 	}
 }
 
@@ -122,23 +130,25 @@ function updateLatLng(la, lo) {
 
 function toProj32721(lat, lon) {
 
-	var proj4326 = new Proj4js.Proj('EPSG:4326');    //source coordinates will be in Longitude/Latitude
-	var proj32721 = new Proj4js.Proj('EPSG:32721');     //destination coordinates in LCC, south of France
+	Proj4.defs("EPSG:32721", "+title=Uruguay EPSG:32721 +proj=utm +zone=21 +south +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
+
+	var proj4326 = new Proj4.Proj('EPSG:4326');    //source coordinates will be in Longitude/Latitude
+	var proj32721 = new Proj4.Proj('EPSG:32721');     //destination coordinates in LCC, south of France
 
 	var coordinates = L.Projection.LonLat.project(L.latLng(lat, lon));
 
 //console.log(coordinates);
 
-	var point = new Proj4js.Point(coordinates.x, coordinates.y);   //any object will do as long as it has 'x' and 'y' properties
-//console.log(point)
-	var point32721 = Proj4js.transform(proj4326, proj32721, point);      //do the transformation.  x and y are modified in place
+	var point = new Proj4.Point(coordinates.x, coordinates.y);   //any object will do as long as it has 'x' and 'y' properties
+// console.log(point)
+	var point32721 = Proj4.transform(proj4326, proj32721, point);      //do the transformation.  x and y are modified in place
 
 //	console.log(point32721);
 	return point32721;
 }
 
 
-function initMapSelectRegion() {
+export function initMapSelectRegion() {
 
 	var customControl = L.Control.extend({
 		options: {
