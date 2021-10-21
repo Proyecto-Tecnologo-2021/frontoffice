@@ -6,7 +6,6 @@ import L from 'leaflet';
 import Proj4 from 'proj4'
 import * as ELG from 'esri-leaflet-geocoder';
 import iconMap from "assets/img/map/iconmap.png";
-// import { Map, TileLayer } from 'react-leaflet';
 
 require('leaflet');
 
@@ -44,9 +43,8 @@ const geocodeService = ELG.geocodeService({
 
 const searchControl = ELG.geosearch({
 	position: 'topright',
-	placeholder: 'Ingrese dirección o sitio, e.j. Palacio Legislativo, Montevideo',
+	placeholder: 'Ingrese dirección o sitio',
 	useMapBounds: false,
-	expanded: true,
 	providers: [ELG.arcgisOnlineProvider({
 		apikey: 'AAPK46e02c88e9284088aa4476b1780a56d1BzwMDybORolvb0Ei8R9aTA6SwflWgmZXBVm9zjrPh5BQQJsGIxtSf8hKHXwVMtN-', // replace with your api key - https://developers.arcgis.com
 		nearby: {
