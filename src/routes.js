@@ -1,10 +1,12 @@
 import Dashboard from "views/Dashboard.js";
-import UserProfile from "views/UserProfile.js";
+import UserProfile_original from "views/UserProfile_original.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
+import UserInfo from "./components/UserInfo";
+import UserProfile from "./components/UserProfile";
 
 const dashboardRoutes = [
   {
@@ -15,10 +17,10 @@ const dashboardRoutes = [
     layout: "/home",
   },
   {
-    path: "/user",
+    path: "/user_original",
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
-    component: UserProfile,
+    component: UserProfile_original,
     layout: "/home",
   },
   {
@@ -54,6 +56,13 @@ const dashboardRoutes = [
     name: "Notifications",
     icon: "nc-icon nc-bell-55",
     component: Notifications,
+    layout: "/home",
+  },
+  {
+    path: "/user",
+    name: "Mi perfil",
+    icon: "nc-icon nc-circle-09",
+    component: UserProfile,
     layout: "/home",
   },
 ];

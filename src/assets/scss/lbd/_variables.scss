@@ -64,6 +64,9 @@ $light-red:                  rgba($danger-color, .2);
 //== Components
 //
 
+$padding-original-vertical:         0px !default;
+$padding-original-horizontal:      0px !default;
+
 $padding-base-vertical:         8px !default;
 $padding-base-horizontal:      16px !default;
 
@@ -205,7 +208,7 @@ $green-color-top: 	                #a1eb3a;
 $green-color-bottom: 	            #6dc030;
 
 $orange-color-top: 	                #ffb33b;
-$orange-color-bottom: 	            #ff5221;
+$orange-color-bottom: rgba(144, 255, 0, 0);
 
 $red-color-top: 	                #ff3b30;
 $red-color-bottom: 	                #bb0502;
@@ -244,7 +247,7 @@ $new-blue:            #1DC7EA;
 $new-purple:          #9368E9;
 $new-red:             #FB404B;
 $new-green:           #87CB16;
-$new-orange:          #FFA534;
+$new-orange: rgba(255, 82, 33, 0);
 $new-dark-blue:       #1F77D0;
 $new-black:           #5e5e5e;
 

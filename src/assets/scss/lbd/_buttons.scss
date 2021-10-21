@@ -4,7 +4,7 @@
     font-weight: $font-weight-normal;
 
     @include opacity(.8);
-    padding: $padding-base-vertical $padding-base-horizontal;
+    //padding: $padding-base-vertical $padding-base-horizontal;
 
     @include btn-styles($default-color, $default-states-color);
 
@@ -54,6 +54,8 @@
     &.btn-simple.active{
         background-color: transparent;
     }
+
+    padding: $padding-base-vertical $padding-base-horizontal;
 }
 
 .btn{
@@ -129,4 +131,9 @@
         border-color: $social-facebook;
         color: $social-facebook;
     }
+}
+
+.btn-original{
+    padding: $padding-original-vertical $padding-original-horizontal;
+
 }
