@@ -14,15 +14,12 @@ import {
     ListGroup, ButtonGroup
 } from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
+
     const clickSignIn = () => {
         //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
-        const flgOK = true
-        if (flgOK) {
-            <Redirect from="/" to="/home"/>
-        }
-
     }
 
     const [email, setEmail] = useState("");
@@ -42,9 +39,9 @@ const Login = () => {
             <Container>
                 <Row>
                     <Col className="d-flex align-items-center">
-                        <Card className="rounded-3 shadow-lg" id="cardLogin" >
-                            <ListGroup variant="flush" >
-                                <ListGroup.Item >
+                        <Card className="rounded-3 shadow-lg" id="cardLogin">
+                            <ListGroup variant="flush">
+                                <ListGroup.Item>
                                     <div>
                                         <img
                                             // width="104"
@@ -99,7 +96,8 @@ const Login = () => {
                                                     </div>
                                                 </Col>
                                                 <Col>
-                                                    <label className="d-flex justify-content-end" style={{width: '300px'}}>
+                                                    <label className="d-flex justify-content-end"
+                                                           style={{width: '300px'}}>
                                                         ¿Olvidó su contraseña? &nbsp;<a href="#">Recuperar</a>
                                                     </label>
                                                 </Col>
@@ -109,8 +107,26 @@ const Login = () => {
                                             <Row>
                                                 <Button
                                                     className="shadow-sm btn-fill pull-right"
-                                                    type="submit"
-                                                    variant="warning">
+                                                    type=""
+                                                    variant="warning"
+                                                    onClick={() => {
+                                                        //Consumir el servicio
+                                                        clickSignIn()
+                                                        //Si hay un error al login...
+                                                        const ok = true
+                                                        if (ok) {
+                                                            window.location = '/home'
+                                                        }else{
+                                                            Swal.fire(
+                                                                {
+                                                                    title: 'Ups...',
+                                                                    confirmButtonColor: '#c00e0e',
+                                                                    icon: "error",
+                                                                    text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
+                                                                },
+                                                            )
+                                                        }
+                                                    }}>
                                                     Ingresar
                                                     &nbsp;
                                                     <i className="fas fa-sign-in-alt"></i>
@@ -148,32 +164,6 @@ const Login = () => {
                 </Row>
             </Container>
         </div>
-
-        // {/*</Form>*/}
-        // <div className="Login">
-        //     <Form onSubmit={handleSubmit}>
-        //         <Form.Group size="lg" controlId="email">
-        //             <Form.Label>Email</Form.Label>
-        //             <Form.Control
-        //                 autoFocus
-        //                 type="email"
-        //                 value={email}
-        //                 onChange={(e) => setEmail(e.target.value)}
-        //             />
-        //         </Form.Group>
-        //         <Form.Group size="lg" controlId="password">
-        //             <Form.Label>Password</Form.Label>
-        //             <Form.Control
-        //                 type="password"
-        //                 value={password}
-        //                 onChange={(e) => setPassword(e.target.value)}
-        //             />
-        //         </Form.Group>
-        //         <Button id='btnLogin' size="lg" type="submit" disabled={!validateForm()}>
-        //             Login
-        //         </Button>
-        //     </Form>
-        // </div>
     );
 }
 export default Login

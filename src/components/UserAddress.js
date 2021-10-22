@@ -2,14 +2,20 @@ import React, {useEffect} from 'react'
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import {initMap, getLocation, toProj32721, updateLatLng} from '../assets/mapjs/appetitmap.js'
+import Swal from "sweetalert2";
 
 
-export default function UserAddress(){
+export default function UserAddress() {
     useEffect(() => {
         initMap();
         getLocation();
-        return <div id="map" style={{ height: "100vh" }}></div>;
+        return <div id="map" style={{height: "100vh"}}></div>;
     }, []);
+
+    const updateUserAddress = () => {
+        //consumir servicio para guardar datos, debe retornar booleano
+
+    }
 
     return (
         <>
@@ -96,21 +102,6 @@ export default function UserAddress(){
                                     <script src="../assets/mapjs/proj4js-combined.js"></script>
                                     <script src="../assets/mapjs/defs/EPSG32721.js"></script>
 
-                                    {/*<div>*/}
-
-                                    {/*    <script type="text/javascript">*/}
-                                    {/*        /!*var $ds = $.noConflict()*!/*/}
-
-                                    {/*        initMap();*/}
-                                    {/*        getLocation();*/}
-
-                                    {/*    </script>*/}
-                                    {/*</div>*/}
-
-                                    {/*addPoint*/}
-                                    {/*addAddress*/}
-                                    {/*addAddressNumber*/}
-
                                     <div id="map">
                                     </div>
 
@@ -120,8 +111,48 @@ export default function UserAddress(){
                         <br/>
                         <Button
                             className="btn-fill pull-right container-fluid"
-                            type="submit"
+                            type=""
                             variant="success"
+                            onClick={() => {
+                                Swal.fire({
+                                    title: '¿Desea guardar los cambios?',
+                                    showDenyButton: true,
+                                    confirmButtonColor: '#27ae60',
+                                    confirmButtonText: 'Guardar',
+                                    denyButtonColor: '#c00e0e',
+                                    denyButtonText: `No guardar`,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        updateUserAddress() //LLAMO SERVICIO PARA GUARDAR DATOS
+                                        const ok = true
+                                        if (ok) {
+                                            Swal.fire(
+                                                {
+                                                    title: '¡Datos guardados con éxito!',
+                                                    confirmButtonColor: '#27ae60',
+                                                    icon: "success",
+                                                }
+                                            )
+                                        } else {
+                                            Swal.fire(
+                                                {
+                                                    title: 'Ha sucedido un error...',
+                                                    confirmButtonColor: '#c00e0e',
+                                                    icon: "error",
+                                                }
+                                            )
+                                        }
+                                    } else if (result.isDenied) {
+                                        Swal.fire(
+                                            {
+                                                title: 'Los cambios no han sido actualizados',
+                                                confirmButtonColor: '#00c0da',
+                                                icon: "info",
+                                            }
+                                        )
+                                    }
+                                })
+                            }}
                         >
                             Actualizar
                         </Button>

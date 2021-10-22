@@ -1,8 +1,14 @@
 import React from 'react'
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const NewUser = () => {
+
+    const newUser = () => {
+
+    }
+
     return (
         <div id="divLogin">
             <Container>
@@ -97,8 +103,33 @@ const NewUser = () => {
                                             <Row>
                                                 <Button
                                                     className="shadow-sm btn-fill pull-right"
-                                                    type="submit"
-                                                    variant="success">
+                                                    type=""
+                                                    variant="success"
+                                                    onClick={() => {
+                                                        //Consumir el servicio
+                                                        newUser()
+                                                        //Si sale todo bien:
+                                                        const ok = true
+                                                        if(ok === true) {
+                                                            Swal.fire(
+                                                                {
+                                                                    title: 'Cuenta creada con éxito',
+                                                                    confirmButtonColor: '#27ae60',
+                                                                    icon: "success",
+                                                                    text: '¡Bienvenido a Appetit!'
+                                                                },
+                                                            )
+                                                        }else{ //algo salió mal
+                                                            Swal.fire(
+                                                                {
+                                                                    title: 'Ups...',
+                                                                    confirmButtonColor: '#c00e0e',
+                                                                    icon: "error",
+                                                                    text: 'Ha sucedido un error...' //Este texto se cargaría con lo que responde el servicio
+                                                                },
+                                                            )
+                                                        }
+                                                    }}>
                                                     <i className="fas fa-user-plus"></i>
                                                     &nbsp;
                                                     Registrar

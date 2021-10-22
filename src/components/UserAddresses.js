@@ -1,7 +1,13 @@
 import React from 'react'
 import {Button, Card, Col, Form, FormControl, InputGroup, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const UserAddresses = () => {
+    const deleteUserAddress = () => {
+        //consumir servicio para guardar datos, debe retornar booleano
+
+    }
+
     return (
         <>
             <Card>
@@ -42,6 +48,46 @@ const UserAddresses = () => {
                                         className="btn-simple btn-link p-1"
                                         type="button"
                                         variant="danger"
+                                        onClick={() => {
+                                            Swal.fire({
+                                                title: '¿Desea guardar los cambios?',
+                                                showDenyButton: true,
+                                                confirmButtonColor: '#27ae60',
+                                                confirmButtonText: 'Guardar',
+                                                denyButtonColor: '#c00e0e',
+                                                denyButtonText: `No guardar`,
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    deleteUserAddress() //LLAMO SERVICIO PARA GUARDAR DATOS
+                                                    const ok = false
+                                                    if (ok) {
+                                                        Swal.fire(
+                                                            {
+                                                                title: 'Se ha eliminado la dirección',
+                                                                confirmButtonColor: '#27ae60',
+                                                                icon: "success",
+                                                            }
+                                                        )
+                                                    } else {
+                                                        Swal.fire(
+                                                            {
+                                                                title: 'Ha sucedido un error...',
+                                                                confirmButtonColor: '#c00e0e',
+                                                                icon: "error",
+                                                            }
+                                                        )
+                                                    }
+                                                } else if (result.isDenied) {
+                                                    Swal.fire(
+                                                        {
+                                                            title: 'No se ha eliminado la dirección',
+                                                            confirmButtonColor: '#00c0da',
+                                                            icon: "info",
+                                                        }
+                                                    )
+                                                }
+                                            })
+                                        }}
                                     >
                                         <i className="fas fa-times"></i>
                                     </Button>

@@ -1,6 +1,4 @@
 import React from "react";
-
-// react-bootstrap components
 import {
     Badge,
     Button,
@@ -12,8 +10,15 @@ import {
     Row,
     Col,
 } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 function User() {
+
+    const updateUserInfo = () => {
+        //consumir servicio para guardar datos, debe retornar booleano
+
+    }
+
     return (
         <>
             <Card>
@@ -73,8 +78,48 @@ function User() {
                         <br/>
                         <Button
                             className="btn-fill pull-right container-fluid"
-                            type="submit"
+                            type=""
                             variant="success"
+                            onClick={() => {
+                                Swal.fire({
+                                    title: '¿Desea guardar los cambios?',
+                                    showDenyButton: true,
+                                    confirmButtonColor: '#27ae60',
+                                    confirmButtonText: 'Guardar',
+                                    denyButtonColor: '#c00e0e',
+                                    denyButtonText: `No guardar`,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        updateUserInfo() //LLAMO SERVICIO PARA GUARDAR DATOS
+                                        const ok = true
+                                        if (ok) {
+                                            Swal.fire(
+                                                {
+                                                    title: '¡Datos guardados con éxito!',
+                                                    confirmButtonColor: '#27ae60',
+                                                    icon: "success",
+                                                }
+                                            )
+                                        } else {
+                                            Swal.fire(
+                                                {
+                                                    title: 'Ha sucedido un error...',
+                                                    confirmButtonColor: '#c00e0e',
+                                                    icon: "error",
+                                                }
+                                            )
+                                        }
+                                    } else if (result.isDenied) {
+                                        Swal.fire(
+                                            {
+                                                title: 'Los cambios no han sido actualizados',
+                                                confirmButtonColor: '#00c0da',
+                                                icon: "info",
+                                            }
+                                        )
+                                    }
+                                })
+                            }}
                         >
                             Actualizar
                         </Button>
