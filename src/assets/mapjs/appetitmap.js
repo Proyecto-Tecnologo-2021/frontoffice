@@ -78,8 +78,17 @@ export function initMap() {
 			var strPOINT = 'POINT(' + proj32721['x'] +' ' + proj32721['y'] + ')'; 
 
 			updateLatLng(result.latlng.lat, result.latlng.lng);
+
+			let direccion = result.address.Address
+			if(result.address.Address !== "") {
+				if (result.address.AddNum !== "")
+					direccion = direccion.replace(result.address.AddNum, "")
+			}else{
+				direccion = result.address.ShortLabel;
+			}
+
 			$mj("input[id*='addPoint']").val(strPOINT);
-			$mj("input[id*='addAddress']").val(result.address.ShortLabel);
+			$mj("input[id*='addAddress']").val(direccion);
 			$mj("input[id*='addAddressNumber']").val(result.address.AddNum);
 
 			results.addLayer(L.marker(result.latlng, { icon: myIcon }).bindPopup(result.address.ShortLabel).openPopup());
@@ -94,8 +103,20 @@ export function initMap() {
 			var strPOINT = 'POINT(' + proj32721['x'] +' ' + proj32721['y'] + ')';
 
 			updateLatLng(data.results[i].latlng.lat, data.results[i].latlng.lng);
+
+			let direccion = data.results[i].properties.StAddr
+			if(data.results[i].properties.StAddr !== "") {
+				if (data.results[i].properties.AddNum !== "")
+					direccion = direccion.replace(data.results[i].properties.AddNum, "")
+			}else{
+				direccion = data.results[i].properties.ShortLabel;
+			}
+
+			console.log(data.results[i].properties)
+
 			$mj("input[id*='addPoint']").val(strPOINT);
-			$mj("input[id*='addAddress']").val(data.results[i].properties.ShortLabel);
+			// $mj("input[id*='addAddress']").val(data.results[i].properties.ShortLabel);
+			$mj("input[id*='addAddress']").val(direccion);
 			$mj("input[id*='addAddressNumber']").val(data.results[i].properties.AddNum);
 			
 			results.addLayer(L.marker(data.results[i].latlng, { icon: myIcon }).bindPopup(data.results[i].properties.ShortLabel).openPopup());
@@ -105,16 +126,45 @@ export function initMap() {
 
 export function getLocation() {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
+		//,errorCallback,{timeout:10000});
+		navigator.geolocation.getCurrentPosition(function(position, errorCallback) {
 			lat = position.coords.latitude;
 			lon = position.coords.longitude;
 			/*  Seteo la lat, long y zoom del mapa  */
 			map.setView([lat, lon], zoom);
 
-			results.clearLayers();
-			results.addLayer(L.marker([lat, lon], { icon: myIcon }).bindPopup('Ubicaci\u00F3n actual'));
+			// results.clearLayers();
+			geocodeService.reverse().latlng([lat, lon]).run(function(error, result) {
+				if (error) {
+					return;
+				}
 
-		});
+				results.clearLayers();
+
+				var proj32721 = toProj32721(result.latlng.lat, result.latlng.lng);
+				var strPOINT = 'POINT(' + proj32721['x'] +' ' + proj32721['y'] + ')';
+
+				updateLatLng(result.latlng.lat, result.latlng.lng);
+				let direccion = result.address.Address
+				if(result.address.Address !== "") {
+					if (result.address.AddNum !== "")
+						direccion = direccion.replace(result.address.AddNum, "")
+				}else{
+					direccion = result.address.ShortLabel;
+				}
+
+				$mj("input[id*='addPoint']").val(strPOINT);
+				$mj("input[id*='addAddress']").val(direccion);
+				$mj("input[id*='addAddressNumber']").val(result.address.AddNum);
+
+				results.addLayer(L.marker(result.latlng, { icon: myIcon }).bindPopup(result.address.ShortLabel).openPopup());
+			});
+
+			results.addLayer(L.marker([lat, lon], { icon: myIcon }).bindPopup('Ubicación actual'));
+
+		},
+			function error(msg) {alert('Please enable your GPS position feature.');},
+			{maximumAge:10000, timeout:5000, enableHighAccuracy: true});
 	} else {
 		// Console.log("ERROR GEOLOCALIZANDO");
 	}
