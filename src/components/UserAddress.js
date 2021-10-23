@@ -1,16 +1,42 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import {initMap, getLocation, toProj32721, updateLatLng} from '../assets/mapjs/appetitmap.js'
+import {initMap, getLocation, toProj32721, updateLatLng, setLocation} from '../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
 
 
-export default function UserAddress() {
+export default function UserAddress({address, mode}) {
+
+    //mode: I: insert; U: update; H:hidden
+    // address = [
+    //     {
+    //         'alias': '',
+    //         'calle': '',
+    //         'num': '',
+    //         'apto': '',
+    //         'ref': '',
+    //     }
+    // ]
+
+    const firstTime = useRef(true);
+
     useEffect(() => {
-        initMap();
-        getLocation();
-        return <div id="map" style={{height: "100vh"}}></div>;
-    }, []);
+        function checkMode(){
+            if (mode === 'I') {
+                getLocation();
+            }else{ //mode === 'U'
+                const latlng = address.point.split(',')
+                setLocation(latlng[0], latlng[1], address.alias)
+            }
+        }
+        if (firstTime.current) {
+            firstTime.current = false;
+            initMap();
+            checkMode()
+            return <div id="map" style={{height: "100vh"}}></div>;
+        }
+        checkMode()
+    }, [mode, address]);
 
     const updateUserAddress = () => {
         //consumir servicio para guardar datos, debe retornar booleano
@@ -21,7 +47,7 @@ export default function UserAddress() {
         <>
             <Card>
                 <Card.Header>
-                    <Card.Title as="h4">Editar Dirección</Card.Title>
+                    <Card.Title as="h4">{mode === 'U' ? 'Editar Dirección' : 'Nueva Dirección'}</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <Form>
@@ -32,7 +58,7 @@ export default function UserAddress() {
                                         Alias *
                                     </label>
                                     <Form.Control
-                                        defaultValue="NombreDefaultValue" //CARGAR NOMBRE DE LA PERSONA
+                                        value={address.alias === '' ? '' : address.alias}
                                         placeholder="Alias"
                                         type="text"
                                     ></Form.Control>
@@ -44,7 +70,7 @@ export default function UserAddress() {
                                         Calle *
                                     </label>
                                     <Form.Control
-                                        defaultValue="DirecciónDefaultValue"
+                                        value={address.calle === '' ? '' : address.calle}
                                         placeholder="Apellido"
                                         type="text"
                                         id="addAddress"
@@ -57,7 +83,7 @@ export default function UserAddress() {
                                         Número *
                                     </label>
                                     <Form.Control
-                                        defaultValue="9999 BIS"
+                                        value={address.num === '' ? '' : address.num}
                                         placeholder="Número de puerta"
                                         type="text"
                                         id="addAddressNumber"
@@ -70,7 +96,7 @@ export default function UserAddress() {
                                         Apto.
                                     </label>
                                     <Form.Control
-                                        defaultValue="1010 B"
+                                        value={address.apto === '' ? '' : address.apto}
                                         placeholder="Apto. (opcional)"
                                         type="text"
                                     ></Form.Control>
@@ -84,7 +110,7 @@ export default function UserAddress() {
                                         Referencias
                                     </label>
                                     <Form.Control
-                                        defaultValue="ReferenciasDefaultValue" //CARGAR NOMBRE DE LA PERSONA
+                                        value={address.ref === '' ? '' : address.ref}
                                         placeholder="Referencias"
                                         type="text"
                                     ></Form.Control>
@@ -102,8 +128,8 @@ export default function UserAddress() {
                                     <script src="../assets/mapjs/proj4js-combined.js"></script>
                                     <script src="../assets/mapjs/defs/EPSG32721.js"></script>
 
-                                    <div id="map">
-                                    </div>
+
+                                    <div id="map"></div>
 
                                 </Form.Group>
                             </Col>
@@ -114,8 +140,17 @@ export default function UserAddress() {
                             type=""
                             variant="success"
                             onClick={() => {
+                                let title1 = ''
+                                let title2 = ''
+                                if (mode === 'U'){
+                                    title1 = '¿Desea guardar los cambios?'
+                                    title2 = 'Los cambios no han sido actualizados'
+                                }else { //mode === 'I'
+                                    title1 = '¿Desea guardar la dirección?'
+                                    title2 = 'Los datos no han sido guardados'
+                                }
                                 Swal.fire({
-                                    title: '¿Desea guardar los cambios?',
+                                    title: title1,
                                     showDenyButton: true,
                                     confirmButtonColor: '#27ae60',
                                     confirmButtonText: 'Guardar',
@@ -145,7 +180,7 @@ export default function UserAddress() {
                                     } else if (result.isDenied) {
                                         Swal.fire(
                                             {
-                                                title: 'Los cambios no han sido actualizados',
+                                                title: title2,
                                                 confirmButtonColor: '#00c0da',
                                                 icon: "info",
                                             }
@@ -154,12 +189,13 @@ export default function UserAddress() {
                                 })
                             }}
                         >
-                            Actualizar
+                            {mode === 'U' ? 'Actualizar' : 'Nuevo'}
                         </Button>
                         <div className="clearfix"></div>
                     </Form>
                 </Card.Body>
             </Card>
+            {/*}*/}
         </>
     )
 }

@@ -6,6 +6,7 @@ import L from 'leaflet';
 import Proj4 from 'proj4'
 import * as ELG from 'esri-leaflet-geocoder';
 import iconMap from "assets/img/map/iconmap.png";
+import {LatLng} from "leaflet/dist/leaflet-src.esm";
 
 require('leaflet');
 
@@ -87,6 +88,8 @@ export function initMap() {
 				direccion = result.address.ShortLabel;
 			}
 
+			console.log(result)
+
 			$mj("input[id*='addPoint']").val(strPOINT);
 			$mj("input[id*='addAddress']").val(direccion);
 			$mj("input[id*='addAddressNumber']").val(result.address.AddNum);
@@ -126,7 +129,6 @@ export function initMap() {
 
 export function getLocation() {
 	if (navigator.geolocation) {
-		//,errorCallback,{timeout:10000});
 		navigator.geolocation.getCurrentPosition(function(position, errorCallback) {
 			lat = position.coords.latitude;
 			lon = position.coords.longitude;
@@ -168,6 +170,13 @@ export function getLocation() {
 	} else {
 		// Console.log("ERROR GEOLOCALIZANDO");
 	}
+}
+
+export function setLocation(lat, lon, alias){
+	results.clearLayers();
+	const latLng = new LatLng(Number(lat), Number(lon));
+	map.setView([lat, lon], zoom);
+	results.addLayer(L.marker(latLng, { icon: myIcon }).bindPopup(alias).openPopup());
 }
 
 

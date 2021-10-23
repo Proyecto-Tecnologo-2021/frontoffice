@@ -71,6 +71,7 @@ function User() {
                                         defaultValue="EmailDefaultValue" //CARGAR Email DE LA PERSONA
                                         placeholder="Email"
                                         type="text"
+                                        disabled
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
