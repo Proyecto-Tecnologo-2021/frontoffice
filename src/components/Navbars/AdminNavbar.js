@@ -52,7 +52,7 @@ function Header() {
                     <span className="navbar-toggler-bar burger-lines"></span>
                     <span className="navbar-toggler-bar burger-lines"></span>
                 </Navbar.Toggle>
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Collapse id="basic-navbar-nav" style={{flexGrow:'0'}}>
                     <Nav className="nav mr-auto" navbar>
                         <Nav.Item>
                             <Nav.Link
@@ -184,7 +184,6 @@ function Header() {
                                     Swal.fire({
                                         title: '¿Está seguro que desea desconectarse?',
                                         showDenyButton: true,
-                                        // showCancelButton: true,
                                         confirmButtonColor: '#27ae60',
                                         confirmButtonText: 'Sí',
                                         denyButtonColor: '#c00e0e',
