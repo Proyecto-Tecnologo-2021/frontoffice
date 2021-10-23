@@ -17,11 +17,17 @@ const UserListAdresses = ({addresses, onClick}) => {
         <>
             {
                 addresses && addresses.map((address) => {
+                        let dir = " " + address.calle + " " + address.num
+                        if (address.apto !== "") {
+                            dir += "  apto. " + address.apto
+                        }
+                        dir += ". " + address.ref
+
                         return (
                             <tr>
                                 <td className="text-start">
                                     <label
-                                        style={{color: '#000000'}}><b>{address.alias}</b> - {address.calle} {address.num} apto. {address.apto}. {address.ref}
+                                        style={{color: '#000000'}}><b>{address.alias}</b> - {dir}
                                     </label>
                                 </td>
                                 <td className="td-actions text-right">
