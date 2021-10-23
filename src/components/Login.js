@@ -11,22 +11,32 @@ import {
     Container,
     Row,
     Col,
-    ListGroup, ButtonGroup
+    ListGroup, ButtonGroup,
 } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
+// import FloatingLabel from "react-bootstrap/cjs/FloatingLabel";
+import FloatingLabel from "react-bootstrap-floating-label";
+import {setSession} from "./SessionService";
 
 const Login = () => {
+    const [user, setUser] = useState('')
+    const [password, setPassword] = useState('')
+    const session = {
+        nombre: 'Gonzalo',
+        apellido: 'Santa María',
+        email: 'gonzalosantamariasilvera@gmail.com',
+        telefono: '098284819',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+    }
 
     const clickSignIn = () => {
         //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
+        setSession(session)
     }
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
     function validateForm() {
-        return email.length > 0 && password.length > 0;
+        return user.length > 0 && password.length > 0;
     }
 
     function handleSubmit(event) {
@@ -44,8 +54,6 @@ const Login = () => {
                                 <ListGroup.Item>
                                     <div>
                                         <img
-                                            // width="104"
-                                            // height="85"
                                             width="125"
                                             height="125"
                                             src={require("assets/img/logoAppetit.png").default}
@@ -60,26 +68,43 @@ const Login = () => {
                                             <Row>
                                                 <Col className="pl-1">
                                                     <Form.Group>
-                                                        <label className="d-flex justify-content-start">
-                                                            Email
-                                                        </label>
-                                                        <Form.Control
-                                                            placeholder="Email"
-                                                            type="email"></Form.Control>
+                                                        {/*<label className="d-flex justify-content-start">*/}
+                                                        {/*    Email / Teléfono*/}
+                                                        {/*</label>*/}
+                                                        <FloatingLabel
+                                                            label="Email / Teléfono"
+                                                            labelStyle={{fontSize: '14px'}}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setUser(e.target.value);
+                                                            }}
+                                                        />
+                                                        {/*<Form.Control*/}
+                                                        {/*    type="email"*/}
+                                                        {/*></Form.Control>*/}
+                                                        {/*</FloatingLabel>*/}
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
+                                            <br/>
 
                                             <Row>
                                                 <Col className="pr-1">
                                                     <Form.Group>
-                                                        <label
-                                                            className="d-flex justify-content-start mt-1">Contraseña</label>
-                                                        <Form.Control
-                                                            // defaultValue="Mike"
-                                                            placeholder="Contraseña..."
-                                                            type="password"
-                                                        ></Form.Control>
+                                                        {/*<label*/}
+                                                        {/*    className="d-flex justify-content-start mt-1">Contraseña</label>*/}
+                                                        {/*<Form.Control*/}
+                                                        {/*    placeholder="Contraseña..."*/}
+                                                        {/*    type="password"*/}
+                                                        {/*></Form.Control>*/}
+                                                        <FloatingLabel
+                                                            label="Contraseña"
+                                                            labelStyle={{fontSize: '14px'}}
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setPassword(e.target.value);
+                                                            }}
+                                                        />
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
@@ -116,7 +141,7 @@ const Login = () => {
                                                         const ok = true
                                                         if (ok) {
                                                             window.location = '/home'
-                                                        }else{
+                                                        } else {
                                                             Swal.fire(
                                                                 {
                                                                     title: 'Ups...',

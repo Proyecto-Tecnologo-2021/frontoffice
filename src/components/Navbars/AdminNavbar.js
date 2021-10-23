@@ -4,6 +4,7 @@ import {Navbar, Container, Nav, Dropdown, Button} from "react-bootstrap";
 
 import routes from "routes.js";
 import Swal from "sweetalert2";
+import {logOut} from "../SessionService";
 
 function Header() {
     const location = useLocation();
@@ -179,7 +180,6 @@ function Header() {
                         <Nav.Item>
                             <Nav.Link
                                 className="m-0"
-                                // href="/"
                                 onClick={() => {
                                     Swal.fire({
                                         title: '¿Está seguro que desea desconectarse?',
@@ -190,12 +190,10 @@ function Header() {
                                         denyButtonColor: '#c00e0e',
                                         denyButtonText: `No`,
                                     }).then((result) => {
-                                        /* Read more about isConfirmed, isDenied below */
                                         if (result.isConfirmed) {
+                                            logOut()
                                             window.location = '/'
-                                            // Swal.fire('Saved!', '', 'success')
                                         } else if (result.isDenied) {
-                                            // Swal.fire('Changes are not saved', '', 'info')
                                         }
                                     })
                                 }

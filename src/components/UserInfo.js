@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     Badge,
     Button,
@@ -11,13 +11,29 @@ import {
     Col,
 } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { Cookies, useCookies } from 'react-cookie'
 
 function User() {
+    const [cookies, setCookie] = useCookies(['__FOsession'])
+    const [name, setName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
 
     const updateUserInfo = () => {
-        //consumir servicio para guardar datos, debe retornar booleano
+        //1. consumir servicio para guardar datos, debe retornar booleano
 
+        //2. volver a pedir los datos y actualizar la cookie
     }
+
+    useEffect(() => {
+        if (cookies.__FOsession !== undefined) {
+            setName(cookies.__FOsession.nombre.toString())
+            setLastName(cookies.__FOsession.apellido.toString())
+            setEmail(cookies.__FOsession.email.toString())
+            setPhone(cookies.__FOsession.telefono.toString())
+        }
+    }, [])
 
     return (
         <>
@@ -32,9 +48,13 @@ function User() {
                                 <Form.Group>
                                     <label>Nombre</label>
                                     <Form.Control
-                                        defaultValue="NombreDefaultValue" //CARGAR NOMBRE DE LA PERSONA
+                                        value={name}
                                         placeholder="Nombre"
                                         type="text"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setName(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -44,9 +64,13 @@ function User() {
                                         Apellido
                                     </label>
                                     <Form.Control
-                                        defaultValue="ApellidoDefaultValue" //CARGAR APELLIDO DE LA PERSONA
+                                        value={lastName}
                                         placeholder="Apellido"
                                         type="text"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setLastName(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -56,9 +80,13 @@ function User() {
                                 <Form.Group>
                                     <label>Teléfono</label>
                                     <Form.Control
-                                        defaultValue="TeléfonoDefaultValue" //CARGAR TELÉFONO DE LA PERSONA
-                                        placeholder="Email"
+                                        value={phone}
+                                        placeholder="Teléfono"
                                         type="text"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setPhone(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -68,7 +96,7 @@ function User() {
                                 <Form.Group>
                                     <label>Email</label>
                                     <Form.Control
-                                        defaultValue="EmailDefaultValue" //CARGAR Email DE LA PERSONA
+                                        value={email}
                                         placeholder="Email"
                                         type="text"
                                         disabled
