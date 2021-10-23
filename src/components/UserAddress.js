@@ -6,6 +6,11 @@ import Swal from "sweetalert2";
 
 
 export default function UserAddress({address, mode}) {
+    const [alias, setAlias] = useState('')
+    const [calle, setCalle] = useState('')
+    const [num, setNum] = useState('')
+    const [apto, setApto] = useState('')
+    const [ref, setRef] = useState('')
 
     //mode: I: insert; U: update; H:hidden
     // address = [
@@ -28,6 +33,11 @@ export default function UserAddress({address, mode}) {
                 const latlng = address.point.split(',')
                 setLocation(latlng[0], latlng[1], address.alias)
             }
+            setAlias(address.alias)
+            setCalle(address.calle)
+            setNum(address.num)
+            setApto(address.apto)
+            setRef(address.ref)
         }
         if (firstTime.current) {
             firstTime.current = false;
@@ -43,6 +53,12 @@ export default function UserAddress({address, mode}) {
 
     }
 
+    const handleUserNameChange = (e) => {
+        e.preventDefault();
+        console.log(e.target.value); //username value
+        setAlias(e.target.value);
+    };
+
     return (
         <>
             <Card>
@@ -50,7 +66,7 @@ export default function UserAddress({address, mode}) {
                     <Card.Title as="h4">{mode === 'U' ? 'Editar Dirección' : 'Nueva Dirección'}</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                    <Form>
+                    <Form noValidate>
                         <Row>
                             <Col className="pl-1" md="3">
                                 <Form.Group>
@@ -58,9 +74,13 @@ export default function UserAddress({address, mode}) {
                                         Alias *
                                     </label>
                                     <Form.Control
-                                        value={address.alias === '' ? '' : address.alias}
+                                        value= {alias}
                                         placeholder="Alias"
                                         type="text"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setAlias(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -70,10 +90,14 @@ export default function UserAddress({address, mode}) {
                                         Calle *
                                     </label>
                                     <Form.Control
-                                        value={address.calle === '' ? '' : address.calle}
+                                        value={calle}
                                         placeholder="Apellido"
                                         type="text"
                                         id="addAddress"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setCalle(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -83,10 +107,14 @@ export default function UserAddress({address, mode}) {
                                         Número *
                                     </label>
                                     <Form.Control
-                                        value={address.num === '' ? '' : address.num}
+                                        value={num}
                                         placeholder="Número de puerta"
                                         type="text"
                                         id="addAddressNumber"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setNum(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -96,9 +124,13 @@ export default function UserAddress({address, mode}) {
                                         Apto.
                                     </label>
                                     <Form.Control
-                                        value={address.apto === '' ? '' : address.apto}
+                                        value={apto}
                                         placeholder="Apto. (opcional)"
                                         type="text"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setApto(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                             </Col>
@@ -110,9 +142,13 @@ export default function UserAddress({address, mode}) {
                                         Referencias
                                     </label>
                                     <Form.Control
-                                        value={address.ref === '' ? '' : address.ref}
+                                        value={ref}
                                         placeholder="Referencias"
                                         type="text"
+                                        onChange={(e) => {
+                                            e.preventDefault();
+                                            setRef(e.target.value);
+                                        }}
                                     ></Form.Control>
                                 </Form.Group>
                                 <label className="d-flex justify-content-start">
