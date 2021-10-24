@@ -5,8 +5,8 @@ import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
-import UserInfo from "./components/UserInfo";
 import UserProfile from "./components/UserProfile";
+import ProductGeneral from "./components/Product/ProductGeneral";
 
 const dashboardRoutes = [
   {
@@ -56,6 +56,13 @@ const dashboardRoutes = [
     name: "Notifications",
     icon: "nc-icon nc-bell-55",
     component: Notifications,
+    layout: "/home",
+  },
+  {
+    path: "/general",
+    name: "Pedidos General",
+    icon: "nc-icon nc-circle-09",
+    component: ProductGeneral,
     layout: "/home",
   },
   {

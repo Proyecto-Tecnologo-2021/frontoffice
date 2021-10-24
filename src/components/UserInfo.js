@@ -37,7 +37,7 @@ function User() {
 
     return (
         <>
-            <Card>
+            <Card style={{marginBottom:'30px'}}>
                 <Card.Header>
                     <Card.Title as="h4">Editar información</Card.Title>
                 </Card.Header>
@@ -55,7 +55,7 @@ function User() {
                                             e.preventDefault();
                                             setName(e.target.value);
                                         }}
-                                    ></Form.Control>
+                                    />
                                 </Form.Group>
                             </Col>
                             <Col className="pl-1" md="6">
