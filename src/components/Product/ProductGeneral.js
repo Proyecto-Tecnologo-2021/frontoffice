@@ -5,9 +5,9 @@ const ProductGeneral = () => {
     const arrayProducts = [
         {
             idRestaurante: 1,
-            nombreRestaurante: 'nombreRestaurante1',
+            nombreRestaurante: '¿Chivitos? los del Gonza',
             idProducto: 1,
-            nombreProducto: 'nombreProducto1',
+            nombreProducto: 'Chivito napolitano al plato para dos personas',
             descripcionProducto: 'descripcionProducto1',
             precioSimple: 123.123,
             descuento: 12.3,
@@ -38,8 +38,8 @@ const ProductGeneral = () => {
             nombreProducto: 'nombreProducto1',
             descripcionProducto: 'descripcionProducto1',
             precioSimple: 123.123,
-            descuento: 12.3,
-            precioTotal: 110.823,
+            descuento: 0,
+            precioTotal: 123.123,
             idImagen: 123123,
             productoExtras: [
                 {

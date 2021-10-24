@@ -1930,7 +1930,7 @@ Copyright (c) 2015 Daniel Eden
   .card .card-image {
     width: 100%;
     overflow: hidden;
-    height: 260px;
+    /*height: 260px;*/
     border-radius: 4px 4px 0 0;
     position: relative;
     -webkit-transform-style: preserve-3d;
