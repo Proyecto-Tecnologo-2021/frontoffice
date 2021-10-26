@@ -1,7 +1,9 @@
 import React from 'react'
 import {Card, Row} from "react-bootstrap";
+import {connect} from "react-redux";
+import {addToCart} from "../../redux/Shopping/shopping-actions";
 
-const Product = ({product, onClick}) => {
+const Product = ({product, onClick, addToCart}) => {
 
     // const arrayProducts = [
     //     {
@@ -14,23 +16,6 @@ const Product = ({product, onClick}) => {
     //         descuento: 12.3,
     //         precioTotal: 110.823,
     //         idImagen: 123123,
-    //         productoExtras: [
-    //             {
-    //                 idProducto: 92,
-    //                 nombreProductoExtra: 'nombreExtraProducto',
-    //                 precioProductoExtra: 12.3
-    //             },
-    //             {
-    //                 idProducto: 93,
-    //                 nombreProductoExtra: 'nombreExtraProducto2',
-    //                 precioProductoExtra: 45.6
-    //             },
-    //             {
-    //                 idProducto: 94,
-    //                 nombreProductoExtra: 'nombreExtraProducto3',
-    //                 precioProductoExtra: 78.9
-    //             },
-    //         ],
     //     },
 
     const getImage = () => {
@@ -83,10 +68,20 @@ const Product = ({product, onClick}) => {
                                 </div>
                             </div>}
                     </div>
+                    <button
+                        onClick={() => addToCart(product.id)}>
+                        Add To Cart
+                    </button>
                 </Card.Body>
             </Card>
         </>
     )
 }
 
-export default Product
+const mapDispatchToProps = dispatch => {
+    return {
+        addToCart: (id) => dispatch(addToCart(id)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Product)

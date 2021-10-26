@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/animate.min.css";
@@ -13,13 +13,17 @@ import AdminLayout from "layouts/Admin.js";
 import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 
+import {Provider} from 'react-redux'
+import store from "./redux/store";
 
 ReactDOM.render(
     <BrowserRouter>
-        <Route path="/" component={App} />
-        {/*<App/>*/}
-        {/*<Route path="/admin" render={(props) => <AdminLayout {...props} />} />*/}
-        {/*<Redirect from="/" to="/admin/dashboard" />*/}
+        <Provider store={store}>
+            <Route path="/" component={App}/>
+            {/*<App/>*/}
+            {/*<Route path="/admin" render={(props) => <AdminLayout {...props} />} />*/}
+            {/*<Redirect from="/" to="/admin/dashboard" />*/}
+        </Provider>
     </BrowserRouter>,
     document.getElementById('root')
 );

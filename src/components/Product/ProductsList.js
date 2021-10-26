@@ -1,6 +1,7 @@
 import React from 'react'
 import Product from "./Product";
 import {Container} from "react-bootstrap";
+import { connect } from 'react-redux'
 
 const ProductsList = ({products}) => {
     return (
@@ -10,10 +11,8 @@ const ProductsList = ({products}) => {
                 {products && products.map((product) => {
                         return (
                             <Product
+                                key={product.id} //ANALIZAR SI VAN A HABER MÁS DE UN PRODUCTO CON EL MISMO ID
                                 product={product}
-                                onClick={() => {
-                                    console.log("mensaje1")
-                                }}
                             />
                         );
                     }
@@ -24,4 +23,10 @@ const ProductsList = ({products}) => {
     )
 }
 
-export default ProductsList
+const mapStateToProps = state =>{
+    return{
+        products: state.shop.products,
+    }
+}
+
+export default connect(mapStateToProps)(ProductsList);
