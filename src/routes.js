@@ -7,6 +7,7 @@ import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import UserProfile from "./components/UserProfile";
 import ProductGeneral from "./components/Product/ProductGeneral";
+import Cart from "./components/Cart/Cart";
 
 const dashboardRoutes = [
   {
@@ -70,6 +71,13 @@ const dashboardRoutes = [
     name: "Mi perfil",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
+    layout: "/home",
+  },
+  {
+    path: "/cart",
+    name: "Mi pedido",
+    icon: "nc-icon nc-circle-09",
+    component: Cart,
     layout: "/home",
   },
 ];

@@ -1,7 +1,8 @@
 import React from 'react'
 import {Card, Row} from "react-bootstrap";
 import {connect} from "react-redux";
-import {addToCart} from "../../redux/Shopping/shopping-actions";
+import {addToCart, loadCurrentItem} from "../../redux/Shopping/shopping-actions";
+import {Link} from "react-router-dom";
 
 const Product = ({product, onClick, addToCart}) => {
 
@@ -67,6 +68,15 @@ const Product = ({product, onClick, addToCart}) => {
                                     <b>${product.precioSimple}</b>
                                 </div>
                             </div>}
+                    </div>
+                    <div>
+                        <Link to={`/home/${product.id}`}>
+                            <button
+                                onClick={() => loadCurrentItem(product)}
+                            >
+                                View Item
+                            </button>
+                        </Link>
                     </div>
                     <button
                         onClick={() => addToCart(product.id)}>

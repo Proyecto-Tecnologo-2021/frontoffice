@@ -13,7 +13,7 @@ export const removeFromCart = (itemID) => {
     return {
         type: actionTypes.REMOVE_FROM_CART,
         payload: {
-            id: itemID
+            id: itemID,
         },
     };
 };
