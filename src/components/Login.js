@@ -1,6 +1,7 @@
 import React, {Component, useState} from "react";
 import {Redirect} from "react-router";
 import "../assets/css/Login.css";
+import {URL_Services} from "../Const";
 import {
     Badge,
     Button,
@@ -18,6 +19,7 @@ import Swal from "sweetalert2";
 // import FloatingLabel from "react-bootstrap/cjs/FloatingLabel";
 import FloatingLabel from "react-bootstrap-floating-label";
 import {setSession} from "./SessionService";
+import jwt from "jsonwebtoken";
 
 const Login = () => {
     const [user, setUser] = useState('')
@@ -30,9 +32,42 @@ const Login = () => {
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
     }
 
-    const clickSignIn = () => {
+    const clickSignIn = async (user, pass) => {
         //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
-        setSession(session)
+        // const url = '/usuarios/login'
+        const url = URL_Services + "/usuarios/login"
+        const axios = require('axios').default
+
+        const bodyLogin = {
+            usuario: user,
+            password: pass,
+        }
+
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.post(
+                    url,
+                    bodyLogin,
+                )
+                return response.data
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return null
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+      
+        if(finalResponse !== null){
+            setSession(jwt.decode(finalResponse.cuerpo))
+            return finalResponse.ok
+        }else{
+            return false
+        }
+
+
+
     }
 
     function validateForm() {
@@ -104,6 +139,7 @@ const Login = () => {
                                                                 e.preventDefault();
                                                                 setPassword(e.target.value);
                                                             }}
+                                                            type="password"
                                                         />
                                                     </Form.Group>
                                                 </Col>
@@ -134,11 +170,11 @@ const Login = () => {
                                                     className="shadow-sm btn-fill pull-right"
                                                     type=""
                                                     variant="warning"
-                                                    onClick={() => {
+                                                    onClick={async () => {
                                                         //Consumir el servicio
-                                                        clickSignIn()
+                                                        // clickSignIn(user, password)
                                                         //Si hay un error al login...
-                                                        const ok = true
+                                                        const ok = await clickSignIn(user, password)
                                                         if (ok) {
                                                             window.location = '/home'
                                                         } else {

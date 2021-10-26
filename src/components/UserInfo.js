@@ -29,8 +29,8 @@ function User() {
     useEffect(() => {
         if (cookies.__FOsession !== undefined) {
             setName(cookies.__FOsession.nombre.toString())
-            setLastName(cookies.__FOsession.apellido.toString())
-            setEmail(cookies.__FOsession.email.toString())
+            // setLastName(cookies.__FOsession.apellido.toString())
+            setEmail(cookies.__FOsession.correo.toString())
             setPhone(cookies.__FOsession.telefono.toString())
         }
     }, [])
