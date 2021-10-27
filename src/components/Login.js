@@ -1,7 +1,7 @@
 import React, {Component, useState} from "react";
 import {Redirect} from "react-router";
 import "../assets/css/Login.css";
-import {URL_Services} from "../Const";
+import {URL_Services, Usuario_Login} from "../Const";
 import {
     Badge,
     Button,
@@ -35,7 +35,7 @@ const Login = () => {
     const clickSignIn = async (user, pass) => {
         //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
         // const url = '/usuarios/login'
-        const url = URL_Services + "/usuarios/login"
+        const url = URL_Services + Usuario_Login
         const axios = require('axios').default
 
         const bodyLogin = {
