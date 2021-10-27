@@ -3,6 +3,11 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import {initMap, getLocation, toProj32721, updateLatLng, setLocation} from '../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
+import {Direccion_Nueva, URL_Services} from "../Const";
+import {default as axios} from "axios";
+import {getSession, setSession} from "./SessionService";
+import jwt from "jsonwebtoken";
+import {useCookies} from "react-cookie";
 
 
 export default function UserAddress({address, mode}) {
@@ -11,6 +16,9 @@ export default function UserAddress({address, mode}) {
     const [num, setNum] = useState('')
     const [apto, setApto] = useState('')
     const [ref, setRef] = useState('')
+    const [userId, setUserId] = useState('')
+    const [cookies, setCookie] = useCookies(['__FOsession'])
+    const [point, setPoint] = useState('')
 
     //mode: I: insert; U: update; H:hidden
     // address = [
@@ -48,8 +56,45 @@ export default function UserAddress({address, mode}) {
         checkMode()
     }, [mode, address]);
 
-    const updateUserAddress = () => {
+    useEffect(() => {
+        if (cookies.__FOsession !== undefined) {
+            setUserId(cookies.__FOsession.idUsuario)
+        }
+    }, [])
+
+    const updateUserAddress = async (alias, calle, num, apto, ref) => {
         //consumir servicio para guardar datos, debe retornar booleano
+
+        const url = URL_Services + Direccion_Nueva
+        const axios = require('axios').default
+
+        const bodyLogin = {
+            id_cliente: userId,
+            alias: alias,
+            calle: calle,
+            numero: num,
+            apartamento: apto,
+            referencias: ref,
+            geometry: document.getElementById("addPoint").value
+        }
+
+        console.log(bodyLogin)
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.post(
+                    url,
+                    bodyLogin,
+                )
+                return response.data.ok
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return false
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+        return finalResponse
 
     }
 
@@ -156,6 +201,7 @@ export default function UserAddress({address, mode}) {
                                 </label>
                             </Col>
                         </Row>
+                        <input type="text" id="addPoint" style={{display: "none"}}/>
                         <Row>
                             <Col className="pr-1" md="12">
                                 <Form.Group>
@@ -194,7 +240,7 @@ export default function UserAddress({address, mode}) {
                                     denyButtonText: `No guardar`,
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        updateUserAddress() //LLAMO SERVICIO PARA GUARDAR DATOS
+                                        updateUserAddress(alias, calle, num, apto, ref) //LLAMO SERVICIO PARA GUARDAR DATOS
                                         const ok = true
                                         if (ok) {
                                             Swal.fire(
