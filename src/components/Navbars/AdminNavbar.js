@@ -6,11 +6,14 @@ import routes from "routes.js";
 import Swal from "sweetalert2";
 import {logOut} from "../SessionService";
 
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 
-function Header({cart}) {
+function Header({}) {
     const [cartCount, setCartCount] = useState(0)
     const location = useLocation();
+
+    const cart = useSelector(state => state.cart)
+    const {cartItems} = cart;
 
     const mobileSidebarToggle = (e) => {
         e.preventDefault();
@@ -35,13 +38,13 @@ function Header({cart}) {
 
     useEffect(() =>{
         let count = 0
-        cart.forEach(item =>{
+        cartItems.forEach(item =>{
             count += item.qty;
         });
 
         setCartCount(count);
 
-    },[cart, cartCount])
+    },[cartItems, cartCount])
 
     return (
         <Navbar bg="light" expand="lg">
@@ -81,17 +84,17 @@ function Header({cart}) {
                         {/*    </Nav.Link>*/}
                         {/*</Nav.Item>*/}
                         {/*<Dropdown as={Nav.Item}>*/}
-                        {/*    <Dropdown.Toggle*/}
-                        {/*        as={Nav.Link}*/}
-                        {/*        data-toggle="dropdown"*/}
-                        {/*        id="dropdown-67443507"*/}
-                        {/*        variant="default"*/}
-                        {/*        className="m-0"*/}
-                        {/*    >*/}
-                        {/*        <i className="nc-icon nc-planet"></i>*/}
-                        {/*        <span className="notification">5</span>*/}
-                        {/*        <span className="d-lg-none ml-1">Notification</span>*/}
-                        {/*    </Dropdown.Toggle>*/}
+                            {/*<Dropdown.Toggle*/}
+                            {/*    as={Nav.Link}*/}
+                            {/*    data-toggle="dropdown"*/}
+                            {/*    id="dropdown-67443507"*/}
+                            {/*    variant="default"*/}
+                            {/*    className="m-0"*/}
+                            {/*>*/}
+                            {/*    <i className="nc-icon nc-planet"></i>*/}
+                            {/*    <span className="notification">{cartCount}</span>*/}
+                            {/*    <span className="d-lg-none ml-1">Notification</span>*/}
+                            {/*</Dropdown.Toggle>*/}
                         {/*    <Dropdown.Menu>*/}
                         {/*        <Dropdown.Item*/}
                         {/*            href="#pablo"*/}
@@ -193,20 +196,27 @@ function Header({cart}) {
                         {/*    </Dropdown.Menu>*/}
                         {/*</Dropdown>*/}
                         <Nav.Item>
+                            {/*<Nav.Link>*/}
                             <Link to="/home/cart">
-                                <div >
-                                    <h3>Cart</h3>
-                                    <img
-                                        src="https://image.flaticon.com/icons/svg/102/102276.svg"
-                                        alt="shopping cart"
-                                    />
-                                    <div>{cartCount}</div>
-                                </div>
+                                {/*<div >*/}
+                                {/*    <h3>Cart</h3>*/}
+                                {/*    <img*/}
+                                {/*        src="https://image.flaticon.com/icons/svg/102/102276.svg"*/}
+                                {/*        alt="shopping cart"*/}
+                                {/*    />*/}
+                                {/*    <div>{cartCount}</div>*/}
+                                {/*</div>*/}
+
+                                <a className="nav-link ">
+                                    <span className="notification">{cartCount}</span>
+                                    <i className="fas fa-hamburger ps-2"></i>
+                                </a>
                             </Link>
+                            {/*</Nav.Link>*/}
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link
-                                className="m-0"
+                                className="m-0 mt-1"
                                 onClick={() => {
                                     Swal.fire({
                                         title: '¿Está seguro que desea desconectarse?',
@@ -234,10 +244,12 @@ function Header({cart}) {
     );
 }
 
-const mapStateToProps = state =>{
-    return{
-        cart: state.shop.cart
-    }
-}
+// const mapStateToProps = state =>{
+//     return{
+//         cart: state.shop.cart
+//     }
+// }
+//
+// export default connect(mapStateToProps)(Header);
 
-export default connect(mapStateToProps)(Header);
+export default Header;

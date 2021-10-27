@@ -27,5 +27,6 @@ export const logOut = () => {
     // const [cookies, setCookie] = useCookies(['session']);
     // Cookies.remove('__session')
 
-    cookies.remove('__FOsession')
+    // cookies.remove('__FOsession')
+    cookies.remove('__FOsession', { path: '/' })
 }

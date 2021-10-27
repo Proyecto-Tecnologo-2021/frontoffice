@@ -91,35 +91,64 @@ const INITIAL_STATE = {
     currentItem: null,
 }
 
-const shopReducer = (state = INITIAL_STATE, action) => {
+// const shopReducer = (state = INITIAL_STATE, action) => {
+const shopReducer = (state = { cartItems: []}, action) => {
     switch (action.type) {
         case actionTypes.ADD_TO_CART:
-            const item = state.products.find(product => product.id === action.payload.id)
-            const inCart = state.cart.find((item) =>
-                item.id === action.payload.id
-                    ? true
-                    : false
+            // const item = state.products.find(product => product.id === action.payload.id)
+            const item = action.payload
+
+            // const inCart = state.cart.find((item) =>
+            //     item.id === action.payload.id
+            //         ? true
+            //         : false
+            // )
+            const existItem = state.cartItems.find((x) =>
+                x.product === item.product
             )
-            return {
-                ...state,
-                cart: inCart
-                    ? state.cart.map((item) =>
-                        item.id === action.payload.id
-                            ? {...item, qty: item.qty + 1}
-                            : item)
-                    : [...state.cart, {...item, qty: 1}],
-            };
+
+            // return {
+            //     ...state,
+            //     cart: inCart
+            //         ? state.cart.map((item) =>
+            //             item.id === action.payload.id
+            //                 ? {...item, qty: item.qty + 1}
+            //                 : item)
+            //         : [...state.cart, {...item, qty: 1}],
+            // };
+
+            if(existItem){
+                return {
+                    ...state,
+                    // cartItems: state.cartItems.map((x) => x.product === existItem.product ? item : x)
+                    cartItems: state.cartItems.map((x) => x.product === existItem.product
+                        ? {...x, qty: x.qty + 1}
+                        : x)
+                }
+            }else { //primera vez que se agrega
+                return {
+                    ...state,
+                    cartItems: [
+                        ...state.cartItems,
+                        {...item, qty: 1}
+                    ]
+                }
+            }
 
         case actionTypes.REMOVE_FROM_CART:
+            // return {
+            //     ...state,
+            //     cart: state.cart.filter((item) => item.id !== action.payload.id)
+            // }
             return {
                 ...state,
-                cart: state.cart.filter((item) => item.id !== action.payload.id)
+                cartItems: state.cartItems.filter((x) => x.product.id !== action.payload)
             }
 
         case actionTypes.ADJUST_QTY:
             return {
                 ...state,
-                cart: state.cart.map((item) =>
+                cartItems: state.cartItems.map((item) =>
                     item.id === action.payload.id
                         ? {...item, qty: +action.payload.qty} :
                         item

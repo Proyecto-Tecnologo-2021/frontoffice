@@ -1,10 +1,13 @@
 import React from 'react'
-import {Card, Row} from "react-bootstrap";
+import {Button, Card, Row} from "react-bootstrap";
 import {connect} from "react-redux";
-import {addToCart, loadCurrentItem} from "../../redux/Shopping/shopping-actions";
+// import {addToCart, loadCurrentItem} from "../../redux/Shopping/shopping-actions";
 import {Link} from "react-router-dom";
+import Swal from "sweetalert2";
+import {useDispatch, useSelector} from "react-redux";
+import {addToCart} from "../../redux/actions/cartActions";
 
-const Product = ({product, onClick, addToCart}) => {
+const Product = ({product, onClick}) => {
 
     // const arrayProducts = [
     //     {
@@ -19,9 +22,16 @@ const Product = ({product, onClick, addToCart}) => {
     //         idImagen: 123123,
     //     },
 
+    const dispatch = useDispatch()
+
     const getImage = () => {
         //Consumir api y obtener imagen usando product.idImagen
         return require("../../assets/img/burger1.jpeg").default
+    }
+
+    const addToCartHandler = () => {
+        dispatch(addToCart(product))
+        // addToCart(product.id)
     }
 
     return (
@@ -45,11 +55,11 @@ const Product = ({product, onClick, addToCart}) => {
                     <div className="">
                         <div>
                             <label>
-                                {product.nombreRestaurante}
+                                {product.nom_restaurante}
                             </label>
                         </div>
                         <div>
-                            {product.nombreProducto}
+                            {product.nombre}
                         </div>
                         <br/>
                         {product.descuento > 0 ?
@@ -69,29 +79,59 @@ const Product = ({product, onClick, addToCart}) => {
                                 </div>
                             </div>}
                     </div>
-                    <div>
-                        <Link to={`/home/${product.id}`}>
-                            <button
-                                onClick={() => loadCurrentItem(product)}
-                            >
-                                View Item
-                            </button>
-                        </Link>
-                    </div>
-                    <button
-                        onClick={() => addToCart(product.id)}>
-                        Add To Cart
-                    </button>
+                    {/*<div>*/}
+                    {/*    <Link to={`/home/${product.id}`}>*/}
+                    {/*        <Button*/}
+                    {/*            onClick={() => {*/}
+                    {/*                loadCurrentItem(product)*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            View Item*/}
+                    {/*        </Button>*/}
+                    {/*    </Link>*/}
+                    {/*</div>*/}
+                    <br/>
+                    <Button
+                        className="btn-fill pull-right"
+                        size="sm"
+                        variant="warning"
+                        onClick={() => {
+                                Swal.fire({
+                                    title: '¿Desea agregar este producto?',
+                                    showDenyButton: true,
+                                    confirmButtonColor: '#27ae60',
+                                    confirmButtonText: 'Sí',
+                                    denyButtonColor: '#c00e0e',
+                                    denyButtonText: 'No',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        addToCartHandler(product.id)
+                                        // addToCart(product.id)
+                                        Swal.fire(
+                                            {
+                                                title: '¡Producto agregado!',
+                                                confirmButtonColor: '#27ae60',
+                                                icon: "success",
+                                            }
+                                        )
+                                    }
+                                })
+                            }}
+                        >
+                        Agregar a mis pedidos
+                    </Button>
                 </Card.Body>
             </Card>
         </>
     )
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addToCart: (id) => dispatch(addToCart(id)),
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         addToCart: (id) => dispatch(addToCart(id)),
+//     };
+// };
+//
+// export default connect(null, mapDispatchToProps)(Product)
 
-export default connect(null, mapDispatchToProps)(Product)
+export default Product
