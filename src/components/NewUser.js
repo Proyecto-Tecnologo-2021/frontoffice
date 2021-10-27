@@ -1,11 +1,56 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from 'sweetalert2'
+import {useCookies} from "react-cookie";
+import {URL_Services, Usuario_Nuevo} from "../Const";
+import {default as axios} from "axios";
+import {setSession} from "./SessionService";
+import jwt from "jsonwebtoken";
 
 const NewUser = () => {
 
-    const newUser = () => {
+    const [name, setName] = useState('')
+    const [userName, setUserName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [verifyPass, setVerifyPass] = useState('')
+
+
+    const newUser = async (name, userName, email, phone, password) => {
+        const url = URL_Services + Usuario_Nuevo
+        const axios = require('axios').default
+
+        const bodyLogin = {
+            nombre: name,
+            username: userName,
+            password: password,
+            telefono: phone,
+            correo: email,
+            tokenFireBase: null,
+            direccion: null
+        }
+        console.log(name+" "+ userName+ " "+email+ " "+phone+" "+ password)
+        console.log(bodyLogin)
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.post(
+                    url,
+                    bodyLogin,
+                )
+                console.log(response)
+                return response.data.ok
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return false
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+        console.log(finalResponse +"final repsonse")
+        return finalResponse
 
     }
 
@@ -34,21 +79,29 @@ const NewUser = () => {
                                                 <Col className="pl-1">
                                                     <Form.Group>
                                                         <label className="d-flex justify-content-start">
-                                                            Nombre
+                                                            Nombre completo
                                                         </label>
                                                         <Form.Control
-                                                            placeholder="Nombre"
-                                                            type="name"></Form.Control>
+                                                            placeholder="Nombre completo"
+                                                            type="name"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setName(e.target.value);
+                                                            }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                                 <Col className="pl-1">
                                                     <Form.Group>
                                                         <label className="d-flex justify-content-start">
-                                                            Apellido
+                                                            Nombre de usuario
                                                         </label>
                                                         <Form.Control
-                                                            placeholder="Apellido"
-                                                            type="name"></Form.Control>
+                                                            placeholder="Nombre de usuario"
+                                                            type="name"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setUserName(e.target.value);
+                                                            }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
@@ -61,7 +114,11 @@ const NewUser = () => {
                                                         </label>
                                                         <Form.Control
                                                             placeholder="Email"
-                                                            type="email"></Form.Control>
+                                                            type="email"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setEmail(e.target.value);
+                                                            }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                                 <Col className="pl-1">
@@ -71,7 +128,11 @@ const NewUser = () => {
                                                         </label>
                                                         <Form.Control
                                                             placeholder="Teléfono"
-                                                            type="name"></Form.Control>
+                                                            type="name"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setPhone(e.target.value);
+                                                            }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
@@ -84,7 +145,11 @@ const NewUser = () => {
                                                         </label>
                                                         <Form.Control
                                                             placeholder="Contraseña"
-                                                            type="password"></Form.Control>
+                                                            type="password"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setPassword(e.target.value);
+                                                            }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                                 <Col className="pl-1">
@@ -94,7 +159,11 @@ const NewUser = () => {
                                                         </label>
                                                         <Form.Control
                                                             placeholder="Verifique su contraseña"
-                                                            type="password"></Form.Control>
+                                                            type="password"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setVerifyPass(e.target.value);
+                                                            }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
@@ -105,30 +174,43 @@ const NewUser = () => {
                                                     className="shadow-sm btn-fill pull-right"
                                                     type=""
                                                     variant="success"
-                                                    onClick={() => {
+                                                    onClick={async () => {
                                                         //Consumir el servicio
-                                                        newUser()
-                                                        //Si sale todo bien:
-                                                        const ok = true
-                                                        if(ok === true) {
-                                                            Swal.fire(
-                                                                {
-                                                                    title: 'Cuenta creada con éxito',
-                                                                    confirmButtonColor: '#27ae60',
-                                                                    icon: "success",
-                                                                    text: '¡Bienvenido a Appetit!'
-                                                                },
-                                                            )
-                                                        }else{ //algo salió mal
+
+
+                                                        if (password === verifyPass) {
+                                                            const ok = await newUser(name, userName, email, phone, password)
+                                                            console.log(ok + " este es el OK")
+                                                            if (ok === true) {
+                                                                Swal.fire(
+                                                                    {
+                                                                        title: 'Cuenta creada con éxito',
+                                                                        confirmButtonColor: '#27ae60',
+                                                                        icon: "success",
+                                                                        text: '¡Bienvenido a Appetit!'
+                                                                    },
+                                                                ).then((result) => window.location = "/")
+                                                            } else { //algo salió mal
+                                                                Swal.fire(
+                                                                    {
+                                                                        title: 'Ups...',
+                                                                        confirmButtonColor: '#c00e0e',
+                                                                        icon: "error",
+                                                                        text: 'Ha sucedido un error...' //Este texto se cargaría con lo que responde el servicio
+                                                                    },
+                                                                )
+                                                            }
+                                                        } else {
                                                             Swal.fire(
                                                                 {
                                                                     title: 'Ups...',
                                                                     confirmButtonColor: '#c00e0e',
                                                                     icon: "error",
-                                                                    text: 'Ha sucedido un error...' //Este texto se cargaría con lo que responde el servicio
+                                                                    text: 'Las contraseñas deben ser iguales...' //Este texto se cargaría con lo que responde el servicio
                                                                 },
                                                             )
                                                         }
+
                                                     }}>
                                                     <i className="fas fa-user-plus"></i>
                                                     &nbsp;
