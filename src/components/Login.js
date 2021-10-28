@@ -1,7 +1,7 @@
 import React, {Component, useState} from "react";
 import {Redirect} from "react-router";
 import "../assets/css/Login.css";
-import {URL_Services, Usuario_Login} from "../Const";
+import {URL_Services, Usuario_Login, localDevelopment} from "../Const";
 import {
     Badge,
     Button,
@@ -27,7 +27,7 @@ const Login = () => {
     const session = {
         nombre: 'Gonzalo',
         apellido: 'Santa María',
-        email: 'gonzalosantamariasilvera@gmail.com',
+        correo: 'gonzalosantamariasilvera@gmail.com',
         telefono: '098284819',
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
     }
@@ -58,7 +58,7 @@ const Login = () => {
         }
 
         const finalResponse = await sendMessageRequest()
-      
+
         if(finalResponse !== null){
             setSession(jwt.decode(finalResponse.cuerpo))
             return finalResponse.ok
@@ -103,9 +103,6 @@ const Login = () => {
                                             <Row>
                                                 <Col className="pl-1">
                                                     <Form.Group>
-                                                        {/*<label className="d-flex justify-content-start">*/}
-                                                        {/*    Email / Teléfono*/}
-                                                        {/*</label>*/}
                                                         <FloatingLabel
                                                             label="Email / Teléfono"
                                                             labelStyle={{fontSize: '14px'}}
@@ -114,10 +111,6 @@ const Login = () => {
                                                                 setUser(e.target.value);
                                                             }}
                                                         />
-                                                        {/*<Form.Control*/}
-                                                        {/*    type="email"*/}
-                                                        {/*></Form.Control>*/}
-                                                        {/*</FloatingLabel>*/}
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
@@ -126,12 +119,6 @@ const Login = () => {
                                             <Row>
                                                 <Col className="pr-1">
                                                     <Form.Group>
-                                                        {/*<label*/}
-                                                        {/*    className="d-flex justify-content-start mt-1">Contraseña</label>*/}
-                                                        {/*<Form.Control*/}
-                                                        {/*    placeholder="Contraseña..."*/}
-                                                        {/*    type="password"*/}
-                                                        {/*></Form.Control>*/}
                                                         <FloatingLabel
                                                             label="Contraseña"
                                                             labelStyle={{fontSize: '14px'}}
@@ -174,7 +161,13 @@ const Login = () => {
                                                         //Consumir el servicio
                                                         // clickSignIn(user, password)
                                                         //Si hay un error al login...
-                                                        const ok = await clickSignIn(user, password)
+                                                        let ok = false
+                                                        if (!localDevelopment)
+                                                            ok = await clickSignIn(user, password)
+                                                        else {
+                                                            ok = true
+                                                            setSession(session)
+                                                        }
                                                         if (ok) {
                                                             window.location = '/home'
                                                         } else {
