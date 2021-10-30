@@ -12,16 +12,52 @@ import {
 } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Cookies, useCookies } from 'react-cookie'
+import {URL_Services, Usuario_Modificar, Usuario_Nuevo} from "../Const";
+import {default as axios} from "axios";
 
 function User() {
     const [cookies, setCookie] = useCookies(['__FOsession'])
     const [name, setName] = useState('')
-    const [lastName, setLastName] = useState('')
+    const [userName, setUserName] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
+    const [userId, setUserId] = useState('')
 
-    const updateUserInfo = () => {
+    useEffect(() => {
+        if (cookies.__FOsession !== undefined) {
+            setUserId(cookies.__FOsession.idUsuario)
+        }
+    }, [])
+
+    const updateUserInfo = async (name, phone) => {
         //1. consumir servicio para guardar datos, debe retornar booleano
+        const url = URL_Services + Usuario_Modificar + userId
+        const axios = require('axios').default
+
+        const bodyLogin = {
+            nombre: name,
+            username: userName,
+            password: "pass",
+            telefono: phone
+        }
+        console.log(bodyLogin)
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.put(
+                    url,
+                    bodyLogin,
+                )
+                console.log(response)
+                return response.data.ok
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return false
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+        return finalResponse
 
         //2. volver a pedir los datos y actualizar la cookie
     }
@@ -29,7 +65,7 @@ function User() {
     useEffect(() => {
         if (cookies.__FOsession !== undefined) {
             setName(cookies.__FOsession.nombre.toString())
-            // setLastName(cookies.__FOsession.apellido.toString())
+            setUserName(cookies.__FOsession.userName.toString())
             setEmail(cookies.__FOsession.correo.toString())
             setPhone(cookies.__FOsession.telefono.toString())
         }
@@ -61,15 +97,15 @@ function User() {
                             <Col className="pl-1" md="6">
                                 <Form.Group>
                                     <label htmlFor="exampleInputEmail1">
-                                        Apellido
+                                        Nombre de Usuario
                                     </label>
                                     <Form.Control
-                                        value={lastName}
-                                        placeholder="Apellido"
+                                        value={userName}
+                                        placeholder="Nombre de Usuario"
                                         type="text"
                                         onChange={(e) => {
                                             e.preventDefault();
-                                            setLastName(e.target.value);
+                                            setUserName(e.target.value);
                                         }}
                                     ></Form.Control>
                                 </Form.Group>
@@ -119,8 +155,8 @@ function User() {
                                     denyButtonText: `No guardar`,
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        updateUserInfo() //LLAMO SERVICIO PARA GUARDAR DATOS
-                                        const ok = true
+                                        const ok = updateUserInfo(name, phone) //LLAMO SERVICIO PARA GUARDAR DATOS
+
                                         if (ok) {
                                             Swal.fire(
                                                 {

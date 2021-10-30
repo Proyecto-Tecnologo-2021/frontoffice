@@ -31,15 +31,13 @@ const NewUser = () => {
             tokenFireBase: null,
             direccion: null
         }
-        console.log(name+" "+ userName+ " "+email+ " "+phone+" "+ password)
-        console.log(bodyLogin)
+
         const sendMessageRequest = async () => {
             try {
                 const response = await axios.post(
                     url,
                     bodyLogin,
                 )
-                console.log(response)
                 return response.data.ok
             } catch (err) {
                 // Handle Error Here
@@ -49,7 +47,6 @@ const NewUser = () => {
         }
 
         const finalResponse = await sendMessageRequest()
-        console.log(finalResponse +"final repsonse")
         return finalResponse
 
     }
