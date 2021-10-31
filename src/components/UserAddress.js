@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import {initMap, getLocation, toProj32721, updateLatLng, setLocation} from '../assets/mapjs/appetitmap.js'
+import {initMap, getLocation, toProj32721, updateLatLng, setLocation, toProj4326} from '../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
 import {Direccion_Nueva, URL_Services} from "../Const";
 import {default as axios} from "axios";
@@ -38,14 +38,20 @@ export default function UserAddress({address, mode}) {
             if (mode === 'I') {
                 getLocation();
             }else{ //mode === 'U'
-                const latlng = address.point.split(',')
-                setLocation(latlng[0], latlng[1], address.alias)
+                let geom = address.geometry
+
+                geom = geom.replace("POINT(" , "")
+                geom = geom.replace(')' , '')
+                const latlng = geom.split(' ')
+                // setLocation(latlng[0], latlng[1], address.alias)
+                const cuatrotre = toProj4326(latlng[0], latlng[1])
+                setLocation(cuatrotre.x, cuatrotre.y)
             }
             setAlias(address.alias)
             setCalle(address.calle)
-            setNum(address.num)
-            setApto(address.apto)
-            setRef(address.ref)
+            setNum(address.numero)
+            setApto(address.apartamento)
+            setRef(address.referencias)
         }
         if (firstTime.current) {
             firstTime.current = false;
@@ -53,6 +59,7 @@ export default function UserAddress({address, mode}) {
             checkMode()
             return <div id="map" style={{height: "100vh"}}></div>;
         }
+
         checkMode()
     }, [mode, address]);
 
@@ -78,7 +85,6 @@ export default function UserAddress({address, mode}) {
             geometry: document.getElementById("addPoint").value
         }
 
-        console.log(bodyLogin)
         const sendMessageRequest = async () => {
             try {
                 const response = await axios.post(
@@ -201,7 +207,7 @@ export default function UserAddress({address, mode}) {
                                 </label>
                             </Col>
                         </Row>
-                        <input type="text" id="addPoint" style={{display: "none"}}/>
+                        <input type="text" id="addPoint" style={{display: "block"}}/>
                         <Row>
                             <Col className="pr-1" md="12">
                                 <Form.Group>

@@ -17,11 +17,11 @@ const UserListAdresses = ({addresses, onClick}) => {
         <>
             {
                 addresses && addresses.map((address) => {
-                        let dir = " " + address.calle + " " + address.num
-                        if (address.apto !== "") {
-                            dir += "  apto. " + address.apto
+                        let dir = " " + address.calle + " " + address.numero
+                        if (address.apartamento !== "") {
+                            dir += "  apto. " + address.apartamento
                         }
-                        dir += ". " + address.ref
+                        dir += ". " + address.referencias
 
                         return (
                             <tr>

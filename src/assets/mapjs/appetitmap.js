@@ -173,6 +173,8 @@ export function getLocation() {
 }
 
 export function setLocation(lat, lon, alias){
+	console.log(lat)
+	console.log(lon)
 	results.clearLayers();
 	const latLng = new LatLng(Number(lat), Number(lon));
 	map.setView([lat, lon], zoom);
@@ -201,6 +203,30 @@ function toProj32721(lat, lon) {
 	var point32721 = Proj4.transform(proj4326, proj32721, point);      //do the transformation.  x and y are modified in place
 
 //	console.log(point32721);
+	return point32721;
+}
+
+export function toProj4326(lat, lon) {
+
+	Proj4.defs("EPSG:32721", "+title=Uruguay EPSG:32721 +proj=utm +zone=21 +south +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
+
+	var proj4326 = new Proj4.Proj('EPSG:4326');    //source coordinates will be in Longitude/Latitude
+	var proj32721 = new Proj4.Proj('EPSG:32721');     //destination coordinates in LCC, south of France
+
+	var coordinates = L.Projection.LonLat.project(L.latLng(lat, lon));
+	console.log("ARRANCA");
+	console.log(coordinates);
+
+	var point = new Proj4.Point(coordinates.x, coordinates.y);   //any object will do as long as it has 'x' and 'y' properties
+
+	console.log(point)
+
+	// var point32721 = Proj4.transform(proj4326, proj32721, point);      //do the transformation.  x and y are modified in place
+	var point32721 = Proj4.transform(proj32721, proj4326, point);      //do the transformation.  x and y are modified in place
+
+	console.log(point32721);
+	console.log("TERMINA");
+
 	return point32721;
 }
 

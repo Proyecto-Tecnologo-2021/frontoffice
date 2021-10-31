@@ -1,54 +1,64 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, Card, Col, Form, FormControl, InputGroup, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import Swal from "sweetalert2";
 import UserListAdresses from "./UserListAdresses";
+import {Direccion_Listar, URL_Services} from "../Const";
+import { Cookies, useCookies } from 'react-cookie'
+
+import {default as axios} from "axios";
 
 const UserAddresses = ({onClick}) => {
 
-    let addresses = [
-        {
-            'alias': 'Mi casa',
-            'calle': 'Avenida Agraciada',
-            'num': '2929',
-            'apto': '310',
-            'ref': 'Esquina Evaristo Ciganda. Torre 3, sector "E"',
-            'point': '-34.87663999426953,-56.19792996728697', //latlng: LatLng {lat: -34.87663999426953, lng: -56.19792996728697}
-        },
-        {
-            'alias': 'Trabajo',
-            'calle': 'Juncal',
-            'num': '1234',
-            'apto': '',
-            'ref': 'Esq. Cerrito. Oficina 29.',
-            'point': '-34.87663999426953,-56.19792996728697',
-        },
-        {
-            'alias': 'Casa de mamá',
-            'calle': 'Boulevard José Batlle y Ordóñez',
-            'num': '1234',
-            'apto': '',
-            'ref': 'Casa rosada con luces',
-            'point': '-34.87663999426953,-56.19792996728697',
-        },
-    ]
+    const [addresses, setAddresses] = useState([])
+    const [cookies, setCookie] = useCookies(['__FOsession'])
+    const [userId, setUserId] = useState('')
+
+    useEffect(() => {
+        if (cookies.__FOsession !== undefined) {
+            setUserId(cookies.__FOsession.idUsuario)
+        }
+        const test = async () => {
+            const a = await getUserAddresses()
+            setAddresses(a)
+
+        }
+        test()
+    }, [])
+
+
+    const getUserAddresses = async () => {
+        const url = URL_Services + Direccion_Listar + cookies.__FOsession.idUsuario
+        const axios = require('axios').default
+
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.get(
+                    url,
+                )
+                return response.data.cuerpo
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return false
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+        return finalResponse
+    }
+
+
 
     let address = {
         'alias': '',
         'calle': '',
-        'num': '',
-        'apto': '',
-        'ref': '',
-        'point': '',
+        'numero': '',
+        'apartamento': '',
+        'referencias': '',
+        'geometry': '',
     }
 
-    // let address = {
-    //     'alias': 'MI CASA',
-    //     'calle': 'AVENIDA AGRACIADA',
-    //     'num': '2929',
-    //     'apto': '310',
-    //     'ref': 'ESQUINA EVARISTO CIGANDA. TORRE 3, SECTOR "E"',
-    //     'point': '123,123',
-    // }
+
 
     function selectOption(pAddress, pMode) {
         onClick(pAddress, pMode)
