@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
 import {adjustQty, loadCurrentItem} from "../../redux/Shopping/shopping-actions";
-import {Button, Card, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {Input} from "reactstrap";
+import {Button, Card, Col, InputGroup, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Input, InputGroupText} from "reactstrap";
 import Swal from "sweetalert2";
 import {useDispatch} from "react-redux";
 import {removeFromCart} from "../../redux/actions/cartActions";
@@ -29,12 +29,13 @@ const CartItem = ({itemData}) => {
     return (
         <Card
             style={{
-                width: '18%',
+                width: '75%',
                 maxHeight: '20%',
                 cursor: 'pointer',
+                alignSelf: 'center',
             }}
             onClick={() => {
-                console.log("mensaje2")
+                // console.log("mensaje2")
             }}>
             <div className="card-image" style={{position: 'relative'}}>
                 <img
@@ -46,7 +47,7 @@ const CartItem = ({itemData}) => {
                 <div className="">
                     <div>
                         <label>
-                            {itemData.product.nom_Restaurante}
+                            {itemData.product.nom_restaurante}
                         </label>
                     </div>
                     <div>
@@ -81,23 +82,29 @@ const CartItem = ({itemData}) => {
                 {/*</div>*/}
                 <div>
                     <Row>
-                        <Col>
-                            <label
-                                htmlFor="Cant"
-                                className='mt-2'
-                            >
-                                Cant.
-                            </label>
-                        </Col>
-                        <Col>
-                            <Input
-                                min="1"
-                                type="number"
-                                id="qty"
-                                name="qty"
-                                value={input}
-                                onChange={onChangeHandler}
-                            />
+                        {/*<Col>*/}
+                        {/*    <label*/}
+                        {/*        htmlFor="Cant"*/}
+                        {/*        className='mt-2'*/}
+                        {/*    >*/}
+                        {/*        Cant.*/}
+                        {/*    </label>*/}
+                        {/*</Col>*/}
+                        <Col md="8">
+                            <InputGroup size="sm">
+                                <InputGroupText>
+                                    Cant.
+                                </InputGroupText>
+                                <Input
+                                    min="1"
+                                    type="number"
+                                    id="qty"
+                                    name="qty"
+                                    value={input}
+                                    onChange={onChangeHandler}
+                                    bsSize="sm"
+                                />
+                            </InputGroup>
                         </Col>
                         <Col>
                             <OverlayTrigger

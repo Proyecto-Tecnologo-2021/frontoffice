@@ -73,13 +73,13 @@ const dashboardRoutes = [
     component: UserProfile,
     layout: "/home",
   },
-  {
-    path: "/cart",
-    name: "Mi pedido",
-    icon: "nc-icon nc-circle-09",
-    component: Cart,
-    layout: "/home",
-  },
+  // {
+  //   path: "/cart",
+  //   name: "Mi pedido",
+  //   icon: "nc-icon nc-circle-09",
+  //   component: Cart,
+  //   layout: "/home",
+  // },
 ];
 
 export default dashboardRoutes;

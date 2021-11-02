@@ -43,7 +43,7 @@ const Cart = ({}) => {
                     </div>
                 ) : (
                     <>
-                        <div className="d-flex flex-column " style={{gap: '20px'}}>
+                        <div className="d-flex flex-column" style={{gap: '10px'}}>
                             {cartItems.map(item => (
                                 <CartItem
                                     key={item.id}
@@ -52,9 +52,9 @@ const Cart = ({}) => {
                             ))}
                         </div>
                         <div>
-                            <h4>Mis pedidos</h4>
+                            <br/>
                             <div>
-                                <span>Total: ({totalItems} producto)</span>
+                                <span>Total: ({totalItems} {totalItems > 1 ? 'productos' : 'producto'})</span>&nbsp;
                                 <span>$ {totalPrice}</span>
                             </div>
                             <Button
