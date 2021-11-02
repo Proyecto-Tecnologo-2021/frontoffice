@@ -112,3 +112,32 @@
 #divPriceWODisc{
   font-size: 15px;
 }
+
+#cartImage{
+  border-radius: 6px;
+  max-width: 130%;
+  height: auto;
+}
+
+.small{
+  font-size: 12px;
+}
+
+.cartSmall{
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+#imgTrns{
+  background: url('../src/assets/img/foto1.jpg') no-repeat center center fixed;
+}
+
+#btnsmall{
+  width: 3%;
+  height: 3%;
+}
+
+.cardOpacity{
+  opacity: 90%;
+  border-radius: 0px;
+}

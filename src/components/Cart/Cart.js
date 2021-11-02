@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import CartItem from "./CartItem";
+import CartItem_old from "./CartItem_old";
 
 import {connect} from "react-redux";
 import {Button} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import CartItem from "./CartItem";
 
 
-const Cart = ({}) => {
+const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0)
     const [totalItems, setTotalItems] = useState(0)
 
@@ -45,20 +46,34 @@ const Cart = ({}) => {
                     <>
                         <div className="d-flex flex-column" style={{gap: '10px'}}>
                             {cartItems.map(item => (
-                                <CartItem
-                                    key={item.id}
-                                    itemData={item}
-                                />
+                                // <CartItem_old
+                                //     key={item.id}
+                                //     itemData={item}
+                                // />
+                                <>
+                                    <CartItem
+                                        key={item.id}
+                                        itemData={item}
+                                    />
+                                    {/*<div className="dropdown-divider"></div>*/}
+                                    <hr/>
+                                </>
                             ))}
                         </div>
                         <div>
+                            <span>Entregar a:</span><span> [dropdown con alias]</span>
                             <br/>
+                            <span>[Dirección del alias seleccionado]</span>
+                        </div>
+                        <hr/>
+                        {/*<br/>*/}
+                        <div>
                             <div>
                                 <span>Total: ({totalItems} {totalItems > 1 ? 'productos' : 'producto'})</span>&nbsp;
                                 <span>$ {totalPrice}</span>
                             </div>
                             <Button
-                                className="btn-fill pull-right"
+                                className="btn-fill pull-right mt-2"
                                 variant="warning"
                             >
                                 Comprar
@@ -70,7 +85,7 @@ const Cart = ({}) => {
 
             {/*<div className="d-flex flex-column " style={{gap: '20px'}}>*/}
             {/*    {cart.map(item => (*/}
-            {/*        <CartItem*/}
+            {/*        <CartItem_old*/}
             {/*            key={item.id}*/}
             {/*            itemData={item}*/}
             {/*        />*/}

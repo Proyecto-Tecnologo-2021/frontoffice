@@ -71,28 +71,28 @@ function Admin() {
                     <AdminNavbar/>
                     {cartCount > 0
                         ? <div className="content">
-                            <Row>
-
+                            <div style={{display: 'flex'}}>
                                 <Col md="9">
                                     <div className="content">
                                         <Switch>{getRoutes(routes)}</Switch>
                                     </div>
                                 </Col>
 
-                                <Col md="3">
-                                    <Card>
+                                <Col md="3" id="imgTrns">
+                                    <Card className="cardOpacity">
                                         <Card.Header>
                                             <Card.Title as="h4">
                                                 Mi pedido
                                             </Card.Title>
                                         </Card.Header>
+                                        <hr/>
                                         <Card.Body>
                                             <Cart/>
                                         </Card.Body>
                                     </Card>
                                 </Col>
 
-                            </Row>
+                            </div>
                         </div>
                         : <div className="content">
                             <Switch>{getRoutes(routes)}</Switch>
