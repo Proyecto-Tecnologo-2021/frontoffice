@@ -66,6 +66,10 @@ const Cart = () => {
                             <span>[Dirección del alias seleccionado]</span>
                         </div>
                         <hr/>
+                        <div>
+                            <span>Forma de pago:</span><span> [dropdown con formas de pago]</span>
+                        </div>
+                        <hr/>
                         {/*<br/>*/}
                         <div>
                             <div>
