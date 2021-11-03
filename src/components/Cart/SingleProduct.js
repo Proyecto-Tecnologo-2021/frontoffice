@@ -20,7 +20,7 @@ const SingleProduct = ({currentItem, addToCart}) => {
                     cursor: 'pointer',
                 }}
                 onClick={() => {
-                    console.log("mensaje2")
+                    // console.log("mensaje2")
                 }}>
                 <div className="card-image" style={{position: 'relative'}}>
                     <img

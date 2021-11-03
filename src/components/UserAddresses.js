@@ -7,7 +7,7 @@ import { Cookies, useCookies } from 'react-cookie'
 
 import {default as axios} from "axios";
 
-const UserAddresses = ({onClick}) => {
+const UserAddresses = ({onClick, onAdd}) => {
 
     const [addresses, setAddresses] = useState([])
     const [cookies, setCookie] = useCookies(['__FOsession'])
@@ -23,7 +23,7 @@ const UserAddresses = ({onClick}) => {
 
         }
         test()
-    }, [])
+    }, [onAdd])
 
 
     const getUserAddresses = async () => {
@@ -47,8 +47,6 @@ const UserAddresses = ({onClick}) => {
         return finalResponse
     }
 
-
-
     let address = {
         'alias': '',
         'calle': '',
@@ -57,8 +55,6 @@ const UserAddresses = ({onClick}) => {
         'referencias': '',
         'geometry': '',
     }
-
-
 
     function selectOption(pAddress, pMode) {
         onClick(pAddress, pMode)
@@ -110,6 +106,8 @@ const UserAddresses = ({onClick}) => {
                             addresses={addresses}
                             onClick={(address, mode) => {
                                     selectOption(address, mode)
+                                    // console.log("UAddress")
+                                    // console.log(address)
                                 }
                             }
                         />

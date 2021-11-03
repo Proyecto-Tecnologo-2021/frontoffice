@@ -7,6 +7,7 @@ import UserAddress from "./UserAddress";
 const UserProfile = () => {
     const [mode, setMode] = useState('H')
     const [address, setAddress] = useState([])
+    const [onAdd, setOnAdd] = useState(false)
 
     return (
         <>
@@ -21,14 +22,15 @@ const UserProfile = () => {
                                 onClick={(address, mode) => {
                                     setAddress(address)
                                     setMode(mode)
-                                }
-                                }
+                                }}
+                                onAdd={onAdd}
                             />
                         </Row>
                     </Col>
                     <Col md="8">
-                        {mode !== 'H' ?
-                        < UserAddress mode={mode} address={address}/> : <></>
+                        {mode !== 'H'
+                            ? <UserAddress mode={mode} address={address} onAdd={(value) => setOnAdd(value)}/>
+                            : <></>
                         }
                     </Col>
                 </Row>

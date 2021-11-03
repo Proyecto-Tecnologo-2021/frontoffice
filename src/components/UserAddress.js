@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken";
 import {useCookies} from "react-cookie";
 
 
-export default function UserAddress({address, mode}) {
+export default function UserAddress({address, mode, onAdd}) {
     const [alias, setAlias] = useState('')
     const [calle, setCalle] = useState('')
     const [num, setNum] = useState('')
@@ -266,11 +266,11 @@ export default function UserAddress({address, mode}) {
                                     confirmButtonText: 'Guardar',
                                     denyButtonColor: '#c00e0e',
                                     denyButtonText: `No guardar`,
-                                }).then((result) => {
+                                }).then(async (result) => {
                                     if (result.isConfirmed) {
-                                        updateUserAddress(alias, calle, num, apto, ref) //LLAMO SERVICIO PARA GUARDAR DATOS
-                                        const ok = true
+                                        const ok = await updateUserAddress(alias, calle, num, apto, ref) //LLAMO SERVICIO PARA GUARDAR DATOS
                                         if (ok) {
+                                            onAdd(true)
                                             Swal.fire(
                                                 {
                                                     title: '¡Datos guardados con éxito!',

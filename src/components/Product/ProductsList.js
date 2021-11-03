@@ -19,7 +19,7 @@ const ProductsList = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-        console.log(products)
+        // console.log(products)
     }, [dispatch])
 
     return (

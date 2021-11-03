@@ -177,7 +177,7 @@ const NewUser = () => {
 
                                                         if (password === verifyPass) {
                                                             const ok = await newUser(name, userName, email, phone, password)
-                                                            console.log(ok + " este es el OK")
+                                                            // console.log(ok + " este es el OK")
                                                             if (ok === true) {
                                                                 Swal.fire(
                                                                     {
