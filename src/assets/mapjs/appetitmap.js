@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 import $ from 'jquery';
 import L from 'leaflet';
@@ -76,7 +76,7 @@ export function initMap() {
 			results.clearLayers();
 
 			var proj32721 = toProj32721(result.latlng.lat, result.latlng.lng);
-			var strPOINT = 'POINT(' + proj32721['x'] +' ' + proj32721['y'] + ')'; 
+			var strPOINT = 'POINT(' + proj32721['x'] +' ' + proj32721['y'] + ')';
 
 			updateLatLng(result.latlng.lat, result.latlng.lng);
 
@@ -88,11 +88,15 @@ export function initMap() {
 				direccion = result.address.ShortLabel;
 			}
 
-			console.log(result)
+			direccion = direccion.trimEnd()
 
 			$mj("input[id*='addPoint']").val(strPOINT);
+
 			$mj("input[id*='addAddress']").val(direccion);
+			$mj("input[id*='addAddress']").attr("value", direccion);
+
 			$mj("input[id*='addAddressNumber']").val(result.address.AddNum);
+			$mj("input[id*='addAddressNumber']").attr("value", result.address.AddNum);
 
 			results.addLayer(L.marker(result.latlng, { icon: myIcon }).bindPopup(result.address.ShortLabel).openPopup());
 		});
@@ -115,13 +119,20 @@ export function initMap() {
 				direccion = data.results[i].properties.ShortLabel;
 			}
 
-			console.log(data.results[i].properties)
+			direccion = direccion.trimEnd()
+
+			// console.log(data.results[i].properties)
 
 			$mj("input[id*='addPoint']").val(strPOINT);
 			// $mj("input[id*='addAddress']").val(data.results[i].properties.ShortLabel);
+			// $mj("input[id*='addAddress']").val(direccion);
+			// $mj("input[id*='addAddressNumber']").val(data.results[i].properties.AddNum);
 			$mj("input[id*='addAddress']").val(direccion);
+			$mj("input[id*='addAddress']").attr("value", direccion);
+
 			$mj("input[id*='addAddressNumber']").val(data.results[i].properties.AddNum);
-			
+			$mj("input[id*='addAddressNumber']").attr("value", data.results[i].properties.AddNum);
+
 			results.addLayer(L.marker(data.results[i].latlng, { icon: myIcon }).bindPopup(data.results[i].properties.ShortLabel).openPopup());
 		}
 	});
@@ -155,9 +166,16 @@ export function getLocation() {
 					direccion = result.address.ShortLabel;
 				}
 
+				direccion = direccion.trimEnd()
+
 				$mj("input[id*='addPoint']").val(strPOINT);
+				// $mj("input[id*='addAddress']").val(direccion);
+				// $mj("input[id*='addAddressNumber']").val(result.address.AddNum);
 				$mj("input[id*='addAddress']").val(direccion);
+				$mj("input[id*='addAddress']").attr("value", direccion);
+
 				$mj("input[id*='addAddressNumber']").val(result.address.AddNum);
+				$mj("input[id*='addAddressNumber']").attr("value", result.address.AddNum);
 
 				results.addLayer(L.marker(result.latlng, { icon: myIcon }).bindPopup(result.address.ShortLabel).openPopup());
 			});
@@ -173,8 +191,8 @@ export function getLocation() {
 }
 
 export function setLocation(lat, lon, alias){
-	console.log(lat)
-	console.log(lon)
+	// console.log(lat)
+	// console.log(lon)
 	results.clearLayers();
 	const latLng = new LatLng(Number(lat), Number(lon));
 	map.setView([lat, lon], zoom);
@@ -214,18 +232,18 @@ export function toProj4326(lat, lon) {
 	var proj32721 = new Proj4.Proj('EPSG:32721');     //destination coordinates in LCC, south of France
 
 	var coordinates = L.Projection.LonLat.project(L.latLng(lat, lon));
-	console.log("ARRANCA");
-	console.log(coordinates);
+	// console.log("ARRANCA");
+	// console.log(coordinates);
 
 	var point = new Proj4.Point(coordinates.x, coordinates.y);   //any object will do as long as it has 'x' and 'y' properties
 
-	console.log(point)
+	// console.log(point)
 
 	// var point32721 = Proj4.transform(proj4326, proj32721, point);      //do the transformation.  x and y are modified in place
 	var point32721 = Proj4.transform(proj32721, proj4326, point);      //do the transformation.  x and y are modified in place
 
-	console.log(point32721);
-	console.log("TERMINA");
+	// console.log(point32721);
+	// console.log("TERMINA");
 
 	return point32721;
 }

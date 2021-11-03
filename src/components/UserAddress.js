@@ -34,40 +34,49 @@ export default function UserAddress({address, mode}) {
     const firstTime = useRef(true);
 
     useEffect(() => {
-        function checkMode(){
+        async function checkMode() {
             if (mode === 'I') {
                 getLocation();
-            }else{ //mode === 'U'
+            } else { //mode === 'U'
                 let geom = address.geometry
 
-                geom = geom.replace("POINT(" , "")
-                geom = geom.replace(')' , '')
+                geom = geom.replace("POINT(", "")
+                geom = geom.replace(')', '')
                 const latlng = geom.split(' ')
                 // setLocation(latlng[0], latlng[1], address.alias)
                 const cuatrotre = toProj4326(latlng[0], latlng[1])
                 setLocation(cuatrotre.x, cuatrotre.y)
+
+                setAlias(address.alias)
+                setCalle(address.calle)
+                setNum(address.numero)
+                setApto(address.apartamento)
+                setRef(address.referencias)
             }
-            setAlias(address.alias)
-            setCalle(address.calle)
-            setNum(address.numero)
-            setApto(address.apartamento)
-            setRef(address.referencias)
+            await timeout(300)
+            setDataMaps()
         }
         if (firstTime.current) {
+
             firstTime.current = false;
             initMap();
             checkMode()
+
+            if (cookies.__FOsession !== undefined) {
+                setUserId(cookies.__FOsession.idUsuario)
+            }
+
             return <div id="map" style={{height: "100vh"}}></div>;
         }
 
         checkMode()
     }, [mode, address]);
 
-    useEffect(() => {
-        if (cookies.__FOsession !== undefined) {
-            setUserId(cookies.__FOsession.idUsuario)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (cookies.__FOsession !== undefined) {
+    //         setUserId(cookies.__FOsession.idUsuario)
+    //     }
+    // }, [])
 
     const updateUserAddress = async (alias, calle, num, apto, ref) => {
         //consumir servicio para guardar datos, debe retornar booleano
@@ -104,11 +113,19 @@ export default function UserAddress({address, mode}) {
 
     }
 
-    const handleUserNameChange = (e) => {
-        e.preventDefault();
-        console.log(e.target.value); //username value
-        setAlias(e.target.value);
-    };
+    const setDataMaps = () => {
+        let numv = document.getElementById("addAddressNumber").value
+        if (document.getElementById("addAddress").value !== calle) {
+            setCalle(document.getElementById("addAddress").value)
+        }
+        if(numv !== num){
+            setNum(numv)
+        }
+    }
+
+    async function timeout(ms) { //pass a time in milliseconds to this function
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     return (
         <>
@@ -125,7 +142,7 @@ export default function UserAddress({address, mode}) {
                                         Alias *
                                     </label>
                                     <Form.Control
-                                        value= {alias}
+                                        value={alias}
                                         placeholder="Alias"
                                         type="text"
                                         onChange={(e) => {
@@ -142,7 +159,7 @@ export default function UserAddress({address, mode}) {
                                     </label>
                                     <Form.Control
                                         value={calle}
-                                        placeholder="Apellido"
+                                        placeholder="Calle"
                                         type="text"
                                         id="addAddress"
                                         onChange={(e) => {
@@ -207,7 +224,7 @@ export default function UserAddress({address, mode}) {
                                 </label>
                             </Col>
                         </Row>
-                        <input type="text" id="addPoint" style={{display: "block"}}/>
+                        <input type="text" id="addPoint" style={{display: "none"}}/>
                         <Row>
                             <Col className="pr-1" md="12">
                                 <Form.Group>
@@ -216,8 +233,13 @@ export default function UserAddress({address, mode}) {
                                     <script src="../assets/mapjs/proj4js-combined.js"></script>
                                     <script src="../assets/mapjs/defs/EPSG32721.js"></script>
 
-
-                                    <div id="map"></div>
+                                    <div
+                                        id="map"
+                                        onClick={async () => {
+                                            await timeout(300)
+                                            setDataMaps()
+                                        }}
+                                    ></div>
 
                                 </Form.Group>
                             </Col>

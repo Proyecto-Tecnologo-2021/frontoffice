@@ -38,7 +38,7 @@ const Product = ({product, onClick}) => {
         <>
             <Card
                 style={{
-                    width: '18%',
+                    width: '22%',
                     maxHeight: '33%',
                     cursor: 'pointer',
                 }}
