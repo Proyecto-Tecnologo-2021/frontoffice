@@ -80,6 +80,34 @@ const Login = () => {
         <Redirect from="/" to="/home"/>
     }
 
+    const login = async () => {
+        let ok = false
+        if (!localDevelopment)
+            ok = await clickSignIn(user, password)
+        else {
+            ok = true
+            setSession(session)
+        }
+        if (ok) {
+            window.location = '/home'
+        } else {
+            Swal.fire(
+                {
+                    title: 'Ups...',
+                    confirmButtonColor: '#c00e0e',
+                    icon: "error",
+                    text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
+                },
+            )
+        }
+    }
+
+    const handleKey = async (e) => {
+        if (e.keyCode === 13) {
+            await login()
+        }
+    };
+
     return (
         <div id="divLogin">
             <Container>
@@ -110,6 +138,7 @@ const Login = () => {
                                                             onChange={(e) => {
                                                                 e.preventDefault();
                                                                 setUser(e.target.value);
+                                                                handleKey(e)
                                                             }}
                                                         />
                                                     </Form.Group>
@@ -126,6 +155,7 @@ const Login = () => {
                                                             onChange={(e) => {
                                                                 e.preventDefault();
                                                                 setPassword(e.target.value);
+                                                                handleKey(e)
                                                             }}
                                                             type="password"
                                                         />
@@ -159,29 +189,9 @@ const Login = () => {
                                                     type=""
                                                     variant="warning"
                                                     onClick={async () => {
-                                                        //Consumir el servicio
-                                                        // clickSignIn(user, password)
-                                                        //Si hay un error al login...
-                                                        let ok = false
-                                                        if (!localDevelopment)
-                                                            ok = await clickSignIn(user, password)
-                                                        else {
-                                                            ok = true
-                                                            setSession(session)
-                                                        }
-                                                        if (ok) {
-                                                            window.location = '/home'
-                                                        } else {
-                                                            Swal.fire(
-                                                                {
-                                                                    title: 'Ups...',
-                                                                    confirmButtonColor: '#c00e0e',
-                                                                    icon: "error",
-                                                                    text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
-                                                                },
-                                                            )
-                                                        }
-                                                    }}>
+                                                        await login()
+                                                    }}
+                                                    >
                                                     Ingresar
                                                     &nbsp;
                                                     <i className="fas fa-sign-in-alt"></i>

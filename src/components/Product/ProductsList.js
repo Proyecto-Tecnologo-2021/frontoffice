@@ -3,6 +3,7 @@ import Product from "./Product";
 import {Container} from "react-bootstrap";
 import {connect, useSelector, useDispatch} from 'react-redux'
 import {useEffect} from "react";
+import { CoffeeLoading } from 'react-loadingg';
 
 //actions
 import {getProducts as listProducts} from '../../redux/actions/productActions'
@@ -27,7 +28,7 @@ const ProductsList = () => {
             <Container fluid>
                 <div className="d-flex flex-wrap justify-content-evenly" style={{gap: '20px'}}>
                     {loading
-                        ? <h2>Loading...</h2>
+                        ? <CoffeeLoading />
                         : error
                             ? <h2>{error}</h2>
                             : products && products.map((product) => {

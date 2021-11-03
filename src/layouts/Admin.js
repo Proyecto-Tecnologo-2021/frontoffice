@@ -78,7 +78,7 @@ function Admin() {
                                     </div>
                                 </Col>
 
-                                <Col md="3" id="imgTrns">
+                                <Col md="3" id="imgTrns" className="h-100">
                                     <Card className="cardOpacity">
                                         <Card.Header>
                                             <Card.Title as="h4">
@@ -91,7 +91,6 @@ function Admin() {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-
                             </div>
                         </div>
                         : <div className="content">
