@@ -19,6 +19,7 @@ export default function UserAddress({address, mode, onAdd}) {
     const [userId, setUserId] = useState('')
     const [cookies, setCookie] = useCookies(['__FOsession'])
     const [point, setPoint] = useState('')
+    const [dummyBool, setDummyBool] = useState(false)
 
     //mode: I: insert; U: update; H:hidden
     // address = [
@@ -90,7 +91,7 @@ export default function UserAddress({address, mode, onAdd}) {
         if (mode === "U")
             url = URL_Services + Dirreccion_Modificar + address.id
 
-        
+
         const axios = require('axios').default
 
         const bodyLogin = {
@@ -292,7 +293,8 @@ export default function UserAddress({address, mode, onAdd}) {
                                     if (result.isConfirmed) {
                                         const ok = await updateUserAddress(alias, calle, num, apto, ref) //LLAMO SERVICIO PARA GUARDAR DATOS
                                         if (ok) {
-                                            onAdd(true)
+                                            setDummyBool(!dummyBool)
+                                            onAdd(!dummyBool)
                                             Swal.fire(
                                                 {
                                                     title: '¡Datos guardados con éxito!',
