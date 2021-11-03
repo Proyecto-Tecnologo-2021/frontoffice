@@ -3,7 +3,7 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import {initMap, getLocation, toProj32721, updateLatLng, setLocation, toProj4326} from '../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
-import {Direccion_Nueva, URL_Services} from "../Const";
+import {Direccion_Nueva, URL_Services, Dirreccion_Modificar} from "../Const";
 import {default as axios} from "axios";
 import {getSession, setSession} from "./SessionService";
 import jwt from "jsonwebtoken";
@@ -56,6 +56,7 @@ export default function UserAddress({address, mode, onAdd}) {
             await timeout(300)
             setDataMaps()
         }
+
         if (firstTime.current) {
 
             firstTime.current = false;
@@ -81,7 +82,15 @@ export default function UserAddress({address, mode, onAdd}) {
     const updateUserAddress = async (alias, calle, num, apto, ref) => {
         //consumir servicio para guardar datos, debe retornar booleano
 
-        const url = URL_Services + Direccion_Nueva
+        let url = ""
+
+        if (mode === "I")
+            url = URL_Services + Direccion_Nueva
+
+        if (mode === "U")
+            url = URL_Services + Dirreccion_Modificar + address.id
+
+        
         const axios = require('axios').default
 
         const bodyLogin = {
@@ -96,10 +105,22 @@ export default function UserAddress({address, mode, onAdd}) {
 
         const sendMessageRequest = async () => {
             try {
-                const response = await axios.post(
-                    url,
-                    bodyLogin,
-                )
+                let response
+
+                if (mode === "I") {
+                    response = await axios.post(
+                        url,
+                        bodyLogin,
+                    )
+                }
+
+                if (mode === "U") {
+                    response = await axios.put(
+                        url,
+                        bodyLogin,
+                    )
+                }
+
                 return response.data.ok
             } catch (err) {
                 // Handle Error Here
@@ -107,6 +128,7 @@ export default function UserAddress({address, mode, onAdd}) {
                 return false
             }
         }
+
 
         const finalResponse = await sendMessageRequest()
         return finalResponse
@@ -252,10 +274,10 @@ export default function UserAddress({address, mode, onAdd}) {
                             onClick={() => {
                                 let title1 = ''
                                 let title2 = ''
-                                if (mode === 'U'){
+                                if (mode === 'U') {
                                     title1 = '¿Desea guardar los cambios?'
                                     title2 = 'Los cambios no han sido actualizados'
-                                }else { //mode === 'I'
+                                } else { //mode === 'I'
                                     title1 = '¿Desea guardar la dirección?'
                                     title2 = 'Los datos no han sido guardados'
                                 }

@@ -48,6 +48,7 @@ const UserAddresses = ({onClick, onAdd}) => {
     }
 
     let address = {
+        'id': 0,
         'alias': '',
         'calle': '',
         'numero': '',

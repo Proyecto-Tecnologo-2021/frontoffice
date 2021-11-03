@@ -9,8 +9,8 @@ export const Usuario_Modificar = "/usuarios/editar/" // PUT (AGREGAR EL ID DEL U
 // SERVICIOS DE DIRECCION
 export const Direccion_Nueva = "/usuarios/agregarDireccion" // POST
 export const Direccion_Listar = "/usuarios/getAddresses/" // GET (AGREGAR EL ID DEL USUARIO AL FINAL)
-
-
+export const Dirreccion_Modificar = "/usuarios/editarDireccion/" // PUT (AGREGAR EL ID DE LA DIRECCION AL FINAL)
+// SERVICIOS DE MENU
 export const menuListar = '/menu' // GET
 
 
