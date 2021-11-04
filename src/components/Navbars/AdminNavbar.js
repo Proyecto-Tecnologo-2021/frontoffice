@@ -1,12 +1,13 @@
 import React, {Component, useState, useEffect} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {Navbar, Container, Nav, Dropdown, Button} from "react-bootstrap";
+import {Navbar, Container, Nav, Dropdown, Button, Col} from "react-bootstrap";
 
 import routes from "routes.js";
 import Swal from "sweetalert2";
 import {logOut} from "../SessionService";
 
 import {connect, useSelector} from "react-redux";
+import OrderProgress from "./OrderProgress";
 
 function Header({}) {
     const [cartCount, setCartCount] = useState(0)
@@ -36,220 +37,87 @@ function Header({}) {
         return "Appetit";
     };
 
-    useEffect(() =>{
+    useEffect(() => {
         let count = 0
-        cartItems.forEach(item =>{
+        cartItems.forEach(item => {
             count += item.qty;
         });
 
         setCartCount(count);
 
-    },[cartItems, cartCount])
+    }, [cartItems, cartCount])
 
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid>
-                <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
-                    <Button
-                        variant="dark"
-                        className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
-                        onClick={mobileSidebarToggle}
-                    >
-                        <i className="fas fa-ellipsis-v"></i>
-                    </Button>
-                    <Navbar.Brand
-                        href="#home"
-                        onClick={(e) => e.preventDefault()}
-                        className="mr-2"
-                    >
-                        {getBrandText()}
-                    </Navbar.Brand>
-                </div>
+                <Col md="1">
+                    <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
+                        <Button
+                            variant="dark"
+                            className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
+                            onClick={mobileSidebarToggle}
+                        >
+                            <i className="fas fa-ellipsis-v"></i>
+                        </Button>
+                        <Navbar.Brand
+                            href="#home"
+                            onClick={(e) => e.preventDefault()}
+                            className="mr-2"
+                        >
+                            {getBrandText()}
+                        </Navbar.Brand>
+                    </div>
+                </Col>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
                     <span className="navbar-toggler-bar burger-lines"></span>
                     <span className="navbar-toggler-bar burger-lines"></span>
                     <span className="navbar-toggler-bar burger-lines"></span>
                 </Navbar.Toggle>
-                <Navbar.Collapse id="basic-navbar-nav" style={{flexGrow:'0'}}>
-                    <Nav className="nav mr-auto" navbar>
-                        {/*<Nav.Item>*/}
-                        {/*    <Nav.Link*/}
-                        {/*        data-toggle="dropdown"*/}
-                        {/*        href="#pablo"*/}
-                        {/*        onClick={(e) => e.preventDefault()}*/}
-                        {/*        className="m-0"*/}
-                        {/*    >*/}
-                        {/*        <i className="nc-icon nc-palette"></i>*/}
-                        {/*        <span className="d-lg-none ml-1">Dashboard</span>*/}
-                        {/*    </Nav.Link>*/}
-                        {/*</Nav.Item>*/}
-                        {/*<Dropdown as={Nav.Item}>*/}
-                            {/*<Dropdown.Toggle*/}
-                            {/*    as={Nav.Link}*/}
-                            {/*    data-toggle="dropdown"*/}
-                            {/*    id="dropdown-67443507"*/}
-                            {/*    variant="default"*/}
-                            {/*    className="m-0"*/}
-                            {/*>*/}
-                            {/*    <i className="nc-icon nc-planet"></i>*/}
-                            {/*    <span className="notification">{cartCount}</span>*/}
-                            {/*    <span className="d-lg-none ml-1">Notification</span>*/}
-                            {/*</Dropdown.Toggle>*/}
-                        {/*    <Dropdown.Menu>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Notification 1*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Notification 2*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Notification 3*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Notification 4*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Another notification*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*    </Dropdown.Menu>*/}
-                        {/*</Dropdown>*/}
-                        {/*<Nav.Item>*/}
-                        {/*    <Nav.Link*/}
-                        {/*        className="m-0"*/}
-                        {/*        href="#pablo"*/}
-                        {/*        onClick={(e) => e.preventDefault()}*/}
-                        {/*    >*/}
-                        {/*        <i className="nc-icon nc-zoom-split"></i>*/}
-                        {/*        <span className="d-lg-block"> Search</span>*/}
-                        {/*    </Nav.Link>*/}
-                        {/*</Nav.Item>*/}
-                    </Nav>
-                    <Nav className="ml-auto" navbar>
-                        {/*<Nav.Item>*/}
-                        {/*    <Nav.Link*/}
-                        {/*        className="m-0"*/}
-                        {/*        href="#pablo"*/}
-                        {/*        onClick={(e) => e.preventDefault()}*/}
-                        {/*    >*/}
-                        {/*        <span className="no-icon">Account</span>*/}
-                        {/*    </Nav.Link>*/}
-                        {/*</Nav.Item>*/}
-                        {/*<Dropdown as={Nav.Item}>*/}
-                        {/*    <Dropdown.Toggle*/}
-                        {/*        aria-expanded={false}*/}
-                        {/*        aria-haspopup={true}*/}
-                        {/*        as={Nav.Link}*/}
-                        {/*        data-toggle="dropdown"*/}
-                        {/*        id="navbarDropdownMenuLink"*/}
-                        {/*        variant="default"*/}
-                        {/*        className="m-0"*/}
-                        {/*    >*/}
-                        {/*        <span className="no-icon">Dropdown</span>*/}
-                        {/*    </Dropdown.Toggle>*/}
-                        {/*    <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Action*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Another action*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Something*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Something else here*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*        <div className="divider"></div>*/}
-                        {/*        <Dropdown.Item*/}
-                        {/*            href="#pablo"*/}
-                        {/*            onClick={(e) => e.preventDefault()}*/}
-                        {/*        >*/}
-                        {/*            Separated link*/}
-                        {/*        </Dropdown.Item>*/}
-                        {/*    </Dropdown.Menu>*/}
-                        {/*</Dropdown>*/}
-                        <Nav.Item>
-                            {/*<Nav.Link>*/}
-                            <Link to="/home/cart">
-                                {/*<div >*/}
-                                {/*    <h3>Cart</h3>*/}
-                                {/*    <img*/}
-                                {/*        src="https://image.flaticon.com/icons/svg/102/102276.svg"*/}
-                                {/*        alt="shopping cart"*/}
-                                {/*    />*/}
-                                {/*    <div>{cartCount}</div>*/}
-                                {/*</div>*/}
-
-                                <a className="nav-link ">
-                                    <span className="notification">{cartCount}</span>
-                                    <i className="fas fa-hamburger ps-2"></i>
-                                </a>
-                            </Link>
-                            {/*</Nav.Link>*/}
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link
-                                className="m-0 mt-1"
-                                onClick={() => {
-                                    Swal.fire({
-                                        title: '¿Está seguro que desea desconectarse?',
-                                        showDenyButton: true,
-                                        confirmButtonColor: '#27ae60',
-                                        confirmButtonText: 'Sí',
-                                        denyButtonColor: '#c00e0e',
-                                        denyButtonText: `No`,
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            logOut()
-                                            window.location = '/'
-                                        } else if (result.isDenied) {
-                                        }
-                                    })
-                                }
-                                }>
-                                <span className="no-icon">Salir</span>
-                            </Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                </Navbar.Collapse>
+                <Col md="10">
+                    <OrderProgress/>
+                </Col>
+                <Col md="1">
+                    <Navbar.Collapse id="basic-navbar-nav" style={{flexGrow: '0'}}>
+                        <Nav className="nav mr-auto" navbar>
+                        </Nav>
+                        <Nav className="ml-auto" navbar>
+                            <Nav.Item>
+                                <Link to="/home/cart">
+                                    <a className="nav-link ">
+                                        <span className="notification">{cartCount}</span>
+                                        <i className="fas fa-hamburger ps-2"></i>
+                                    </a>
+                                </Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link
+                                    className="m-0 mt-1"
+                                    onClick={() => {
+                                        Swal.fire({
+                                            title: '¿Está seguro que desea desconectarse?',
+                                            showDenyButton: true,
+                                            confirmButtonColor: '#27ae60',
+                                            confirmButtonText: 'Sí',
+                                            denyButtonColor: '#c00e0e',
+                                            denyButtonText: `No`,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                logOut()
+                                                window.location = '/'
+                                            } else if (result.isDenied) {
+                                            }
+                                        })
+                                    }
+                                    }>
+                                    <span className="no-icon">Salir</span>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Col>
             </Container>
         </Navbar>
     );
 }
-
-// const mapStateToProps = state =>{
-//     return{
-//         cart: state.shop.cart
-//     }
-// }
-//
-// export default connect(mapStateToProps)(Header);
 
 export default Header;
