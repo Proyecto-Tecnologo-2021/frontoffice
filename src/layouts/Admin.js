@@ -81,7 +81,7 @@ function Admin() {
                                 <Col md="3" id="imgTrns" className="h-100">
                                     <Card className="cardOpacity">
                                         <Card.Header>
-                                            <Card.Title as="h4">
+                                            <Card.Title className="pedidoTitulo" as="h4" style={{marginTop: 20}}>
                                                 Mi pedido
                                             </Card.Title>
                                         </Card.Header>

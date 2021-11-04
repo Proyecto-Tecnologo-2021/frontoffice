@@ -129,7 +129,7 @@
 }
 
 #imgTrns{
-  background: url('../src/assets/img/foto1.jpg') no-repeat center center fixed;
+  background: url('../src/assets/img/foto4.jpg') no-repeat;
 }
 
 #btnsmall{
@@ -138,6 +138,11 @@
 }
 
 .cardOpacity{
-  opacity: 90%;
+  opacity: 80%;
   border-radius: 0px;
+}
+
+.pedidoTitulo{
+  font-family: Gabriola;
+  font-size: 40px;
 }

@@ -167,7 +167,7 @@ const Cart = () => {
                             </div>
                             <Button
                                 className="btn-fill pull-right mt-2"
-                                variant="warning"
+                                variant="success"
                             >
                                 Comprar
                             </Button>
