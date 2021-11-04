@@ -1,5 +1,7 @@
 export const localDevelopment = false;
 export const URL_Services = "http://localhost:8080/appettit-web/rest"; //LOCAL
+export const paypalClientId = 'AX1tidD2Nabve-nXf9dR6UqFx6LtKK4-FJZ9QCzXJgoM8pjYrDNCCPF6KzOLgDDrGZSpaDA2psnjfP5l'
+export const dollarVal = 44.5
 
 // SERVICIOS DE USUARIO
 export const Usuario_Login = '/usuarios/login' // POST

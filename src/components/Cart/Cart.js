@@ -6,7 +6,8 @@ import CartItem from "./CartItem";
 import {useCookies} from "react-cookie";
 import {getUserAddresses} from "../Services/getUserAddresses";
 import {CoffeeLoading} from 'react-loadingg';
-
+import {dollarVal, paypalClientId} from "../../Const";
+import PayPalButton from "../Services/PayPalButton";
 
 const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0)
@@ -18,6 +19,7 @@ const Cart = () => {
     const [selectedDirectionAlias, setSelectedDirectionAlias] = useState('')
     const [selectedDirectionId, setSelectedDirectionId] = useState(0)
     const [selectedDirectionAll, setSelectedDirectionAll] = useState('')
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('E')
 
     const dispatch = useDispatch()
 
@@ -57,6 +59,8 @@ const Cart = () => {
             getUserAddresses(userId).then((a) => {
                 setAddresses(a)
                 setLoading(false)
+                setSelectedDirectionAlias(a[0].alias)
+                setSelectedDirectionId(a[0].id)
             })
         }
 
@@ -98,10 +102,10 @@ const Cart = () => {
                                 : <>
                                     <Row
                                         className="align-items-center">
-                                        <Col md="4">
+                                        <Col md="5">
                                             <span>Entregar a:</span>
                                         </Col>
-                                        <Col md="8">
+                                        <Col md="7">
                                             <Dropdown>
                                                 <Dropdown.Toggle
                                                     id=""
@@ -125,7 +129,6 @@ const Cart = () => {
                                                                     e.preventDefault()
                                                                     setSelectedDirectionAlias(address.alias)
                                                                     setSelectedDirectionId(address.id)
-                                                                    // let dir = " " + address.calle + " " + address.numero
                                                                     let dir = `${address.calle} ${address.numero}`
                                                                     if (address.apartamento !== "") {
                                                                         dir += "  apto. " + address.apartamento
@@ -143,21 +146,60 @@ const Cart = () => {
                                         </Col>
                                     </Row>
                                     <label
-                                    className="mt-3">
+                                        className="mt-3">
                                         <b>
-                                        {selectedDirectionAll === ''
-                                            ? firstCapital(retDir(addresses[0]))
-                                            : firstCapital(selectedDirectionAll)
-                                        }
+                                            {selectedDirectionAll === ''
+                                                ? firstCapital(retDir(addresses[0]))
+                                                : firstCapital(selectedDirectionAll)
+                                            }
                                         </b>
                                     </label>
                                 </>
                             }
                         </div>
                         <hr/>
-                        <div>
-                            <span>Forma de pago:</span><span> [dropdown con formas de pago]</span>
-                        </div>
+                        <Row
+                            className="align-items-center"
+                        >
+                            <Col md="5">
+                                <span>Forma de pago:</span>
+                            </Col>
+                            <Col md="7">
+                                {/*<span> [dropdown con formas de pago]</span>*/}
+                                <Dropdown>
+                                    <Dropdown.Toggle
+                                        id=""
+                                        variant="warning"
+                                        className="w-100 btn-fill"
+                                        size="sm"
+                                    >
+                                        {selectedPaymentMethod === 'E'
+                                            ? 'Efectivo'
+                                            : 'Paypal'
+                                        }
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu
+                                        variant=""
+                                        className="w-100"
+                                    >
+                                        <Dropdown.Item
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                setSelectedPaymentMethod("E")
+                                            }}>
+                                            Efectivo
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                setSelectedPaymentMethod("P")
+                                            }}>
+                                            Paypal
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Col>
+                        </Row>
                         <hr/>
                         {/*<br/>*/}
                         <div>
@@ -171,43 +213,13 @@ const Cart = () => {
                             >
                                 Comprar
                             </Button>
+                            <PayPalButton amount={totalPrice/dollarVal}/>
                         </div>
                     </>
                 )
             }
-
-            {/*<div className="d-flex flex-column " style={{gap: '20px'}}>*/}
-            {/*    {cart.map(item => (*/}
-            {/*        <CartItem_old*/}
-            {/*            key={item.id}*/}
-            {/*            itemData={item}*/}
-            {/*        />*/}
-            {/*    ))}*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <h4>Mis pedidos</h4>*/}
-            {/*    <div>*/}
-            {/*        <span>Total: ({totalItems} producto)</span>*/}
-            {/*        <span>$ {totalPrice}</span>*/}
-            {/*    </div>*/}
-            {/*    <Button*/}
-            {/*        className="btn-fill pull-right"*/}
-            {/*        variant="warning"*/}
-            {/*    >*/}
-            {/*        Comprar*/}
-            {/*    </Button>*/}
-            {/*</div>*/}
         </>
     )
 }
-
-// const mapStateToProps = state => {
-//     return {
-//         cart: state.shop.cart,
-//
-//     }
-// }
-//
-// export default connect(mapStateToProps)(Cart);
 
 export default Cart;
