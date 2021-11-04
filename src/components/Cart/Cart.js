@@ -32,11 +32,6 @@ const Cart = () => {
 
     useEffect(() => {
 
-        const getUA = async () => {
-            const a = await getUserAddresses(userId)
-            setAddresses(a)
-        }
-
         let items = 0
         let price = 0
 
@@ -58,12 +53,24 @@ const Cart = () => {
 
         }
 
-        if (cartItems.length > 0) { //Si tiene algun item el cart
-            getUA()
-            setLoading(false)
+        if (cartItems.length > 0 && !!userId) { //Si tiene algun item el cart
+            getUserAddresses(userId).then((a) => {
+                setAddresses(a)
+                setLoading(false)
+            })
         }
 
     }, [cartItems, totalPrice, totalItems, setTotalPrice, setTotalItems])
+
+    const retDir = (address) => {
+        let dir = " " + address.calle + " " + address.numero
+        if (address.apartamento !== "") {
+            dir += "  apto. " + address.apartamento
+            dir += ". " + address.referencias
+        }
+
+        return dir
+    }
 
     return (
         <>
@@ -88,56 +95,64 @@ const Cart = () => {
                         <div>
                             {loading
                                 ? <CoffeeLoading/>
-                                : <Row>
-                                    <Col md="4">
-                                        <span>Entregar a:</span>
-                                    </Col>
-                                    <Col md="8">
-                                        <Dropdown>
-                                            <Dropdown.Toggle id="" variant="">
-                                                {selectedDirectionAlias === ''
-                                                    ? firstCapital('addresses[0].alias')
-                                                    : firstCapital(selectedDirectionAlias)
-                                                }
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu variant="">
-                                                {addresses && addresses.map((address) => {
-                                                    return (
-                                                        <Dropdown.Item
-                                                            onClick={(e) => {
-                                                                e.preventDefault()
-                                                                setSelectedDirectionAlias(address.alias)
-                                                                setSelectedDirectionId(address.id)
-                                                                let dir = " " + address.calle + " " + address.numero
-                                                                if (address.apartamento !== "") {
-                                                                    dir += "  apto. " + address.apartamento
-                                                                }
-                                                                dir += ". " + address.referencias
-                                                                setSelectedDirectionAll(dir)
-                                                            }}
-                                                        >
-                                                            {firstCapital(address.alias)}
-                                                        </Dropdown.Item>
-                                                    )
-                                                })}
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </Col>
-                                </Row>
+                                : <>
+                                    <Row
+                                        className="align-items-center">
+                                        <Col md="4">
+                                            <span>Entregar a:</span>
+                                        </Col>
+                                        <Col md="8">
+                                            <Dropdown>
+                                                <Dropdown.Toggle
+                                                    id=""
+                                                    variant="warning"
+                                                    className="w-100 btn-fill"
+                                                    size="sm"
+                                                >
+                                                    {selectedDirectionAlias === ''
+                                                        ? firstCapital(addresses[0].alias)
+                                                        : firstCapital(selectedDirectionAlias)
+                                                    }
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu
+                                                    variant=""
+                                                    className="w-100"
+                                                >
+                                                    {addresses && addresses.map((address) => {
+                                                        return (
+                                                            <Dropdown.Item
+                                                                onClick={(e) => {
+                                                                    e.preventDefault()
+                                                                    setSelectedDirectionAlias(address.alias)
+                                                                    setSelectedDirectionId(address.id)
+                                                                    // let dir = " " + address.calle + " " + address.numero
+                                                                    let dir = `${address.calle} ${address.numero}`
+                                                                    if (address.apartamento !== "") {
+                                                                        dir += "  apto. " + address.apartamento
+                                                                    }
+                                                                    dir += ". " + address.referencias
+                                                                    setSelectedDirectionAll(dir)
+                                                                }}
+                                                            >
+                                                                {firstCapital(address.alias)}
+                                                            </Dropdown.Item>
+                                                        )
+                                                    })}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </Col>
+                                    </Row>
+                                    <label
+                                    className="mt-3">
+                                        <b>
+                                        {selectedDirectionAll === ''
+                                            ? firstCapital(retDir(addresses[0]))
+                                            : firstCapital(selectedDirectionAll)
+                                        }
+                                        </b>
+                                    </label>
+                                </>
                             }
-                            <br/>
-                            <label>
-                                {selectedDirectionAll === ''
-                                    ? ''
-                                    // let dir = " " + address.calle + " " + address.numero
-                                    // if (address.apartamento !== "") {
-                                    //     dir += "  apto. " + address.apartamento
-                                    //     dir += ". " + address.referencias
-                                    // }
-                                    : firstCapital(selectedDirectionAll)
-                                }
-                                {}
-                            </label>
                         </div>
                         <hr/>
                         <div>
