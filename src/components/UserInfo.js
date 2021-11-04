@@ -37,7 +37,6 @@ function User() {
         const bodyLogin = {
             nombre: name,
             username: userName,
-            password: "pass",
             telefono: phone
         }
         console.log(bodyLogin)

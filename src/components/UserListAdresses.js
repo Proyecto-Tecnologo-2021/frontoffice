@@ -1,11 +1,52 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
 import Swal from "sweetalert2";
+import {Dirreccion_Eliminar, URL_Services} from "../Const";
+import {default as axios} from "axios";
+import {useCookies} from "react-cookie";
 
-const UserListAdresses = ({addresses, onClick}) => {
+const UserListAdresses = ({addresses, onClick, onDelete}) => {
 
-    const deleteUserAddress = () => {
-        //consumir servicio para guardar datos, debe retornar booleano
+    const [userId, setUserId] = useState('')
+    const [cookies, setCookie] = useCookies(['__FOsession'])
+    const [dummyBool, setDummyBool] = useState(false)
+
+    useEffect(() => {
+        if (cookies.__FOsession !== undefined) {
+            setUserId(cookies.__FOsession.idUsuario)
+        }
+    }, [onDelete])
+
+    const deleteUserAddress = async (addressId) => {
+        let url = URL_Services + Dirreccion_Eliminar + addressId
+
+        const axios = require('axios').default
+
+        const bodyLogin = {
+            id_cliente: userId,
+        }
+        console.log("---URL---")
+        console.log(url)
+        console.log(bodyLogin)
+        console.log("---URL---")
+
+        const sendMessageRequest = async () => {
+            try {
+                let response = await axios.put(
+                    url,
+                    bodyLogin,
+                )
+                return response.data.ok
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return false
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+        setDummyBool(!dummyBool)
+        return finalResponse
 
     }
 
@@ -68,7 +109,7 @@ const UserListAdresses = ({addresses, onClick}) => {
                                                     denyButtonText: `No`,
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        deleteUserAddress() //LLAMO SERVICIO PARA GUARDAR DATOS
+                                                        deleteUserAddress(address.id) //LLAMO SERVICIO PARA GUARDAR DATOS
                                                         const ok = true
                                                         if (ok) {
                                                             Swal.fire(
@@ -78,6 +119,8 @@ const UserListAdresses = ({addresses, onClick}) => {
                                                                     icon: "success",
                                                                 }
                                                             )
+                                                            setDummyBool(!dummyBool)
+                                                            onDelete(!dummyBool)
                                                         } else {
                                                             Swal.fire(
                                                                 {

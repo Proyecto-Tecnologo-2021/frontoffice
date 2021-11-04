@@ -11,6 +11,7 @@ const UserAddresses = ({onClick, onAdd}) => {
     const [addresses, setAddresses] = useState([])
     const [cookies, setCookie] = useCookies(['__FOsession'])
     const [userId, setUserId] = useState('')
+    const [onDelete, setOnDelete] = useState(false)
 
     useEffect(() => {
 
@@ -25,7 +26,7 @@ const UserAddresses = ({onClick, onAdd}) => {
 
         getUA()
 
-    }, [onAdd])
+    }, [onAdd, onDelete])
 
 
     const getUserAddresses = async () => {
@@ -111,6 +112,7 @@ const UserAddresses = ({onClick, onAdd}) => {
                                     selectOption(address, mode)
                                 }
                             }
+                            onDelete={(value) => setOnDelete(value)}
                         />
                         </tbody>
                     </Table>
