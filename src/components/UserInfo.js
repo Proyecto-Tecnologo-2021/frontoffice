@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 import { Cookies, useCookies } from 'react-cookie'
 import {URL_Services, Usuario_Modificar, Usuario_Nuevo} from "../Const";
 import {default as axios} from "axios";
+import {setSession} from "./SessionService";
+import jwt from "jsonwebtoken";
 
 function User() {
     const [cookies, setCookie] = useCookies(['__FOsession'])
@@ -47,6 +49,8 @@ function User() {
                     bodyLogin,
                 )
                 console.log(response)
+                if(response.data.ok !== null){
+                    setSession(jwt.decode(response.data.cuerpo))}
                 return response.data.ok
             } catch (err) {
                 // Handle Error Here
@@ -56,6 +60,7 @@ function User() {
         }
 
         const finalResponse = await sendMessageRequest()
+
         return finalResponse
 
         //2. volver a pedir los datos y actualizar la cookie
