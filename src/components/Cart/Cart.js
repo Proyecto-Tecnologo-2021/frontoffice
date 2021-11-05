@@ -207,13 +207,17 @@ const Cart = () => {
                                 <span>Total: ({totalItems} {totalItems > 1 ? 'productos' : 'producto'})</span>&nbsp;
                                 <span>$ {totalPrice}</span>
                             </div>
-                            <Button
-                                className="btn-fill pull-right mt-2"
-                                variant="success"
-                            >
-                                Comprar
-                            </Button>
-                            <PayPalButton amount={totalPrice/dollarVal}/>
+                            <br/>
+                            {selectedPaymentMethod === 'E'
+                                ? <Button
+                                        className="btn-fill pull-right w-100"
+                                        variant="success">
+                                        Comprar
+                                    </Button>
+                                : selectedPaymentMethod === 'P'
+                                    ? <PayPalButton/>
+                                    : <></>
+                            }
                         </div>
                     </>
                 )
