@@ -31,7 +31,7 @@ const UserAddresses = ({onClick, onAdd, updDel}) => {
 
 
     const getUserAddresses = async () => {
-        const url = URL_Services + Direccion_Listar + cookies.__FOsession.idUsuario
+        const url = URL_Services() + Direccion_Listar + cookies.__FOsession.idUsuario
         const axios = require('axios').default
 
         const sendMessageRequest = async () => {

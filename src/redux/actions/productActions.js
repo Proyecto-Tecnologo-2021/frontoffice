@@ -32,7 +32,7 @@ export const getProducts = () => async (dispatch) => {
     try {
         dispatch({ type: actionTypes.GET_PRODUCTS_REQUEST });
 
-        const { data } = await axios.get(urls.URL_Services + urls.menuListar);
+        const { data } = await axios.get(urls.URL_Services() + urls.menuListar);
 
         const cuerpo = data.cuerpo
 
@@ -55,7 +55,7 @@ export const getProducts = () => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) =>{
     try {
         dispatch({type: actionTypes.GET_PRODUCT_DETAILS_REQUEST})
-        const {data} = await axios.get(urls.URL_Services + urls.menuListar)
+        const {data} = await axios.get(urls.URL_Services() + urls.menuListar)
 
         dispatch({
             type: actionTypes.GET_PRODUCT_DETAILS_SUCCESS,

@@ -18,7 +18,7 @@ const UserListAdresses = ({addresses, onClick, onDelete}) => {
     }, [onDelete])
 
     const deleteUserAddress = async (addressId) => {
-        let url = URL_Services + Dirreccion_Eliminar + addressId
+        let url = URL_Services() + Dirreccion_Eliminar + addressId
 
         const axios = require('axios').default
 

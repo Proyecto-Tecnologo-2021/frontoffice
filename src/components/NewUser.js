@@ -19,7 +19,7 @@ const NewUser = () => {
 
 
     const newUser = async (name, userName, email, phone, password) => {
-        const url = URL_Services + Usuario_Nuevo
+        const url = URL_Services() + Usuario_Nuevo
         const axios = require('axios').default
 
         const bodyLogin = {

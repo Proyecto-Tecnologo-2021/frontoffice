@@ -97,10 +97,10 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
         let url = ""
 
         if (mode === "I")
-            url = URL_Services + Direccion_Nueva
+            url = URL_Services() + Direccion_Nueva
 
         if (mode === "U")
-            url = URL_Services + Dirreccion_Modificar + address.id
+            url = URL_Services() + Dirreccion_Modificar + address.id
 
 
         const axios = require('axios').default

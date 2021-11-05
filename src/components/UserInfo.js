@@ -33,7 +33,7 @@ function User() {
 
     const updateUserInfo = async (name, phone) => {
         //1. consumir servicio para guardar datos, debe retornar booleano
-        const url = URL_Services + Usuario_Modificar + userId
+        const url = URL_Services() + Usuario_Modificar + userId
         const axios = require('axios').default
 
         const bodyLogin = {
