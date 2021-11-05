@@ -2,7 +2,7 @@ const prod = false;
 export const localDevelopment = false;
 
 export const URL_Services = () => {
-    if (prod === false){ //LOCAL
+    if (!prod){ //LOCAL
         return "http://localhost:8080/appettit-web/rest";
     }else{ //ES PROD
         return "[LA DIRECCIÓN DE PRODUCCIÓN]";
