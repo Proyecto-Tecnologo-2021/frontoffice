@@ -6,7 +6,7 @@ import {Direccion_Listar, URL_Services} from "../Const";
 import { Cookies, useCookies } from 'react-cookie'
 
 
-const UserAddresses = ({onClick, onAdd}) => {
+const UserAddresses = ({onClick, onAdd, updDel}) => {
 
     const [addresses, setAddresses] = useState([])
     const [cookies, setCookie] = useCookies(['__FOsession'])
@@ -27,6 +27,7 @@ const UserAddresses = ({onClick, onAdd}) => {
         getUA()
 
     }, [onAdd, onDelete])
+
 
 
     const getUserAddresses = async () => {
@@ -67,6 +68,11 @@ const UserAddresses = ({onClick, onAdd}) => {
     const deleteUserAddress = () => {
         //consumir servicio para guardar datos, debe retornar booleano
 
+    }
+
+    function updOnDelete(value) {
+        setOnDelete(value)
+        updDel(value)
     }
 
     return (
@@ -112,7 +118,7 @@ const UserAddresses = ({onClick, onAdd}) => {
                                     selectOption(address, mode)
                                 }
                             }
-                            onDelete={(value) => setOnDelete(value)}
+                            onDelete={(value) => updOnDelete(value)}
                         />
                         </tbody>
                     </Table>

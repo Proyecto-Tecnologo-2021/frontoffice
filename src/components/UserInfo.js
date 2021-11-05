@@ -48,9 +48,10 @@ function User() {
                     url,
                     bodyLogin,
                 )
-                console.log(response)
+
                 if(response.data.ok !== null){
                     setSession(jwt.decode(response.data.cuerpo))}
+
                 return response.data.ok
             } catch (err) {
                 // Handle Error Here

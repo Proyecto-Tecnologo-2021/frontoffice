@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken";
 import {useCookies} from "react-cookie";
 
 
-export default function UserAddress({address, mode, onAdd}) {
+export default function UserAddress({address, mode, onAdd, updDel }) {
     const [alias, setAlias] = useState('')
     const [calle, setCalle] = useState('')
     const [num, setNum] = useState('')
@@ -20,6 +20,8 @@ export default function UserAddress({address, mode, onAdd}) {
     const [cookies, setCookie] = useCookies(['__FOsession'])
     const [point, setPoint] = useState('')
     const [dummyBool, setDummyBool] = useState(false)
+    const [delState, setDelState] = useState(false)
+    const [sMode, setSMode] = useState(mode)
 
     //mode: I: insert; U: update; H:hidden
     // address = [
@@ -33,6 +35,14 @@ export default function UserAddress({address, mode, onAdd}) {
     // ]
 
     const firstTime = useRef(true);
+
+    const cleanForm = (()=>{
+        setAlias("")
+        setCalle("")
+        setNum("")
+        setApto("")
+        setRef("")
+    })
 
     useEffect(() => {
         async function checkMode() {
@@ -54,7 +64,7 @@ export default function UserAddress({address, mode, onAdd}) {
                 setApto(address.apartamento)
                 setRef(address.referencias)
             }
-            await timeout(300)
+            await timeout(500)
             setDataMaps()
         }
 
@@ -71,14 +81,15 @@ export default function UserAddress({address, mode, onAdd}) {
             return <div id="map" style={{height: "100vh"}}></div>;
         }
 
+        if(updDel !== delState){
+            cleanForm()
+            setDelState(updDel)
+            setSMode("I")
+        }
         checkMode()
-    }, [mode, address]);
 
-    // useEffect(() => {
-    //     if (cookies.__FOsession !== undefined) {
-    //         setUserId(cookies.__FOsession.idUsuario)
-    //     }
-    // }, [])
+    }, [mode, address, updDel]);
+
 
     const updateUserAddress = async (alias, calle, num, apto, ref) => {
         //consumir servicio para guardar datos, debe retornar booleano
@@ -129,7 +140,6 @@ export default function UserAddress({address, mode, onAdd}) {
                 return false
             }
         }
-
 
         const finalResponse = await sendMessageRequest()
         return finalResponse
@@ -259,7 +269,7 @@ export default function UserAddress({address, mode, onAdd}) {
                                     <div
                                         id="map"
                                         onClick={async () => {
-                                            await timeout(300)
+                                            await timeout(500)
                                             setDataMaps()
                                         }}
                                     ></div>
@@ -302,6 +312,8 @@ export default function UserAddress({address, mode, onAdd}) {
                                                     icon: "success",
                                                 }
                                             )
+                                            if(mode === "I")
+                                                cleanForm()
                                         } else {
                                             Swal.fire(
                                                 {

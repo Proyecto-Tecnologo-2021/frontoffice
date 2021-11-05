@@ -8,6 +8,7 @@ const UserProfile = () => {
     const [mode, setMode] = useState('H')
     const [address, setAddress] = useState([])
     const [onAdd, setOnAdd] = useState(false)
+    const [updDel, setUpdDel] = useState(false)
 
     return (
         <>
@@ -24,12 +25,13 @@ const UserProfile = () => {
                                     setMode(mode)
                                 }}
                                 onAdd={onAdd}
+                                updDel={(value) => setUpdDel(value)}
                             />
                         </Row>
                     </Col>
                     <Col md="8">
                         {mode !== 'H'
-                            ? <UserAddress mode={mode} address={address} onAdd={(value) => setOnAdd(value)}/>
+                            ? <UserAddress mode={mode} address={address} onAdd={(value) => setOnAdd(value)} updDel={updDel}/>
                             : <></>
                         }
                     </Col>
