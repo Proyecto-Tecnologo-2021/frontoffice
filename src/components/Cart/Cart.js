@@ -6,8 +6,12 @@ import CartItem from "./CartItem";
 import {useCookies} from "react-cookie";
 import {getUserAddresses} from "../Services/getUserAddresses";
 import {CoffeeLoading} from 'react-loadingg';
-import {dollarVal, paypalClientId} from "../../Const";
+import {Direccion_Nueva, Dirreccion_Modificar, dollarVal, paypalClientId, pedidoCrear, URL_Services} from "../../Const";
 import PayPalButton from "../Services/PayPalButton";
+import Swal from "sweetalert2";
+import {default as axios} from "axios";
+import CreateOrder from "../Services/CreateOrder";
+import {removeFromCart} from "../../redux/actions/cartActions";
 
 const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0)
@@ -20,6 +24,7 @@ const Cart = () => {
     const [selectedDirectionId, setSelectedDirectionId] = useState(0)
     const [selectedDirectionAll, setSelectedDirectionAll] = useState('')
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('E')
+    const [idRest, setIdRest] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -36,14 +41,17 @@ const Cart = () => {
 
         let items = 0
         let price = 0
+        let idR = 0
 
         cartItems.forEach(item => {
             items += item.qty
             price += item.qty * item.product.precioTotal
+            idR = item.product.id_restaurante
         })
 
         setTotalPrice(price)
         setTotalItems(items)
+        setIdRest(idR)
 
         if (firstTime.current) { //Ejecuta solo la primera vez
 
@@ -74,6 +82,17 @@ const Cart = () => {
         }
 
         return dir
+    }
+
+    const cleanCart = () => {
+
+        // console.log("cleanCart")
+
+        cartItems.forEach(item => {
+            // console.log(item)
+            dispatch(removeFromCart(item.product.id))
+        })
+
     }
 
     return (
@@ -201,7 +220,6 @@ const Cart = () => {
                             </Col>
                         </Row>
                         <hr/>
-                        {/*<br/>*/}
                         <div>
                             <div>
                                 <span>Total: ({totalItems} {totalItems > 1 ? 'productos' : 'producto'})</span>&nbsp;
@@ -210,12 +228,50 @@ const Cart = () => {
                             <br/>
                             {selectedPaymentMethod === 'E'
                                 ? <Button
-                                        className="btn-fill pull-right w-100"
-                                        variant="success">
-                                        Comprar
-                                    </Button>
+                                    className="btn-fill pull-right w-100"
+                                    variant="success"
+                                    onClick={() => {
+                                        Swal.fire({
+                                            title: '¿Todo pronto?',
+                                            text: "¿Hacemos el pedido?",
+                                            icon: 'question',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#27ae60',
+                                            cancelButtonColor: '#c00e0e',
+                                            confirmButtonText: 'Sí',
+                                            cancelButtonText: 'No',
+                                        }).then(async (result) => {
+                                            if (result.isConfirmed) {
+                                                const ok = await CreateOrder("EFECTIVO", selectedDirectionId, totalPrice, idRest, userId, cart, dispatch)
+                                                if (ok) {
+                                                    Swal.fire(
+                                                        {
+                                                            title: '¡Pedido realizado!',
+                                                            text: 'El pedido ha sido creado y el restaurante ya ha sido notificado',
+                                                            icon: 'success',
+                                                            confirmButtonColor: '#27ae60',
+                                                        }
+                                                    )
+                                                    cleanCart()
+                                                }else{
+                                                    Swal.fire(
+                                                        {
+                                                            title: 'Ups...',
+                                                            text: 'Ha sucedido un error',
+                                                            icon: 'error',
+                                                            confirmButtonColor: '#00c0da',
+                                                            confirmButtonText: 'Volver',
+                                                        }
+                                                    )
+                                                }
+                                            }
+                                        })
+                                    }}
+                                >
+                                    Comprar
+                                </Button>
                                 : selectedPaymentMethod === 'P'
-                                    ? <PayPalButton/>
+                                    ? <PayPalButton dirId={selectedDirectionId}/>
                                     : <></>
                             }
                         </div>

@@ -41,7 +41,7 @@ function User() {
             username: userName,
             telefono: phone
         }
-        console.log(bodyLogin)
+        // console.log(bodyLogin)
         const sendMessageRequest = async () => {
             try {
                 const response = await axios.put(

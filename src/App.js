@@ -7,7 +7,6 @@ import NewUser from "./components/NewUser";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "App.css";
 import {Component} from "react";
-import SingleProduct from "./components/Cart/SingleProduct";
 
 class App extends Component {
 
@@ -29,7 +28,7 @@ class App extends Component {
                         <TransitionGroup>
                             <CSSTransition
                                 key={location.key}
-                                timeout={450}
+                                timeout={550}
                                 classNames="fade">
                                 <Switch location={location}>
                                     <Route exact path='/' component={Login}/>

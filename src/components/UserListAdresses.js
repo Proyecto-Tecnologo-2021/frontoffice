@@ -25,10 +25,10 @@ const UserListAdresses = ({addresses, onClick, onDelete}) => {
         const bodyLogin = {
             id_cliente: userId,
         }
-        console.log("---URL---")
-        console.log(url)
-        console.log(bodyLogin)
-        console.log("---URL---")
+        // console.log("---URL---")
+        // console.log(url)
+        // console.log(bodyLogin)
+        // console.log("---URL---")
 
         const sendMessageRequest = async () => {
             try {

@@ -64,7 +64,7 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
                 setApto(address.apartamento)
                 setRef(address.referencias)
             }
-            await timeout(500)
+            await timeout(550)
             setDataMaps()
         }
 
@@ -269,7 +269,7 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
                                     <div
                                         id="map"
                                         onClick={async () => {
-                                            await timeout(500)
+                                            await timeout(550)
                                             setDataMaps()
                                         }}
                                     ></div>
