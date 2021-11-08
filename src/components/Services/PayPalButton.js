@@ -94,7 +94,7 @@ const PayPalButton = ({dirId}) => {
     const cleanCart = () => {
 
         cartItems.forEach(item => {
-            dispatch(removeFromCart(item.id))
+            dispatch(removeFromCart(item.product.id))
         })
 
     }
@@ -121,7 +121,7 @@ const PayPalButton = ({dirId}) => {
                                         confirmButtonColor: '#27ae60',
                                     }
                                 )
-
+                                cleanCart()
                             } else {
                                 Swal.fire(
                                     {
