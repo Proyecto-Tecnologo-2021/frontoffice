@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
 import Swal from "sweetalert2";
 import {Dirreccion_Eliminar, URL_Services} from "../Const";
-import {default as axios} from "axios";
 import {useCookies} from "react-cookie";
 
 const UserListAdresses = ({addresses, onClick, onDelete}) => {

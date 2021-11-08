@@ -6,10 +6,8 @@ import CartItem from "./CartItem";
 import {useCookies} from "react-cookie";
 import {getUserAddresses} from "../Services/getUserAddresses";
 import {CoffeeLoading} from 'react-loadingg';
-import {Direccion_Nueva, Dirreccion_Modificar, dollarVal, paypalClientId, pedidoCrear, URL_Services} from "../../Const";
 import PayPalButton from "../Services/PayPalButton";
 import Swal from "sweetalert2";
-import {default as axios} from "axios";
 import CreateOrder from "../Services/CreateOrder";
 import {removeFromCart} from "../../redux/actions/cartActions";
 

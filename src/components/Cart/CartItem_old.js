@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {adjustQty, loadCurrentItem} from "../../redux/Shopping/shopping-actions";
+import {adjustQty} from "../../redux/Shopping/shopping-actions";
 import {Button, Card, Col, InputGroup, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {Input, InputGroupText} from "reactstrap";
 import Swal from "sweetalert2";

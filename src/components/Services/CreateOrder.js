@@ -1,7 +1,5 @@
 import React from 'react'
 import {pedidoCrear, URL_Services} from "../../Const";
-import {default as axios} from "axios";
-import {removeFromCart} from "../../redux/actions/cartActions";
 
 // export async function CreateOrder(tipo, dirId, totalPrice, idRest, userId, cart, details){
 export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart, details) => {

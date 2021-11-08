@@ -1,19 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {
-    Badge,
-    Button,
-    Card,
-    Form,
-    Navbar,
-    Nav,
-    Container,
-    Row,
-    Col,
-} from "react-bootstrap";
+import {Button, Card, Col, Form, Row,} from "react-bootstrap";
 import Swal from "sweetalert2";
-import { Cookies, useCookies } from 'react-cookie'
-import {URL_Services, Usuario_Modificar, Usuario_Nuevo} from "../Const";
-import {default as axios} from "axios";
+import {useCookies} from 'react-cookie'
+import {URL_Services, Usuario_Modificar} from "../Const";
 import {setSession} from "./SessionService";
 import jwt from "jsonwebtoken";
 

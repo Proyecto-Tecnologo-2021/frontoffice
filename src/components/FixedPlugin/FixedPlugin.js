@@ -1,7 +1,7 @@
 /*eslint-disable*/
-import React, { Component } from "react";
+import React from "react";
 
-import { Dropdown, Badge, Button, Form } from "react-bootstrap";
+import {Badge, Button, Dropdown, Form} from "react-bootstrap";
 
 import sideBarImage1 from "assets/img/sidebar-1.jpg";
 import sideBarImage2 from "assets/img/sidebar-2.jpg";

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Card, Col, Form, FormControl, InputGroup, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
-import Swal from "sweetalert2";
+import {Button, Card, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
 import UserListAdresses from "./UserListAdresses";
 import {Direccion_Listar, URL_Services} from "../Const";
-import { Cookies, useCookies } from 'react-cookie'
+import {useCookies} from 'react-cookie'
 
 
 const UserAddresses = ({onClick, onAdd, updDel}) => {

@@ -1,5 +1,4 @@
 import * as actionTypes from '../Shopping/shopping-types'
-import axios from 'axios'
 
 export const addToCart = (product) => async (dispatch, getState) => {
     //(id, idRestaurant, nomRestaurant, discount, nameProduct, description, simplePrice, totalPrice, extras, products, idImage)

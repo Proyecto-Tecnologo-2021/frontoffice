@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import UserInfo from "./UserInfo";
 import UserAddresses from "./UserAddresses";
 import UserAddress from "./UserAddress";

@@ -1,5 +1,4 @@
 import {Direccion_Listar, URL_Services} from "../../Const";
-import {default as axios} from "axios";
 
 export const getUserAddresses = async (idUsuario) => {
     const url = URL_Services() + Direccion_Listar + idUsuario

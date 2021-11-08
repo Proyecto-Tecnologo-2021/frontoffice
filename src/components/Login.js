@@ -1,19 +1,8 @@
-import React, {Component, useState} from "react";
+import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../assets/css/Login.css";
-import {URL_Services, Usuario_Login, localDevelopment} from "../Const";
-import {
-    Badge,
-    Button,
-    Card,
-    Form,
-    Navbar,
-    Nav,
-    Container,
-    Row,
-    Col,
-    ListGroup, ButtonGroup,
-} from "react-bootstrap";
+import {localDevelopment, URL_Services, Usuario_Login} from "../Const";
+import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
 // import FloatingLabel from "react-bootstrap/cjs/FloatingLabel";

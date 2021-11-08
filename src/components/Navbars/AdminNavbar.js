@@ -1,12 +1,12 @@
-import React, {Component, useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {Navbar, Container, Nav, Dropdown, Button, Col} from "react-bootstrap";
+import {Button, Col, Container, Nav, Navbar} from "react-bootstrap";
 
 import routes from "routes.js";
 import Swal from "sweetalert2";
 import {logOut} from "../SessionService";
 
-import {connect, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import OrderProgress from "./OrderProgress";
 
 function Header({}) {

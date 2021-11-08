@@ -1,9 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Product from "./Product";
 import {Container} from "react-bootstrap";
-import {connect, useSelector, useDispatch} from 'react-redux'
-import {useEffect} from "react";
-import { CoffeeLoading } from 'react-loadingg';
+import {useDispatch, useSelector} from 'react-redux'
+import {CoffeeLoading} from 'react-loadingg';
 
 //actions
 import {getProducts as listProducts} from '../../redux/actions/productActions'

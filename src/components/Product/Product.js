@@ -1,10 +1,8 @@
 import React from 'react'
-import {Button, Card, Row} from "react-bootstrap";
-import {connect} from "react-redux";
+import {Button, Card} from "react-bootstrap";
+import {useDispatch} from "react-redux";
 // import {addToCart, loadCurrentItem} from "../../redux/Shopping/shopping-actions";
-import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
-import {useDispatch, useSelector} from "react-redux";
 import {addToCart} from "../../redux/actions/cartActions";
 
 const Product = ({product, onClick}) => {

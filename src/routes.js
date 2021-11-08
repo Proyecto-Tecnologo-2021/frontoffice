@@ -1,13 +1,5 @@
-import Dashboard from "views/Dashboard.js";
-import UserProfile_original from "views/UserProfile_original.js";
-import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
-import Icons from "views/Icons.js";
-import Maps from "views/Maps.js";
-import Notifications from "views/Notifications.js";
 import UserProfile from "./components/UserProfile";
 import ProductGeneral from "./components/Product/ProductGeneral";
-import Cart from "./components/Cart/Cart";
 
 const dashboardRoutes = [
   // {

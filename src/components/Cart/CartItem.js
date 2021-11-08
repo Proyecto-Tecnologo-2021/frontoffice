@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {Button, Col, OverlayTrigger, Tooltip} from "react-bootstrap";
 import Swal from "sweetalert2";
 import {useDispatch} from "react-redux";
 import {removeFromCart} from "../../redux/actions/cartActions";

@@ -1,6 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
-import rootReducer from "./rootReducer";
 import {getProductDetailsReducer, getProductsReducer} from './Shopping/productReducer'
 import thunk from 'redux-thunk'
 import shopReducer from "./Shopping/shopping-reducer";

@@ -1,16 +1,15 @@
-import React, {Component, useState} from "react";
-import {useLocation, Route, Switch} from "react-router-dom";
+import React, {useState} from "react";
+import {Route, Switch, useLocation} from "react-router-dom";
 
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
 import sidebarImage from "assets/img/sidebar-3.jpg";
-import {connect, useSelector} from "react-redux";
-import {Card, Col, Row} from "react-bootstrap";
+import {useSelector} from "react-redux";
+import {Card, Col} from "react-bootstrap";
 import Cart from "../components/Cart/Cart";
 
 function Admin() {

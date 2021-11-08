@@ -1,6 +1,6 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/Login";
 import AdminLayout from "layouts/Admin.js";
 import NewUser from "./components/NewUser";

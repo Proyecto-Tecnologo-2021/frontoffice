@@ -1,12 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import {initMap, getLocation, toProj32721, updateLatLng, setLocation, toProj4326} from '../assets/mapjs/appetitmap.js'
+import {getLocation, initMap, setLocation, toProj32721, toProj4326, updateLatLng} from '../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
-import {Direccion_Nueva, URL_Services, Dirreccion_Modificar} from "../Const";
-import {default as axios} from "axios";
-import {getSession, setSession} from "./SessionService";
-import jwt from "jsonwebtoken";
+import {Direccion_Nueva, Dirreccion_Modificar, URL_Services} from "../Const";
 import {useCookies} from "react-cookie";
 
 
