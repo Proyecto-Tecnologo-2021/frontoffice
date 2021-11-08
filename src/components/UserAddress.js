@@ -4,7 +4,7 @@ import {getLocation, initMap, setLocation, toProj32721, toProj4326, updateLatLng
 import Swal from "sweetalert2";
 import {Direccion_Nueva, Dirreccion_Modificar, URL_Services} from "../Const";
 import {useCookies} from "react-cookie";
-
+import {default as axios} from "axios";
 
 export default function UserAddress({address, mode, onAdd, updDel }) {
     const [alias, setAlias] = useState('')

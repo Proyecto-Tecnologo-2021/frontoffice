@@ -3,6 +3,7 @@ import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row} from "r
 import {Link} from "react-router-dom";
 import Swal from 'sweetalert2'
 import {URL_Services, Usuario_Nuevo} from "../Const";
+import {default as axios} from "axios";
 
 const NewUser = () => {
 

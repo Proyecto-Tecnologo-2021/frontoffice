@@ -3,6 +3,7 @@ import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
 import Swal from "sweetalert2";
 import {Dirreccion_Eliminar, URL_Services} from "../Const";
 import {useCookies} from "react-cookie";
+import {default as axios} from "axios";
 
 const UserListAdresses = ({addresses, onClick, onDelete}) => {
 
@@ -24,10 +25,6 @@ const UserListAdresses = ({addresses, onClick, onDelete}) => {
         const bodyLogin = {
             id_cliente: userId,
         }
-        // console.log("---URL---")
-        // console.log(url)
-        // console.log(bodyLogin)
-        // console.log("---URL---")
 
         const sendMessageRequest = async () => {
             try {

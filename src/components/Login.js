@@ -5,7 +5,7 @@ import {localDevelopment, URL_Services, Usuario_Login} from "../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
-// import FloatingLabel from "react-bootstrap/cjs/FloatingLabel";
+import {default as axios} from "axios";
 import FloatingLabel from "react-bootstrap-floating-label";
 import {setSession} from "./SessionService";
 import jwt from "jsonwebtoken";

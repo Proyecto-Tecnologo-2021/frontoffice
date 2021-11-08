@@ -5,6 +5,7 @@ import {useCookies} from 'react-cookie'
 import {URL_Services, Usuario_Modificar} from "../Const";
 import {setSession} from "./SessionService";
 import jwt from "jsonwebtoken";
+import {default as axios} from "axios";
 
 function User() {
     const [cookies, setCookie] = useCookies(['__FOsession'])

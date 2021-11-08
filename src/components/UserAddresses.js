@@ -3,7 +3,7 @@ import {Button, Card, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
 import UserListAdresses from "./UserListAdresses";
 import {Direccion_Listar, URL_Services} from "../Const";
 import {useCookies} from 'react-cookie'
-
+import {default as axios} from "axios";
 
 const UserAddresses = ({onClick, onAdd, updDel}) => {
 

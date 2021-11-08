@@ -1,5 +1,6 @@
 import React from 'react'
 import {pedidoCrear, URL_Services} from "../../Const";
+import {default as axios} from "axios";
 
 // export async function CreateOrder(tipo, dirId, totalPrice, idRest, userId, cart, details){
 export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart, details) => {
@@ -9,6 +10,8 @@ export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart,
     const url = URL_Services() + pedidoCrear
 
     const axios = require('axios').default
+
+    console.log(details)
 
     const sendMessageRequest = async () => {
         try {
@@ -51,7 +54,8 @@ export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart,
         "tipo": tipo,
         "total": totalPrice,
         "idrest": idRest,
-        "fecha": null
+        "fecha": null,
+        "id_paypal": details.toString(),
     }
 
     const finalResponse = await sendMessageRequest()
