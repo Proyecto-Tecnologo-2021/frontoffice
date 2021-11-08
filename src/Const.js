@@ -11,7 +11,7 @@ export const URL_Services = () => {
 
 export const URL_AltaRestaurante = () => {
     if (!prod){ //LOCAL
-        return "[URL LOCAL DE ALTA DE RESTAURANTE]";
+        return "http://127.0.0.1:8080/appettit-web/restaurante/addrestaurante.xhtml";
     }else{ //ES PROD
         return "[PROD]";
     }
@@ -19,7 +19,7 @@ export const URL_AltaRestaurante = () => {
 
 export const URL_IndexBackoffice = () => {
     if (!prod){ //LOCAL
-        return "[URL LOCAL DE LA INDEX DE BACKOFFICE]"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
+        return "http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
     }else{ //ES PROD
         return "[PROD]";
     }
@@ -28,6 +28,9 @@ export const URL_IndexBackoffice = () => {
 //Utils de pedidos
 export const paypalClientId = 'AX1tidD2Nabve-nXf9dR6UqFx6LtKK4-FJZ9QCzXJgoM8pjYrDNCCPF6KzOLgDDrGZSpaDA2psnjfP5l'
 export const dollarVal = 44.5
+
+// SERVICIOS DE PEDIDOS
+export const pedidoCrear = '/pedido/pedido2' //POST
 
 // SERVICIOS DE USUARIO
 export const Usuario_Login = '/usuarios/login' // POST
