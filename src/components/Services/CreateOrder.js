@@ -2,7 +2,6 @@ import React from 'react'
 import {pedidoCrear, URL_Services} from "../../Const";
 import {default as axios} from "axios";
 
-// export async function CreateOrder(tipo, dirId, totalPrice, idRest, userId, cart, details){
 export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart, details) => {
 
     const {cartItems} = cart;
@@ -55,7 +54,7 @@ export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart,
         "total": totalPrice,
         "idrest": idRest,
         "fecha": null,
-        "id_paypal": details.toString(),
+        "id_paypal": details.id,
     }
 
     const finalResponse = await sendMessageRequest()
