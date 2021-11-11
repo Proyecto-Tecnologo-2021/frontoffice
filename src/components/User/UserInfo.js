@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Col, Form, Row,} from "react-bootstrap";
 import Swal from "sweetalert2";
 import {useCookies} from 'react-cookie'
-import {URL_Services, Usuario_Modificar} from "../Const";
-import {setSession} from "./SessionService";
+import {URL_Services, Usuario_Modificar} from "../../Const";
+import {setSession} from "../SessionService";
 import jwt from "jsonwebtoken";
 import {default as axios} from "axios";
 

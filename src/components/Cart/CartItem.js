@@ -11,7 +11,14 @@ const CartItem = ({itemData}) => {
 
     const getImage = () => {
         //Consumir api y obtener imagen usando product.idImagen
-        return require("../../assets/img/burger1.jpeg").default
+        // return require("../../assets/img/burger1.jpeg").default
+        return (
+            <img
+                id="cartImage"
+                alt="..."
+                src={`data:image/jpeg;base64,${itemData.product.imagen.imagen}`}
+            />
+        )
     }
 
     const removeFromCartHandler = (id) => {
@@ -23,9 +30,11 @@ const CartItem = ({itemData}) => {
             {/*<Row>*/}
             <Col md="3">
                 <div className="ms-2">
-                    <img id="cartImage"
-                         alt="..."
-                         src={getImage()}/>
+                    {/*<img id="cartImage"*/}
+                    {/*     alt="..."*/}
+                    {/*     src={getImage()}*/}
+                    {/*/>*/}
+                    {getImage()}
                 </div>
             </Col>
             <Col md="2">

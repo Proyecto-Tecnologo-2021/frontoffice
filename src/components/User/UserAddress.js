@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
-import {getLocation, initMap, setLocation, toProj32721, toProj4326, updateLatLng} from '../assets/mapjs/appetitmap.js'
+import {getLocation, initMap, setLocation, toProj32721, toProj4326, updateLatLng} from '../../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
-import {Direccion_Nueva, Dirreccion_Modificar, URL_Services} from "../Const";
+import {Direccion_Nueva, Dirreccion_Modificar, URL_Services} from "../../Const";
 import {useCookies} from "react-cookie";
 import {default as axios} from "axios";
 
@@ -258,9 +258,9 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
                             <Col className="pr-1" md="12">
                                 <Form.Group>
                                     {/*<script src="../assets/mapjs/appetitmap.js"></script>*/}
-                                    <script src="../assets/mapjs/Leaflet.SelectAreaFeature.js"></script>
-                                    <script src="../assets/mapjs/proj4js-combined.js"></script>
-                                    <script src="../assets/mapjs/defs/EPSG32721.js"></script>
+                                    <script src="../../assets/mapjs/Leaflet.SelectAreaFeature.js"></script>
+                                    <script src="../../assets/mapjs/proj4js-combined.js"></script>
+                                    <script src="../../assets/mapjs/defs/EPSG32721.js"></script>
 
                                     <div
                                         id="map"

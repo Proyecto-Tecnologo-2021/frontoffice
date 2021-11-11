@@ -24,7 +24,13 @@ const Product = ({product, onClick}) => {
 
     const getImage = () => {
         //Consumir api y obtener imagen usando product.idImagen
-        return require("../../assets/img/burger1.jpeg").default
+        // return require("../../assets/img/burger1.jpeg").default
+        return (
+            <img
+                alt="..."
+                src={`data:image/jpeg;base64,${product.imagen.imagen}`}
+            />
+        )
     }
 
     const addToCartHandler = () => {
@@ -44,10 +50,11 @@ const Product = ({product, onClick}) => {
                     // console.log("mensaje2")
                 }}>
                 <div className="card-image" style={{position: 'relative'}}>
-                    <img
-                        alt="..."
-                        src={getImage()}
-                    />
+                    {/*<img*/}
+                    {/*    alt="..."*/}
+                    {/*    src={getImage()}*/}
+                    {/*/>*/}
+                    {getImage()}
                 </div>
                 <Card.Body>
                     <div className="">
@@ -77,17 +84,6 @@ const Product = ({product, onClick}) => {
                                 </div>
                             </div>}
                     </div>
-                    {/*<div>*/}
-                    {/*    <Link to={`/home/${product.id}`}>*/}
-                    {/*        <Button*/}
-                    {/*            onClick={() => {*/}
-                    {/*                loadCurrentItem(product)*/}
-                    {/*            }}*/}
-                    {/*        >*/}
-                    {/*            View Item*/}
-                    {/*        </Button>*/}
-                    {/*    </Link>*/}
-                    {/*</div>*/}
                     <br/>
                     <Button
                         className="btn-fill pull-right"

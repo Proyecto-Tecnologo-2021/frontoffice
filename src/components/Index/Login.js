@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router";
-import "../assets/css/Login.css";
-import {localDevelopment, URL_AltaRestaurante, URL_Services, Usuario_Login} from "../Const";
+import "../../assets/css/Login.css";
+import {localDevelopment, URL_AltaRestaurante, URL_Services, Usuario_Login} from "../../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
 import {default as axios} from "axios";
 import FloatingLabel from "react-bootstrap-floating-label";
-import {setSession} from "./SessionService";
+import {setSession} from "../SessionService";
 import jwt from "jsonwebtoken";
 
 const Login = () => {
@@ -50,14 +50,13 @@ const Login = () => {
         }
 
         const finalResponse = await sendMessageRequest()
+
         if(finalResponse !== null){
             setSession(jwt.decode(finalResponse.cuerpo))
             return finalResponse
         }else{
             return false
         }
-
-
 
     }
 

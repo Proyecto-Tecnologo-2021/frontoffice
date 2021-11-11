@@ -1,9 +1,9 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/Index/Login";
 import AdminLayout from "layouts/Admin.js";
-import NewUser from "./components/NewUser";
+import NewUser from "./components/Index/NewUser";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "App.css";
 import {Component} from "react";

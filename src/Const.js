@@ -45,3 +45,6 @@ export const Dirreccion_Eliminar = "/usuarios/eliminarDireccion/" // PUT (AGREGA
 
 // SERVICIOS DE MENU
 export const menuListar = '/menu' // GET
+
+// SERVICIOS DE PROMOS
+export const promoListar = '/promo' //GET
