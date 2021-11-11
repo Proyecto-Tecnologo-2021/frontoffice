@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {Button, Col, Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Col, Container, Nav, Navbar, Stack} from "react-bootstrap";
 
 import routes from "routes.js";
 import Swal from "sweetalert2";
@@ -8,8 +8,11 @@ import {logOut} from "../SessionService";
 
 import {useSelector} from "react-redux";
 import OrderProgress from "./OrderProgress";
+import {useCookies} from "react-cookie";
 
 function Header({}) {
+    const [cookies, setCookie] = useCookies(['__FOsession'])
+
     const [cartCount, setCartCount] = useState(0)
     const location = useLocation();
 
@@ -47,34 +50,50 @@ function Header({}) {
 
     }, [cartItems, cartCount])
 
+    function getCalification() {
+        return "5"
+    }
+
+    function getName() {
+        if (cookies.__FOsession !== undefined) {
+            return cookies.__FOsession.nombre
+        }
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid>
-                <Col md="1">
-                    <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">
-                        <Button
-                            variant="dark"
-                            className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"
-                            onClick={mobileSidebarToggle}
-                        >
-                            <i className="fas fa-ellipsis-v"></i>
-                        </Button>
-                        <Navbar.Brand
-                            href="#home"
-                            onClick={(e) => e.preventDefault()}
-                            className="mr-2"
-                        >
-                            {getBrandText()}
-                        </Navbar.Brand>
-                    </div>
-                </Col>
+                {/*<Col md="1">*/}
+                {/*    <div className="d-flex justify-content-center align-items-center ml-2 ml-lg-0">*/}
+                {/*        <Button*/}
+                {/*            variant="dark"*/}
+                {/*            className="d-lg-none btn-fill d-flex justify-content-center align-items-center rounded-circle p-2"*/}
+                {/*            onClick={mobileSidebarToggle}*/}
+                {/*        >*/}
+                {/*            <i className="fas fa-ellipsis-v"></i>*/}
+                {/*        </Button>*/}
+                {/*        <Navbar.Brand*/}
+                {/*            href="#home"*/}
+                {/*            onClick={(e) => e.preventDefault()}*/}
+                {/*            className="mr-2"*/}
+                {/*        >*/}
+                {/*            {getBrandText()}*/}
+                {/*        </Navbar.Brand>*/}
+                {/*    </div>*/}
+                {/*</Col>*/}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
                     <span className="navbar-toggler-bar burger-lines"></span>
                     <span className="navbar-toggler-bar burger-lines"></span>
                     <span className="navbar-toggler-bar burger-lines"></span>
                 </Navbar.Toggle>
-                <Col md="10">
+                <Col md="8">
                     <OrderProgress/>
+                </Col>
+                <Col md="3">
+                    <Stack>
+                        <label>!Bienvenido {getName()}!</label>
+                        <label>Tu calificación es: {getCalification()} <i className="far fa-star"></i></label>
+                    </Stack>
                 </Col>
                 <Col md="1">
                     <Navbar.Collapse id="basic-navbar-nav" style={{flexGrow: '0'}}>
