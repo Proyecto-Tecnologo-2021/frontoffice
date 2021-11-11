@@ -25,10 +25,24 @@ const Product = ({product, onClick}) => {
     const getImage = () => {
         //Consumir api y obtener imagen usando product.idImagen
         // return require("../../assets/img/burger1.jpeg").default
+        // return (
+        //     <img
+        //         alt="..."
+        //         src={`data:image/jpeg;base64,${product.imagen.imagen}`}
+        //     />
+        // )
+        let srcImg = null
+
+        if(product.imagen.imagen !== null){
+            srcImg = `data:image/jpeg;base64,${product.imagen.imagen}`
+        }else{
+            srcImg = require("../../assets/img/nodisponible.png").default
+        }
+
         return (
             <img
                 alt="..."
-                src={`data:image/jpeg;base64,${product.imagen.imagen}`}
+                src={srcImg}
             />
         )
     }

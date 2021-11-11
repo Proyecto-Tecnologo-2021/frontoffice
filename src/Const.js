@@ -48,3 +48,6 @@ export const menuListar = '/menu' // GET
 
 // SERVICIOS DE PROMOS
 export const promoListar = '/promo' //GET
+
+// SERVICIOS DE RESTAURANTES
+export const listarRestaurantesAbiertos = '/usuarios/listarAbiertos'

@@ -12,11 +12,26 @@ const CartItem = ({itemData}) => {
     const getImage = () => {
         //Consumir api y obtener imagen usando product.idImagen
         // return require("../../assets/img/burger1.jpeg").default
+        // return (
+        //     <img
+        //         id="cartImage"
+        //         alt="..."
+        //         src={`data:image/jpeg;base64,${itemData.product.imagen.imagen}`}
+        //     />
+        // )
+        let srcImg = null
+
+        if(itemData.product.imagen.imagen !== null){
+            srcImg = `data:image/jpeg;base64,${itemData.product.imagen.imagen}`
+        }else{
+            srcImg = require("../../assets/img/nodisponible.png").default
+        }
+
         return (
             <img
                 id="cartImage"
                 alt="..."
-                src={`data:image/jpeg;base64,${itemData.product.imagen.imagen}`}
+                src={srcImg}
             />
         )
     }
