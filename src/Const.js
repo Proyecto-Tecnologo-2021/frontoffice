@@ -31,6 +31,7 @@ export const dollarVal = 44.5
 
 // SERVICIOS DE PEDIDOS
 export const pedidoCrear = '/pedido/pedido2' //POST
+export const Pedido_Last = '/pedido/ultimo/' // GET (AGREGAR EL ID DEL USUARIO AL FINAL)
 
 // SERVICIOS DE USUARIO
 export const Usuario_Login = '/usuarios/login' // POST

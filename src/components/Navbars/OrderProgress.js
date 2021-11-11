@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {Col, OverlayTrigger, ProgressBar, Row, Tooltip} from "react-bootstrap";
+import {useCookies} from "react-cookie";
+import {Pedido_Last, URL_Services, Usuario_Login} from "../../Const";
+import {default as axios} from "axios";
+import {setSession} from "../SessionService";
+import jwt from "jsonwebtoken";
 
 const OrderProgress = () => {
     const [lastOrder, setLastOrder] = useState({
@@ -58,15 +63,29 @@ const OrderProgress = () => {
     //     "fecha":null,
     //     "estado": "CONFIRMADO",
     // }
-
-    const timeMs = 60000
+    const [userId, setUserId] = useState('')
+    const [cookies, setCookie] = useCookies(['__FOsession'])
 
     useEffect(() => {
+
+    }, [])
+
+    useEffect(() => {
+
+        getLastOrder().then((cuerpo) => {
+            setLastOrder(cuerpo)
+        })
+
         let interval
         // if (openChat) {
-            interval = setInterval(() => {
-                console.log('Logs every ' + timeMs + ' miliseconds')
-            }, timeMs)
+        interval = setInterval(() => {
+            console.log('Logs every ' + timeMs + ' miliseconds')
+
+            getLastOrder().then((cuerpo) => {
+                setLastOrder(cuerpo)
+            })
+
+        }, timeMs)
         // } else {
         //     clearInterval(interval)
         // }
@@ -77,7 +96,36 @@ const OrderProgress = () => {
         }
     }, [])
 
+    const getLastOrder = async () => {
+        console.log("segundo")
+        console.log(cookies.__FOsession.idUsuario)
+        const url = URL_Services() + Pedido_Last + cookies.__FOsession.idUsuario
+        const axios = require('axios').default
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.get(
+                    url,
+                )
+                return response.data
+            } catch (err) {
+                console.error(err)
+                return null
+            }
+        }
+        const finalResponse = await sendMessageRequest()
+        if (finalResponse !== null) {
+            return finalResponse.cuerpo
+        } else {
+            return false
+        }
+    }
+
+    const timeMs = 60000
+
+
+
     const checkState = () => {
+
         const stateOrder = {
             loading: true,
             variant: 'info',
@@ -156,7 +204,7 @@ const OrderProgress = () => {
                     ? <span>Aún no has hecho ningún pedido, ¿Qué tal si hacemos el primero?</span>
                     : <>
                         <Row
-                        className="mt-1">
+                            className="mt-1">
                             <Col md="4">
                                 <span>Estado de tu último pedido: {stateOrder.shortText}</span>
                             </Col>
@@ -183,6 +231,7 @@ const OrderProgress = () => {
             </>
         )
     }
+
 
     return (
         <>
