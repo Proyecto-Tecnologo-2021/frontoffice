@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../assets/css/Login.css";
-import {localDevelopment, URL_Services, Usuario_Login} from "../Const";
+import {localDevelopment, URL_AltaRestaurante, URL_Services, Usuario_Login} from "../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
@@ -21,6 +21,7 @@ const Login = () => {
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
         userName: 'gsantamaria'
     }
+    const [userType, setUserType] = useState('')
 
     const clickSignIn = async (user, pass) => {
         //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
@@ -49,10 +50,9 @@ const Login = () => {
         }
 
         const finalResponse = await sendMessageRequest()
-
         if(finalResponse !== null){
             setSession(jwt.decode(finalResponse.cuerpo))
-            return finalResponse.ok
+            return finalResponse
         }else{
             return false
         }
@@ -71,24 +71,36 @@ const Login = () => {
     }
 
     const login = async () => {
+
+        let obj = null
         let ok = false
         if (!localDevelopment)
-            ok = await clickSignIn(user, password)
+            obj = await clickSignIn(user, password)
+            if(obj !== null)
+                ok = obj.ok
         else {
             ok = true
             setSession(session)
         }
-        if (ok) {
-            window.location = '/home'
-        } else {
-            Swal.fire(
-                {
-                    title: 'Ups...',
-                    confirmButtonColor: '#c00e0e',
-                    icon: "error",
-                    text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
-                },
-            )
+        if(obj !== null){
+            const decodeado = jwt.decode(obj.cuerpo)
+            console.log(decodeado)
+            if (ok && decodeado.tipoUsuario === "restaurante") {
+                window.location = 'http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml'
+            }else{
+                if (ok && decodeado.tipoUsuario === "cliente") {
+                    window.location = '/home'
+                } else {
+                    Swal.fire(
+                        {
+                            title: 'Ups...',
+                            confirmButtonColor: '#c00e0e',
+                            icon: "error",
+                            text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
+                        },
+                    )
+                }
+            }
         }
     }
 
@@ -204,6 +216,15 @@ const Login = () => {
                                 </ListGroup.Item>
                                 <ListGroup.Item className="d-flex justify-content-end">
                                     <ButtonGroup>
+                                        <Button
+                                            href="http://127.0.0.1:8080/appettit-web/restaurante/addrestaurante.xhtml"
+                                            className="btn-fill -pull-left"
+                                            variant="success"
+                                            >
+                                            <i className="fab fa-android"></i>
+                                            &nbsp;|
+                                            Nuevo Restaurante?
+                                        </Button>
                                         <Button
                                             className="btn-fill pull-right"
                                             variant="danger">
