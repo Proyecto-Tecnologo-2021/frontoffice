@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Col, OverlayTrigger, ProgressBar, Row, Tooltip} from "react-bootstrap";
 
 const OrderProgress = () => {
@@ -58,6 +58,24 @@ const OrderProgress = () => {
     //     "fecha":null,
     //     "estado": "CONFIRMADO",
     // }
+
+    const timeMs = 60000
+
+    useEffect(() => {
+        let interval
+        // if (openChat) {
+            interval = setInterval(() => {
+                console.log('Logs every ' + timeMs + ' miliseconds')
+            }, timeMs)
+        // } else {
+        //     clearInterval(interval)
+        // }
+
+        return () => {
+            console.log('cleaned up')
+            clearInterval(interval) // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+        }
+    }, [])
 
     const checkState = () => {
         const stateOrder = {
