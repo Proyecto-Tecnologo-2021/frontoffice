@@ -10,8 +10,6 @@ export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart,
 
     const axios = require('axios').default
 
-    console.log(details)
-
     const sendMessageRequest = async () => {
         try {
             let response

@@ -86,9 +86,6 @@ const OrderProgress = () => {
             })
 
         }, timeMs)
-        // } else {
-        //     clearInterval(interval)
-        // }
 
         return () => {
             console.log('cleaned up')
@@ -97,8 +94,6 @@ const OrderProgress = () => {
     }, [])
 
     const getLastOrder = async () => {
-        console.log("segundo")
-        console.log(cookies.__FOsession.idUsuario)
         const url = URL_Services() + Pedido_Last + cookies.__FOsession.idUsuario
         const axios = require('axios').default
         const sendMessageRequest = async () => {
@@ -138,64 +133,66 @@ const OrderProgress = () => {
 
         //Si el servicio devuelve vacío el último pedido, noOrder = true, sino noOrder = false
 
-        switch (lastOrder.estado) {
-            case "SOLICITADO":
-                stateOrder.loading = false
-                stateOrder.variant = 'warning'
-                stateOrder.percentage = 25
-                stateOrder.shortText = lastOrder.estado
-                stateOrder.longText = 'Tu pedido fue solicitado y será respondido a la brevedad por el restaurante'
-                break
+        if(lastOrder.estado !== null) {
+            switch (lastOrder.estado) {
+                case "SOLICITADO":
+                    stateOrder.loading = false
+                    stateOrder.variant = 'warning'
+                    stateOrder.percentage = 25
+                    stateOrder.shortText = lastOrder.estado
+                    stateOrder.longText = 'Tu pedido fue solicitado y será respondido a la brevedad por el restaurante'
+                    break
 
-            case "CONFIRMADO":
-                stateOrder.loading = false
-                stateOrder.variant = 'warning'
-                stateOrder.percentage = 50
-                stateOrder.shortText = lastOrder.estado
-                stateOrder.longText = '¡Tu pedido ha sido confirmado! En unos momentos el restaurante lo enviará a la dirección solicitada'
-                break
+                case "CONFIRMADO":
+                    stateOrder.loading = false
+                    stateOrder.variant = 'warning'
+                    stateOrder.percentage = 50
+                    stateOrder.shortText = lastOrder.estado
+                    stateOrder.longText = '¡Tu pedido ha sido confirmado! En unos momentos el restaurante lo enviará a la dirección solicitada'
+                    break
 
-            case "ENVIADO":
-                stateOrder.loading = false
-                stateOrder.variant = 'warning'
-                stateOrder.percentage = 75
-                stateOrder.shortText = lastOrder.estado
-                stateOrder.longText = '¡Tu pedido ya está en la calle!'
-                break
+                case "ENVIADO":
+                    stateOrder.loading = false
+                    stateOrder.variant = 'warning'
+                    stateOrder.percentage = 75
+                    stateOrder.shortText = lastOrder.estado
+                    stateOrder.longText = '¡Tu pedido ya está en la calle!'
+                    break
 
-            case "ENTREGADO":
-                stateOrder.loading = false
-                stateOrder.variant = 'success'
-                stateOrder.percentage = 100
-                stateOrder.shortText = lastOrder.estado
-                stateOrder.longText = 'Tu pedido ha sido entregado ¡Bon Appetit!'
-                stateOrder.animated = false
-                break
+                case "ENTREGADO":
+                    stateOrder.loading = false
+                    stateOrder.variant = 'success'
+                    stateOrder.percentage = 100
+                    stateOrder.shortText = lastOrder.estado
+                    stateOrder.longText = 'Tu pedido ha sido entregado ¡Bon Appetit!'
+                    stateOrder.animated = false
+                    break
 
-            case "RECHAZADO":
-                stateOrder.loading = false
-                stateOrder.variant = 'danger'
-                stateOrder.percentage = 100
-                stateOrder.shortText = lastOrder.estado
-                stateOrder.longText = 'Tu pedido ha sido rechazado por el restaurante'
-                stateOrder.animated = false
-                break
+                case "RECHAZADO":
+                    stateOrder.loading = false
+                    stateOrder.variant = 'danger'
+                    stateOrder.percentage = 100
+                    stateOrder.shortText = lastOrder.estado
+                    stateOrder.longText = 'Tu pedido ha sido rechazado por el restaurante'
+                    stateOrder.animated = false
+                    break
 
-            case "CANCELADO":
-                stateOrder.loading = false
-                stateOrder.variant = 'danger'
-                stateOrder.percentage = 100
-                stateOrder.shortText = lastOrder.estado
-                stateOrder.longText = 'Tu pedido ha sido cancelado'
-                stateOrder.animated = false
-                break
+                case "CANCELADO":
+                    stateOrder.loading = false
+                    stateOrder.variant = 'danger'
+                    stateOrder.percentage = 100
+                    stateOrder.shortText = lastOrder.estado
+                    stateOrder.longText = 'Tu pedido ha sido cancelado'
+                    stateOrder.animated = false
+                    break
 
-            default:
-                stateOrder.variant = 'info'
-                stateOrder.percentage = 100
-                stateOrder.shortText = 'Cargando...'
-                stateOrder.longText = 'Cargando...'
-                break
+                default:
+                    stateOrder.variant = 'info'
+                    stateOrder.percentage = 100
+                    stateOrder.shortText = 'Cargando...'
+                    stateOrder.longText = 'Cargando...'
+                    break
+            }
         }
 
         return (

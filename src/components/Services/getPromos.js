@@ -7,21 +7,6 @@ export const getPromos = async () => {
     const url = URL_Services() + promoListar
     const axios = require('axios').default
 
-    // const sendMessageRequest = async () => {
-    //     try {
-    //         const response = await axios.get(
-    //             url,
-    //         )
-    //         return response.cuerpo
-    //     } catch (err) {
-    //         // Handle Error Here
-    //         console.error(err)
-    //         return false
-    //     }
-    // }
-    //
-    // const response = await sendMessageRequest()
-
     const { data } = await axios.get(url);
 
     const cuerpo = data.cuerpo

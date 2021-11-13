@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, Col, Row, Stack} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 const Restaurant = ({restaurant}) => {
 
@@ -76,14 +77,16 @@ const Restaurant = ({restaurant}) => {
         return ret;
     }
 
+    //<Link to="/new-user">Crea una cuenta</Link>
+
     return (
         <>
             <Card
                 style={{
                     width: '33%',
                     maxHeight: '15%',
-                    cursor: 'pointer',
                 }}
+                // onClick={}
             >
                 <Card.Body>
                     <div >
@@ -105,6 +108,13 @@ const Restaurant = ({restaurant}) => {
                                     </div>
                                     <div>
                                         <label>{restaurant.direccion}</label>
+                                    </div>
+                                    <div>
+                                        {/*to={`/home/productsbyrestaurant/${restaurant.id}`}*/}
+                                        <Link
+                                            to={`/home/productsbyrestaurant/${restaurant.id}`}>
+                                            Ver los menúes
+                                        </Link>
                                     </div>
                                 </Stack>
                             </Col>

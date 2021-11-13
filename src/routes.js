@@ -1,6 +1,7 @@
 import UserProfile from "./components/User/UserProfile";
 import ProductGeneral from "./components/Product/ProductGeneral";
 import RestaurantList from "./components/Restaurant/RestaurantList";
+import ProductsListByRestaurant from "./components/Product/ProductsListByRestaurant";
 
 const dashboardRoutes = [
   // {
@@ -79,6 +80,14 @@ const dashboardRoutes = [
     icon: "nc-icon nc-circle-09",
     component: RestaurantList,
     layout: "/home",
+  },
+  {
+    path: "/productsbyrestaurant/:id",
+    name: "Restaurantes asd",
+    icon: "nc-icon nc-circle-09",
+    component: ProductsListByRestaurant,
+    layout: "/home",
+    redirect: true,
   },
 ];
 
