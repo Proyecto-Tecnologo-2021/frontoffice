@@ -27,7 +27,6 @@ export const URL_IndexBackoffice = () => {
 
 //Utils de pedidos
 export const paypalClientId = 'AX1tidD2Nabve-nXf9dR6UqFx6LtKK4-FJZ9QCzXJgoM8pjYrDNCCPF6KzOLgDDrGZSpaDA2psnjfP5l'
-export const dollarVal = 44.5
 
 // SERVICIOS DE PEDIDOS
 export const pedidoCrear = '/pedido/pedido2' //POST
@@ -52,3 +51,6 @@ export const promoListar = '/promo' //GET
 
 // SERVICIOS DE RESTAURANTES
 export const listarRestaurantesAbiertos = '/usuarios/listarAbiertos'
+
+// SERVICIO DE COTIZACIONES
+export const urlCotizaciones = 'https://cotizaciones-brou.herokuapp.com/api/currency/' // AAAA-MM-DD - GET

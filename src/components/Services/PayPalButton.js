@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {dollarVal, paypalClientId} from "../../Const";
+import {paypalClientId} from "../../Const";
 import {useDispatch, useSelector} from "react-redux";
 import {useCookies} from "react-cookie";
 import {PayPalButton as PayPalButtons} from "react-paypal-button-v2";
 import CreateOrder from "./CreateOrder";
 import Swal from "sweetalert2";
 import {removeFromCart} from "../../redux/actions/cartActions";
+import {getDollarVal} from "./getDollarVal";
 
 const PayPalButton = ({dirId}) => {
     const [totalPrice, setTotalPrice] = useState(0.0)
@@ -26,6 +27,24 @@ const PayPalButton = ({dirId}) => {
         let items = 0
         let price = 0
         let idR = 0
+        let dollarVal = 44.20
+
+        if (firstTime.current) { //Ejecuta solo la primera vez
+
+            firstTime.current = false;
+
+            if (cookies.__FOsession !== undefined) {
+                setUserId(cookies.__FOsession.idUsuario)
+            }
+
+            getDollarVal().then((data) => {
+                // dollarVal = val
+                if (data !== undefined) {
+                    dollarVal = data.data.rates.USD.buy
+                }
+            })
+
+        }
 
         cartItems.forEach(item => {
             items += item.qty
@@ -36,16 +55,6 @@ const PayPalButton = ({dirId}) => {
         setTotalPrice(price)
         setDollarPrice(price / dollarVal)
         setIdRest(idR)
-
-        if (firstTime.current) { //Ejecuta solo la primera vez
-
-            firstTime.current = false;
-
-            if (cookies.__FOsession !== undefined) {
-                setUserId(cookies.__FOsession.idUsuario)
-            }
-
-        }
 
     }, [cartItems, totalPrice, setTotalPrice])
 
