@@ -36,6 +36,7 @@ export const Pedido_Last = '/pedido/ultimo/' // GET (AGREGAR EL ID DEL USUARIO A
 export const Usuario_Login = '/usuarios/login' // POST
 export const Usuario_Nuevo = "/usuarios"; // POST
 export const Usuario_Modificar = "/usuarios/editar/" // PUT (AGREGAR EL ID DEL USUARIO A MODIFICAR AL FINAL)
+export const Pass_Change = "/usuarios/changePassword"; // POST
 
 // SERVICIOS DE DIRECCION
 export const Direccion_Nueva = "/usuarios/agregarDireccion" // POST

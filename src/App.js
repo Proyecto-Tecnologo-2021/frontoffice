@@ -4,9 +4,11 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/Index/Login";
 import AdminLayout from "layouts/Admin.js";
 import NewUser from "./components/Index/NewUser";
+import PassRecover from "./components/Index/PassRecover";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "App.css";
-import {Component} from "react";
+import React, {Component} from "react";
+import {Button} from "react-bootstrap";
 
 class App extends Component {
 
@@ -33,6 +35,7 @@ class App extends Component {
                                 <Switch location={location}>
                                     <Route exact path='/' component={Login}/>
                                     <Route path="/new-user" component={NewUser}/>
+                                    <Route path="/recover-pass" component={PassRecover}/>
                                 </Switch>
                             </CSSTransition>
                         </TransitionGroup>
