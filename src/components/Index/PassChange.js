@@ -2,21 +2,22 @@ import React, {useState} from 'react'
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from 'sweetalert2'
-import {Pass_Recover, URL_Services} from "../../Const";
+import {Pass_Change, URL_Services} from "../../Const";
 import {default as axios} from "axios";
 
-const PassRecover = () => {
+const PassChange = () => {
 
 
-    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [verifyPass, setVerifyPass] = useState('')
 
 
-    const recoverPassword = async (email) => {
-        const url = URL_Services() + Pass_Recover
+    const changePassword = async (password) => {
+        const url = URL_Services() + Pass_Change
         const axios = require('axios').default
 
         const bodyLogin = {
-            correo: email
+            password: password
         }
 
         const sendMessageRequest = async () => {
@@ -55,7 +56,7 @@ const PassRecover = () => {
                                         />
                                     </div>
                                     <Card.Header>
-                                        <Card.Title as="h4">RECUPERAR CONTRASEÑA</Card.Title>
+                                        <Card.Title as="h4">INGRESE SU NUEVA CONTRASEÑA</Card.Title>
                                     </Card.Header>
                                     <Card.Body>
                                         <Form action='#'>
@@ -66,15 +67,28 @@ const PassRecover = () => {
                                                             Contraseña
                                                         </label>
                                                         <Form.Control
-                                                            placeholder="Email"
-                                                            type="email"
+                                                            placeholder="Contraseña"
+                                                            type="password"
                                                             onChange={(e) => {
                                                                 e.preventDefault();
-                                                                setEmail(e.target.value);
+                                                                setPassword(e.target.value);
                                                             }}></Form.Control>
                                                     </Form.Group>
                                                 </Col>
-
+                                                <Col className="pl-1">
+                                                    <Form.Group>
+                                                        <label className="d-flex justify-content-start">
+                                                            Verificación
+                                                        </label>
+                                                        <Form.Control
+                                                            placeholder="Verifique su contraseña"
+                                                            type="password"
+                                                            onChange={(e) => {
+                                                                e.preventDefault();
+                                                                setVerifyPass(e.target.value);
+                                                            }}></Form.Control>
+                                                    </Form.Group>
+                                                </Col>
                                             </Row>
                                             <br/>
 
@@ -84,14 +98,16 @@ const PassRecover = () => {
                                                     type=""
                                                     variant="success"
                                                     onClick={async () => {
+                                                        //Consumir el servicio
 
-                                                        if (email !== "") {
-                                                            const ok = await recoverPassword(email)
+
+                                                        if (password === verifyPass) {
+                                                            const ok = await changePassword( password)
                                                             // console.log(ok + " este es el OK")
                                                             if (ok === true) {
                                                                 Swal.fire(
                                                                     {
-                                                                        title: 'Se ha enviado el correo con éxito',
+                                                                        title: 'Contraseña cambiada con éxito',
                                                                         confirmButtonColor: '#27ae60',
                                                                         icon: "success",
                                                                         text: '¡Bienvenido a Appetit!'
@@ -113,7 +129,7 @@ const PassRecover = () => {
                                                                     title: 'Ups...',
                                                                     confirmButtonColor: '#c00e0e',
                                                                     icon: "error",
-                                                                    text: 'Ingrese su casilla de correo' //Este texto se cargaría con lo que responde el servicio
+                                                                    text: 'Las contraseñas deben ser iguales...' //Este texto se cargaría con lo que responde el servicio
                                                                 },
                                                             )
                                                         }
@@ -121,7 +137,7 @@ const PassRecover = () => {
                                                     }}>
                                                     <i className="fas fa-user-lock"></i>
                                                     &nbsp;
-                                                    Solicitar recuperación de contraseña
+                                                    Cambiar
                                                 </Button>
                                             </Row>
 
@@ -151,4 +167,4 @@ const PassRecover = () => {
     )
 }
 
-export default PassRecover
+export default PassChange

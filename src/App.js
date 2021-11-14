@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/Index/Login";
 import AdminLayout from "layouts/Admin.js";
 import NewUser from "./components/Index/NewUser";
+import PassChange from "./components/Index/PassChange";
 import PassRecover from "./components/Index/PassRecover";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "App.css";
@@ -36,6 +37,7 @@ class App extends Component {
                                     <Route exact path='/' component={Login}/>
                                     <Route path="/new-user" component={NewUser}/>
                                     <Route path="/recover-pass" component={PassRecover}/>
+                                    <Route path="/change-pass" component={PassChange}/>
                                 </Switch>
                             </CSSTransition>
                         </TransitionGroup>
