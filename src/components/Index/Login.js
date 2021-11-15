@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../../assets/css/Login.css";
-import {localDevelopment, URL_AltaRestaurante, URL_Services, Usuario_Login} from "../../Const";
+import {localDevelopment, URL_AltaRestaurante, URL_IndexBackoffice, URL_Services, Usuario_Login} from "../../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
@@ -85,7 +85,8 @@ const Login = () => {
             const decodeado = jwt.decode(obj.cuerpo)
             console.log(decodeado)
             if (ok && decodeado.tipoUsuario === "restaurante") {
-                window.location = 'http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml'
+                window.location = URL_IndexBackoffice()
+
             }else{
                 if (ok && decodeado.tipoUsuario === "cliente") {
                     window.location = '/home'
@@ -214,15 +215,15 @@ const Login = () => {
                                     </Card.Body>
                                 </ListGroup.Item>
                                 <ListGroup.Item className="d-flex justify-content-end">
-                                    <ButtonGroup>
+                                    <ButtonGroup className="w-100">
                                         <Button
-                                            href="http://127.0.0.1:8080/appettit-web/restaurante/addrestaurante.xhtml"
+                                            href={URL_AltaRestaurante()}
                                             className="btn-fill -pull-left"
                                             variant="success"
                                             >
-                                            <i className="fab fa-android"></i>
+                                            <i className="fas fa-utensils"></i>
                                             &nbsp;|
-                                            Nuevo Restaurante?
+                                            ¿Nuevo Restaurante?
                                         </Button>
                                         <Button
                                             className="btn-fill pull-right"
