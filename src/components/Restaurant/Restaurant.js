@@ -2,7 +2,7 @@ import React from 'react'
 import {Card, Col, Row, Stack} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-const Restaurant = ({restaurant}) => {
+const Restaurant = ({restaurant, showMenu}) => {
 
     // const restaurant = {
     //     id: 0,
@@ -32,9 +32,13 @@ const Restaurant = ({restaurant}) => {
 
         let srcImg = null
 
-        if(restaurant.imagen.imagen !== null){
-            srcImg = `data:image/jpeg;base64,${restaurant.imagen.imagen}`
-        }else{
+        if(restaurant !== undefined) {
+            if (restaurant.imagen.imagen !== null && restaurant.imagen.imagen !== undefined) {
+                srcImg = `data:image/jpeg;base64,${restaurant.imagen.imagen}`
+            } else {
+                srcImg = require("../../assets/img/nodisponible.png").default
+            }
+        }else {
             srcImg = require("../../assets/img/nodisponible.png").default
         }
 
@@ -42,7 +46,6 @@ const Restaurant = ({restaurant}) => {
             <img
                 id="cartImage"
                 alt="..."
-                // src={`data:image/jpeg;base64,${restaurant.imagen.imagen}`}
                 src={srcImg}
             />
         )
@@ -77,51 +80,53 @@ const Restaurant = ({restaurant}) => {
         return ret;
     }
 
-    //<Link to="/new-user">Crea una cuenta</Link>
-
     return (
         <>
-            <Card
-                style={{
-                    width: '33%',
-                    maxHeight: '15%',
-                }}
-                // onClick={}
-            >
-                <Card.Body>
-                    <div >
-                        <Row>
-                            <Col md="3">
-                                {getImage()}
-                            </Col>
+            {restaurant === undefined
+                ? <></> :
+                <Card
+                    style={{
+                        width: '33%',
+                        maxHeight: '15%',
+                    }}
+                >
+                    <Card.Body>
+                        <div>
+                            <Row>
+                                <Col md="3">
+                                    {getImage()}
+                                </Col>
 
-                            <Col md="8" className="restaurantStack ms-3">
-                                <Stack>
-                                    <div>
-                                        {restaurant.nombre}
-                                    </div>
-                                    <div>
-                                        <label>{getStringSchedule()}</label> &nbsp; {restaurant.abierto
+                                <Col md="8" className="restaurantStack ms-3">
+                                    <Stack>
+                                        <div>
+                                            {restaurant.nombre}
+                                        </div>
+                                        <div>
+                                            <label>{getStringSchedule()}</label> &nbsp; {restaurant.abierto
                                             ? <label style={{color: '#17be00'}}><b>¡Abierto!</b></label>
                                             : <label style={{color: '#ff0000'}}><b>Cerrado</b></label>
+                                        }
+                                        </div>
+                                        <div>
+                                            <label>{restaurant.direccion}</label>
+                                        </div>
+                                        <div>
+                                            {showMenu
+                                                ? <Link
+                                                    to={`/home/productsbyrestaurant/${restaurant.id}`}>
+                                                    Ver los menúes
+                                                </Link>
+                                                : <></>
                                             }
-                                    </div>
-                                    <div>
-                                        <label>{restaurant.direccion}</label>
-                                    </div>
-                                    <div>
-                                        {/*to={`/home/productsbyrestaurant/${restaurant.id}`}*/}
-                                        <Link
-                                            to={`/home/productsbyrestaurant/${restaurant.id}`}>
-                                            Ver los menúes
-                                        </Link>
-                                    </div>
-                                </Stack>
-                            </Col>
-                        </Row>
-                    </div>
-                </Card.Body>
-            </Card>
+                                        </div>
+                                    </Stack>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Card.Body>
+                </Card>
+            }
         </>
     )
 }

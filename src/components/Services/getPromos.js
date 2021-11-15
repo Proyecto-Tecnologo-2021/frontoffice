@@ -1,6 +1,5 @@
 import {URL_Services, promoListar} from "../../Const";
 import {default as axios} from "axios";
-import * as urls from "../../Const";
 
 export const getPromos = async () => {
 
@@ -34,7 +33,7 @@ export const getPromos = async () => {
                         "identificador": item.imagen.identificador,
                         "imagen": item.imagen.imagen
                     },
-                    "tipo": "PROMO",
+                    "tipo": "PROM",
                     "cal_restaurante": 0
                 },
             ]

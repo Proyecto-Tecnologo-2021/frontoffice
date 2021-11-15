@@ -23,7 +23,7 @@ const RestaurantList = () => {
                         ? <CoffeeLoading/>
                         : restaurants.map(restaurant => (
                             <>
-                                <Restaurant id={restaurant.id} restaurant={restaurant}/>
+                                <Restaurant id={restaurant.id} restaurant={restaurant} showMenu={true}/>
                                 {/*<hr/>*/}
                             </>
                         ))

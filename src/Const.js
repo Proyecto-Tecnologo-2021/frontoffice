@@ -56,7 +56,7 @@ export const productsByRestaurant = '/menu/getMenuAll/' //GET
 
 // SERVICIOS DE RESTAURANTES
 export const listarRestaurantesAbiertos = '/usuarios/listarAbiertos'
-export const listarRestaurantesPorId = '/restaurante/listar/'
+export const listarRestaurantesPorId = '/restaurante/listarDatosBasicos/'
 
 // SERVICIO DE COTIZACIONES
 export const urlCotizaciones = 'https://cotizaciones-brou.herokuapp.com/api/currency/' // AAAA-MM-DD - GET
