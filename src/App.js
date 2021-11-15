@@ -37,7 +37,7 @@ class App extends Component {
                                     <Route exact path='/' component={Login}/>
                                     <Route path="/new-user" component={NewUser}/>
                                     <Route path="/recover-pass" component={PassRecover}/>
-                                    <Route path="/change-pass" component={PassChange}/>
+                                    <Route path="/change-pass/:id" component={PassChange}/>
                                 </Switch>
                             </CSSTransition>
                         </TransitionGroup>

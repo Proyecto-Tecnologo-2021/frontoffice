@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Swal from 'sweetalert2'
 import {Pass_Change, URL_Services} from "../../Const";
 import {default as axios} from "axios";
 
 const PassChange = () => {
 
-
+    const clientId = useParams()
     const [password, setPassword] = useState('')
     const [verifyPass, setVerifyPass] = useState('')
 
@@ -17,9 +17,10 @@ const PassChange = () => {
         const axios = require('axios').default
 
         const bodyLogin = {
-            password: password
+            password: password,
+            clientId: clientId.id
         }
-
+        console.log(bodyLogin)
         const sendMessageRequest = async () => {
             try {
                 const response = await axios.post(
