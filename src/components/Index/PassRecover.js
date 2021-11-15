@@ -63,7 +63,7 @@ const PassRecover = () => {
                                                 <Col className="pl-1">
                                                     <Form.Group>
                                                         <label className="d-flex justify-content-start">
-                                                            Contraseña
+                                                            Email
                                                         </label>
                                                         <Form.Control
                                                             placeholder="Email"
@@ -93,8 +93,7 @@ const PassRecover = () => {
                                                                     {
                                                                         title: 'Se ha enviado el correo con éxito',
                                                                         confirmButtonColor: '#27ae60',
-                                                                        icon: "success",
-                                                                        text: '¡Bienvenido a Appetit!'
+                                                                        icon: "success"
                                                                     },
                                                                 ).then((result) => window.location = "/")
                                                             } else { //algo salió mal

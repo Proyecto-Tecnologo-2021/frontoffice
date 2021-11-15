@@ -178,7 +178,7 @@ const Login = () => {
                                                 <Col>
                                                     <label className="d-flex justify-content-end"
                                                            style={{width: '300px'}}>
-                                                        ¿Olvidó su contraseña? &nbsp;<a href="#">Recuperar</a>
+                                                        ¿Olvidó su contraseña? &nbsp;<Link to="/recover-pass">Recuperar</Link>
                                                     </label>
                                                 </Col>
                                             </Row>
