@@ -7,31 +7,32 @@ import {setSession} from "../SessionService";
 import jwt from "jsonwebtoken";
 
 const OrderProgress = () => {
-    const [lastOrder, setLastOrder] = useState({
-        "idcli": 0,
-        "iddir": 0,
-        "menus": [{
-            "id": 0,
-            "id_restaurante": 0,
-            "nom_restaurante": "",
-            "descuento": 0.0,
-            "nombre": "",
-            "descripcion": "",
-            "precioSimple": 0,
-            "precioTotal": 0,
-            "extras": null,
-            "productos": null,
-            "id_imagen": null,
-            "imagen": null
-        }],
-        "pago": true,
-        "tipo": "",
-        "total": "",
-        "idrest": 0,
-        "fecha": null,
-        "estado": "",
-    })
+    const [lastOrder, setLastOrder] = useState({})
 
+    // {
+    //     "idcli": 0,
+    //     "iddir": 0,
+    //     "menus": [{
+    //     "id": 0,
+    //     "id_restaurante": 0,
+    //     "nom_restaurante": "",
+    //     "descuento": 0.0,
+    //     "nombre": "",
+    //     "descripcion": "",
+    //     "precioSimple": 0,
+    //     "precioTotal": 0,
+    //     "extras": null,
+    //     "productos": null,
+    //     "id_imagen": null,
+    //     "imagen": null
+    // }],
+    //     "pago": true,
+    //     "tipo": "",
+    //     "total": "",
+    //     "idrest": 0,
+    //     "fecha": null,
+    //     "estado": "",
+    // }
     // SOLICITADO   1
     // CONFIRMADO   2
     // RECHAZADO    fin (rojo
@@ -65,10 +66,6 @@ const OrderProgress = () => {
     // }
     const [userId, setUserId] = useState('')
     const [cookies, setCookie] = useCookies(['__FOsession'])
-
-    useEffect(() => {
-
-    }, [])
 
     useEffect(() => {
 
@@ -133,7 +130,7 @@ const OrderProgress = () => {
 
         //Si el servicio devuelve vacío el último pedido, noOrder = true, sino noOrder = false
 
-        if(lastOrder.estado !== null) {
+        if(lastOrder !== null) {
             switch (lastOrder.estado) {
                 case "SOLICITADO":
                     stateOrder.loading = false
