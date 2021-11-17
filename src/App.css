@@ -128,7 +128,7 @@
   color: rgba(0, 0, 0, 0.5) !important;
 }
 
-#imgTrns{
+.imgTrns{
   background: url('../src/assets/img/foto4.jpg') no-repeat;
 }
 
@@ -151,4 +151,8 @@
   margin-top: 3%;
   align-content: center;
   text-align: left;
+}
+
+.divCenter{
+  align-content: center;
 }

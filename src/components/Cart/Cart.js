@@ -240,7 +240,7 @@ const Cart = () => {
                                             cancelButtonText: 'No',
                                         }).then(async (result) => {
                                             if (result.isConfirmed) {
-                                                const ok = await CreateOrder("EFECTIVO", selectedDirectionId, totalPrice, idRest, userId, cart, dispatch)
+                                                const ok = await CreateOrder("EFECTIVO", selectedDirectionId, totalPrice, idRest, userId, cart, dispatch,0)
                                                 if (ok) {
                                                     Swal.fire(
                                                         {
@@ -251,7 +251,7 @@ const Cart = () => {
                                                         }
                                                     )
                                                     cleanCart()
-                                                }else{
+                                                } else {
                                                     Swal.fire(
                                                         {
                                                             title: 'Ups...',

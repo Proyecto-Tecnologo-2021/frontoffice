@@ -10,20 +10,11 @@ const CartItem = ({itemData}) => {
     const dispatch = useDispatch()
 
     const getImage = () => {
-        //Consumir api y obtener imagen usando product.idImagen
-        // return require("../../assets/img/burger1.jpeg").default
-        // return (
-        //     <img
-        //         id="cartImage"
-        //         alt="..."
-        //         src={`data:image/jpeg;base64,${itemData.product.imagen.imagen}`}
-        //     />
-        // )
         let srcImg = null
 
-        if(itemData.product.imagen.imagen !== null){
+        if (itemData.product.imagen.imagen !== null) {
             srcImg = `data:image/jpeg;base64,${itemData.product.imagen.imagen}`
-        }else{
+        } else {
             srcImg = require("../../assets/img/nodisponible.png").default
         }
 
@@ -42,13 +33,8 @@ const CartItem = ({itemData}) => {
 
     return (
         <div className="d-flex align-items-center justify-content-start">
-            {/*<Row>*/}
             <Col md="3">
                 <div className="ms-2">
-                    {/*<img id="cartImage"*/}
-                    {/*     alt="..."*/}
-                    {/*     src={getImage()}*/}
-                    {/*/>*/}
                     {getImage()}
                 </div>
             </Col>

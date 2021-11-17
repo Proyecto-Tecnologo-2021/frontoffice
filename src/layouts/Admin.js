@@ -77,7 +77,7 @@ function Admin() {
                                     </div>
                                 </Col>
 
-                                <Col md="3" id="imgTrns" className="h-100">
+                                <Col md="3" className="h-100 imgTrns">
                                     <Card className="cardOpacity">
                                         <Card.Header>
                                             <Card.Title className="pedidoTitulo" as="h4" style={{marginTop: 20}}>

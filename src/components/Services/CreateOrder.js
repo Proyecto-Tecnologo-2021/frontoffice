@@ -2,7 +2,7 @@ import React from 'react'
 import {pedidoCrear, URL_Services} from "../../Const";
 import {default as axios} from "axios";
 
-export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart, details) => {
+export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart, details, quotation) => {
 
     const {cartItems} = cart;
 
@@ -20,6 +20,7 @@ export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart,
             )
 
             return response.data.ok
+
         } catch (err) {
             // Handle Error Here
             console.error(err)
@@ -53,6 +54,7 @@ export const CreateOrder = async (tipo, dirId, totalPrice, idRest, userId, cart,
         "idrest": idRest,
         "fecha": null,
         "id_paypal": details.id,
+        "cotizacion": quotation,
     }
 
     const finalResponse = await sendMessageRequest()

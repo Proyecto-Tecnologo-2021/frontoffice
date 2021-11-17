@@ -14,6 +14,7 @@ const PayPalButton = ({dirId}) => {
     const [cookies, setCookie] = useCookies(['__FOsession'])
     const [dollarPrice, setDollarPrice] = useState(0.0)
     const [idRest, setIdRest] = useState(0)
+    const [dolVal, setDolVal] = useState(44.20)
 
     const cart = useSelector(state => state.cart)
     const {cartItems} = cart;
@@ -41,6 +42,7 @@ const PayPalButton = ({dirId}) => {
                 // dollarVal = val
                 if (data !== undefined) {
                     dollarVal = data.data.rates.USD.buy
+                    setDolVal(data.data.rates.USD.buy)
                 }
             })
 
@@ -120,7 +122,7 @@ const PayPalButton = ({dirId}) => {
                             // alert("Transaction completed by " + details.payer.name.given_name);
                             // console.log(details)
                             //enviar details
-                            const ok = await CreateOrder("PAYPAL", dirId, totalPrice, idRest, userId, cart, details)
+                            const ok = await CreateOrder("PAYPAL", dirId, totalPrice, idRest, userId, cart, details, dolVal)
                             if (ok) {
                                 Swal.fire(
                                     {
