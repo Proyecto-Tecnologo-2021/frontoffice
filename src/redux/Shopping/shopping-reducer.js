@@ -103,7 +103,8 @@ const shopReducer = (state = { cartItems: []}, action) => {
             //         ? true
             //         : false
             // )
-            const existItem = state.cartItems.find((x) => x.product.id === item.product.id)
+
+            const existItem = state.cartItems.find((x) => x.product.id === item.product.id && x.product.tipo === item.product.tipo)
 
             // return {
             //     ...state,

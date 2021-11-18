@@ -29,7 +29,7 @@ const OrderItem = ({orderItem}) => {
                 </div>
             </Col>
             <Col md="2">
-                <div className="ms-4 cartSmall">
+                <div className="ms-5 cartSmall">
                     {/*{orderItem.qty}&nbsp;x*/}
                     1&nbsp;x
                 </div>

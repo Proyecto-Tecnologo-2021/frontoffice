@@ -19,20 +19,9 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
     const [delState, setDelState] = useState(false)
     const [sMode, setSMode] = useState(mode)
 
-    //mode: I: insert; U: update; H:hidden
-    // address = [
-    //     {
-    //         'alias': '',
-    //         'calle': '',
-    //         'num': '',
-    //         'apto': '',
-    //         'ref': '',
-    //     }
-    // ]
-
     const firstTime = useRef(true);
 
-    const cleanForm = (()=>{
+    const cleanForm = (() => {
         setAlias("")
         setCalle("")
         setNum("")
@@ -257,7 +246,6 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
                         <Row>
                             <Col className="pr-1" md="12">
                                 <Form.Group>
-                                    {/*<script src="../assets/mapjs/appetitmap.js"></script>*/}
                                     <script src="../../assets/mapjs/Leaflet.SelectAreaFeature.js"></script>
                                     <script src="../../assets/mapjs/proj4js-combined.js"></script>
                                     <script src="../../assets/mapjs/defs/EPSG32721.js"></script>
@@ -337,9 +325,6 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
                     </Form>
                 </Card.Body>
             </Card>
-            {/*}*/}
         </>
     )
 }
-
-// export default UserAddress

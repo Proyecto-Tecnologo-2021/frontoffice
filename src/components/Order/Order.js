@@ -5,30 +5,34 @@ import {getLastOrder} from "../Services/getLastOrder";
 import OrderItem from "./OrderItem";
 import OrderRestaurant from "./OrderRestaurant";
 import {CoffeeLoading} from "react-loadingg";
+import {getUserAddresses} from "../Services/getUserAddresses";
+import CartItem from "../Cart/CartItem";
 
 const Order = () => {
     const [loading, setLoading] = useState(true)
     const [totalItems, setTotalItems] = useState(1)
     const [cookies, setCookie] = useCookies(['__FOsession'])
     const [lastOrder, setLastOrder] = useState(undefined)
+    const [userId, setUserId] = useState(undefined)
+    const [address, setAddress] = useState("")
 
     useEffect(() => {
         let idUsuario;
 
         if (cookies.__FOsession !== undefined) {
             idUsuario = cookies.__FOsession.idUsuario
+            setUserId(cookies.__FOsession.idUsuario)
         }
 
-        getLastOrder(idUsuario).then((cuerpo) => {
+        getLastOrder(idUsuario).then(async (cuerpo) => {
             setLastOrder(cuerpo)
-            console.log(cuerpo)
             setLoading(false)
+            await getOrderAddress(cuerpo.iddir, idUsuario)
         })
 
     }, [])
 
     function getDateString(date) {
-        console.log(date)
         let stringDate = null
         switch (date.dayOfWeek) {
             case 'SUNDAY':
@@ -142,9 +146,37 @@ const Order = () => {
 
     }
 
+    async function getOrderAddress(iddir, idUsuario) {
+        let stringAddress;
+
+        await getUserAddresses(idUsuario).then((val) => {
+
+            if (val !== false) {
+
+                val.map((address) => {
+
+                    if (address.id === iddir) {
+
+                        stringAddress = address.calle + " " + address.numero
+
+                        if (address.apartamento !== "") {
+
+                            stringAddress += "  apto. " + address.apartamento
+
+                        }
+                        stringAddress += ". " + address.referencias
+
+                    }
+
+                    setAddress(stringAddress)
+                })
+            }
+        })
+    }
+
     return (
         <>
-            {loading && lastOrder === undefined
+            {loading && lastOrder === undefined && address !== undefined
                 ? <CoffeeLoading/>
                 :
                 <>
@@ -177,7 +209,8 @@ const Order = () => {
                         <Row
                             className="">
                             <Col md="12">
-                                <b>Dirección seleccionada:</b>
+                                <b>Dirección seleccionada</b>
+                                <label>{address}</label>
                             </Col>
                         </Row>
                     </div>
