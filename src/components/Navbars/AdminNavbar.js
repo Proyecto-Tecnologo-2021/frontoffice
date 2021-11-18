@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {Button, Col, Container, Modal, Nav, Navbar, Stack} from "react-bootstrap";
+
+import NotificationAlert from "react-notification-alert";
+import {Button, Col, Container, Modal, Nav, Navbar, Stack, Alert} from "react-bootstrap";
 
 import routes from "routes.js";
 import Swal from "sweetalert2";
@@ -12,6 +14,7 @@ import {useCookies} from "react-cookie";
 import {useHistory} from "react-router";
 import {getUserAddresses} from "../Services/getUserAddresses";
 import Order from "../Order/Order";
+import {getToken, onMessageListener} from "../../firebase/Firebase";
 
 function Header() {
     const [showModal, setShowModal] = useState(false)
@@ -21,6 +24,43 @@ function Header() {
     const cart = useSelector(state => state.cart)
     const {cartItems} = cart;
     const firstTime = useRef(true);
+
+    const notificationAlertRef = React.useRef(null);
+    const notify = (title, body) => {
+        var options = {};
+        options = {
+            place: "tr",
+            message: (
+                <div>
+                    <div>
+                        {title}
+                        {body}
+                    </div>
+                </div>
+            ),
+            type: "warning",
+            icon: "nc-icon nc-bell-55",
+            autoDismiss: 90,
+        };
+        notificationAlertRef.current.notificationAlert(options);
+    };
+
+    const [notification, setNotification] = useState({title: '', body: ''});
+    const [isTokenFound, setTokenFound] = useState(false);
+    const [show, setShow] = useState(false);
+
+    getToken(setTokenFound);
+
+    onMessageListener().then(payload => {
+        setShow(true);
+        setNotification({title: payload.notification.title, body: payload.notification.body})
+        console.log(payload)
+        notify(payload.notification.title, payload.notification.body)
+        console.log(payload)
+    }).catch(err => console.log('failed: ', err));
+
+
+
 
     let history = useHistory();
 
@@ -88,6 +128,9 @@ function Header() {
 
     return (
         <>
+            <div className="rna-container">
+                <NotificationAlert ref={notificationAlertRef} />
+            </div>
             <Navbar bg="light" expand="lg">
                 <Container fluid>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
