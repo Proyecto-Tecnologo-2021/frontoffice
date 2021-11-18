@@ -91,36 +91,16 @@ const INITIAL_STATE = {
     currentItem: null,
 }
 
-// const shopReducer = (state = INITIAL_STATE, action) => {
 const shopReducer = (state = { cartItems: []}, action) => {
     switch (action.type) {
         case actionTypes.ADD_TO_CART:
-            // const item = state.products.find(product => product.id === action.payload.id)
             const item = action.payload
 
-            // const inCart = state.cart.find((item) =>
-            //     item.id === action.payload.id
-            //         ? true
-            //         : false
-            // )
-
             const existItem = state.cartItems.find((x) => x.product.id === item.product.id && x.product.tipo === item.product.tipo)
-
-            // return {
-            //     ...state,
-            //     cart: inCart
-            //         ? state.cart.map((item) =>
-            //             item.id === action.payload.id
-            //                 ? {...item, qty: item.qty + 1}
-            //                 : item)
-            //         : [...state.cart, {...item, qty: 1}],
-            // };
-            // console.log(existItem)
 
             if(existItem){
                 return {
                     ...state,
-                    // cartItems: state.cartItems.map((x) => x.product === existItem.product ? item : x)
                     cartItems: state.cartItems.map((x) => x.product === existItem.product
                         ? {...x, qty: x.qty + 1}
                         : x)

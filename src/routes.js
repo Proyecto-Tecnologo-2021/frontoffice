@@ -2,6 +2,7 @@ import UserProfile from "./components/User/UserProfile";
 import ProductGeneral from "./components/Product/ProductGeneral";
 import RestaurantList from "./components/Restaurant/RestaurantList";
 import ProductsListByRestaurant from "./components/Product/ProductsListByRestaurant";
+import AllOrders from "./components/Order/AllOrders";
 
 const dashboardRoutes = [
   // {
@@ -67,13 +68,6 @@ const dashboardRoutes = [
     component: UserProfile,
     layout: "/home",
   },
-  // {
-  //   path: "/cart",
-  //   name: "Mi pedido",
-  //   icon: "nc-icon nc-circle-09",
-  //   component: Cart,
-  //   layout: "/home",
-  // },
   {
     path: "/restaurants",
     name: "Restaurantes",
@@ -88,6 +82,13 @@ const dashboardRoutes = [
     component: ProductsListByRestaurant,
     layout: "/home",
     redirect: true,
+  },
+  {
+    path: "/orders",
+    name: "Mis pedidos",
+    icon: "nc-icon nc-circle-09",
+    component: AllOrders,
+    layout: "/home",
   },
 ];
 

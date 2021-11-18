@@ -31,6 +31,8 @@ const CartItem = ({itemData}) => {
         dispatch(removeFromCart(id))
     }
 
+    console.log(itemData)
+
     return (
         <div className="d-flex align-items-center justify-content-start">
             <Col md="3">
@@ -46,7 +48,10 @@ const CartItem = ({itemData}) => {
             <Col md="5">
                 <div className="text-start">
                     <p className="mb-0" style={{color: '#000000'}}>{itemData.product.nombre}</p>
-                    <p className="mb-0 cartSmall">${itemData.product.precioTotal}</p>
+                    {itemData.product.descuento > 0
+                        ? <p className="mb-0 cartSmall"><strike>${itemData.product.precioSimple}</strike> ${itemData.product.precioTotal}</p>
+                        : <p className="mb-0 cartSmall">${itemData.product.precioTotal}</p>
+                    }
                 </div>
             </Col>
             <Col md="2">
