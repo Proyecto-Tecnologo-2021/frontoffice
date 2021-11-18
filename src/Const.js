@@ -61,3 +61,17 @@ export const listarRestaurantesPorId = '/restaurante/listarDatosBasicos/'
 
 // SERVICIO DE COTIZACIONES
 export const urlCotizaciones = 'https://cotizaciones-brou.herokuapp.com/api/currency/' // AAAA-MM-DD - GET
+
+// VAPID KEY FIREBASE
+export const vapidKey = 'BJSMnaFwEFT0-p9n623Bgogrpe9eTE7IIbYkmUlSFJCFKmyHwKDwaJS6feUiGwuv1bR7zZB5l4LeLXpTsqokaUQ'
+
+// CONFIGURACION DE FIREBASE
+export const firebaseConfig = {
+    apiKey: "AIzaSyBvdjK7f3uxnWo_3v31U1YmK2WW0ffexsk",
+    authDomain: "appetit-2c5d3.firebaseapp.com",
+    projectId: "appetit-2c5d3",
+    storageBucket: "appetit-2c5d3.appspot.com",
+    messagingSenderId: "915134390722",
+    appId: "1:915134390722:web:8eb3d2db096d258ce7f65b",
+    measurementId: "G-DMYX46ND1P"
+}

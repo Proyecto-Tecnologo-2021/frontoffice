@@ -247,9 +247,10 @@ $new-blue:            #1DC7EA;
 $new-purple:          #9368E9;
 $new-red:             #FB404B;
 $new-green:           #87CB16;
-$new-orange: rgba(255, 82, 33, 0);
+$new-orange: rgba(245, 79, 26, 0);
 $new-dark-blue:       #1F77D0;
 $new-black:           #5e5e5e;
+$new-orange2: rgb(245, 79, 26);
 
 
 $topbar-x:             topbar-x !default;
@@ -262,5 +263,5 @@ $white-navbar:              rgba(#FFFFFF, .96);
 $blue-navbar:               lighten($new-dark-blue, 10%);
 $azure-navbar:              lighten($new-blue, 15%);
 $green-navbar:              lighten($new-green, 10%);
-$orange-navbar:             lighten($new-orange, 10%);
+$orange-navbar:             lighten($new-orange2, 10%);
 $red-navbar:                lighten($new-red, 10%);

@@ -5,67 +5,13 @@ import {Pedido_Last, URL_Services, Usuario_Login} from "../../Const";
 import {default as axios} from "axios";
 import {setSession} from "../SessionService";
 import jwt from "jsonwebtoken";
+import {getToken, onMessageListener} from "../../firebase/Firebase";
 
 const OrderProgress = () => {
     const [lastOrder, setLastOrder] = useState({})
-
-    // {
-    //     "idcli": 0,
-    //     "iddir": 0,
-    //     "menus": [{
-    //     "id": 0,
-    //     "id_restaurante": 0,
-    //     "nom_restaurante": "",
-    //     "descuento": 0.0,
-    //     "nombre": "",
-    //     "descripcion": "",
-    //     "precioSimple": 0,
-    //     "precioTotal": 0,
-    //     "extras": null,
-    //     "productos": null,
-    //     "id_imagen": null,
-    //     "imagen": null
-    // }],
-    //     "pago": true,
-    //     "tipo": "",
-    //     "total": "",
-    //     "idrest": 0,
-    //     "fecha": null,
-    //     "estado": "",
-    // }
-    // SOLICITADO   1
-    // CONFIRMADO   2
-    // RECHAZADO    fin (rojo
-    // ENVIADO      3
-    // ENTREGADO    4 fin verde
-    // CANCELADO    fin rojo
-
-    // {
-    //     "idcli":10,
-    //     "iddir":1,
-    //     "menus":[{
-    //         "id": 2,
-    //         "id_restaurante": 9,
-    //         "nom_restaurante": "Como en Casa GlutenFree",
-    //         "descuento": 0.0,
-    //         "nombre": "Hamburguesa al pan",
-    //         "descripcion": "Hamburguesa al pan con lechuga tomate queso",
-    //         "precioSimple": 100.0,
-    //         "precioTotal": 100.0,
-    //         "extras": null,
-    //         "productos": null,
-    //         "id_imagen": null,
-    //         "imagen": null
-    //     }],
-    //     "pago":true,
-    //     "tipo":"EFECTIVO",
-    //     "total":"500",
-    //     "idrest":9,
-    //     "fecha":null,
-    //     "estado": "CONFIRMADO",
-    // }
     const [userId, setUserId] = useState('')
     const [cookies, setCookie] = useCookies(['__FOsession'])
+
 
     useEffect(() => {
 
