@@ -32,6 +32,7 @@ export const paypalClientId = 'AX1tidD2Nabve-nXf9dR6UqFx6LtKK4-FJZ9QCzXJgoM8pjYr
 export const pedidoCrear = '/pedido/pedido2' //POST
 export const Pedido_Last = '/pedido/ultimo/' // GET (AGREGAR EL ID DEL USUARIO AL FINAL)
 export const allOrders = '/pedido/listarpedidos2/' //GET (AGREGAR EL ID DEL USUARIO AL FINAL)
+export const orderById = '/pedido/listar/' //GET (AGREGAR EL ID DEL PEDIDO AL FINAL)
 
 // SERVICIOS DE USUARIO
 export const Usuario_Login = '/usuarios/login' // POST

@@ -156,3 +156,9 @@
 .divCenter{
   align-content: center;
 }
+
+.orderRestaurantStack{
+  margin-left: 3px;
+  align-content: center;
+  text-align: left;
+}

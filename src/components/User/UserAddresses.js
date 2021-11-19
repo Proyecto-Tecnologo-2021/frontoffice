@@ -27,8 +27,6 @@ const UserAddresses = ({onClick, onAdd, updDel}) => {
 
     }, [onAdd, onDelete])
 
-
-
     const getUserAddresses = async () => {
         const url = URL_Services() + Direccion_Listar + cookies.__FOsession.idUsuario
         const axios = require('axios').default
@@ -62,11 +60,6 @@ const UserAddresses = ({onClick, onAdd, updDel}) => {
 
     function selectOption(pAddress, pMode) {
         onClick(pAddress, pMode)
-    }
-
-    const deleteUserAddress = () => {
-        //consumir servicio para guardar datos, debe retornar booleano
-
     }
 
     function updOnDelete(value) {

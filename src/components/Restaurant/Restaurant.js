@@ -4,32 +4,8 @@ import {Link} from "react-router-dom";
 
 const Restaurant = ({restaurant, showMenu}) => {
 
-    // const restaurant = {
-    //     id: 0,
-    //     nombre: '',
-    //     horarioApertura: '',
-    //     horarioCierre: '',
-    //     direccion: {
-    //         id_cliente: 0,
-    //         alias: '',
-    //         calle: '',
-    //         numero: '',
-    //         apartamento: '',
-    //         referencias: '',
-    //         geometry: '',
-    //     },
-    //     imagen: {
-    //         id: '',
-    //         identificador: '',
-    //         imagen: '',
-    //     },
-    //     abierto: true,
-    // }
-
     const getImage = () => {
         //Consumir api y obtener imagen usando product.idImagen
-        // return require("../../assets/img/burger1.jpeg").default
-
         let srcImg = null
 
         if(restaurant !== undefined) {
