@@ -57,21 +57,21 @@ const dashboardRoutes = [
   {
     path: "/general",
     name: "Pedidos General",
-    icon: "nc-icon nc-circle-09",
+    icon: "fas fa-shipping-fast",
     component: ProductGeneral,
     layout: "/home",
   },
   {
     path: "/user",
     name: "Mi perfil",
-    icon: "nc-icon nc-circle-09",
+    icon: "fas fa-user",
     component: UserProfile,
     layout: "/home",
   },
   {
     path: "/restaurants",
     name: "Restaurantes",
-    icon: "nc-icon nc-circle-09",
+    icon: "fas fa-utensils",
     component: RestaurantList,
     layout: "/home",
   },
@@ -86,7 +86,7 @@ const dashboardRoutes = [
   {
     path: "/orders",
     name: "Mis pedidos",
-    icon: "nc-icon nc-circle-09",
+    icon: "fas fa-list-ol",
     component: AllOrders,
     layout: "/home",
   },

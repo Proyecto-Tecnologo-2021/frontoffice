@@ -1,7 +1,9 @@
 
 import 'firebase/messaging';
 import firebase from "firebase/compat";
-import {vapidKey} from "../Const";
+import {Set_Token, URL_Services, vapidKey} from "../Const";
+import {default as axios} from "axios";
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyBvdjK7f3uxnWo_3v31U1YmK2WW0ffexsk",
@@ -18,10 +20,11 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-//BI8l38F8tahBDSy6qVqXTddhbbsXkOGhlqVjEX1I0QOAVd3lXGvQYuxrlX8suGJeZI0zTPh3VG_BJXGVCBtfo50
-export const getToken = (setTokenFound) => {
+
+export const getToken = (setTokenFound, clientId) => {
     return messaging.getToken({vapidKey: vapidKey}).then((currentToken) => {
         if (currentToken) {
+            setClientTokenWeb(clientId, currentToken)
             console.log('current token for client: ', currentToken);
             setTokenFound(true);
             // Track the token -> client mapping, by sending to backend server
@@ -43,3 +46,32 @@ export const onMessageListener = () =>
             resolve(payload);
         });
     });
+
+const setClientTokenWeb = async (clientId, tokenWeb) => {
+    const url = URL_Services() + Set_Token
+    const axios = require('axios').default
+
+
+    const bodyLogin = {
+        clientId: clientId,
+        tokenWeb: tokenWeb,
+    }
+    const sendMessageRequest = async () => {
+        try {
+            const response = await axios.post(
+                url,
+                bodyLogin,
+            )
+            return response.data
+        } catch (err) {
+            // Handle Error Here
+            console.error(err)
+            return null
+        }
+    }
+    const finalResponse = await sendMessageRequest()
+    return finalResponse.ok
+}
+
+
+

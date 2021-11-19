@@ -1,7 +1,14 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../../assets/css/Login.css";
-import {localDevelopment, URL_AltaRestaurante, URL_IndexBackoffice, URL_Services, Usuario_Login} from "../../Const";
+import {
+    localDevelopment,
+    Set_Token,
+    URL_AltaRestaurante,
+    URL_IndexBackoffice,
+    URL_Services,
+    Usuario_Login
+} from "../../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Swal from "sweetalert2";
@@ -9,6 +16,7 @@ import {default as axios} from "axios";
 import FloatingLabel from "react-bootstrap-floating-label";
 import {setSession} from "../SessionService";
 import jwt from "jsonwebtoken";
+import {getToken} from "../../firebase/Firebase";
 
 const Login = () => {
     const [user, setUser] = useState('')
@@ -22,6 +30,7 @@ const Login = () => {
         userName: 'gsantamaria'
     }
     const [userType, setUserType] = useState('')
+    const [isTokenFound, setTokenFound] = useState(false);
 
     const clickSignIn = async (user, pass) => {
         //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
@@ -57,8 +66,34 @@ const Login = () => {
         }else{
             return false
         }
-
     }
+
+    // const setClientTokenWeb = async (clientId, tokenWeb) => {
+    //     const url = URL_Services() + Set_Token
+    //     const axios = require('axios').default
+    //
+    //
+    //     const bodyLogin = {
+    //         clientId: clientId,
+    //         tokenWeb: tokenWeb,
+    //     }
+    //     const sendMessageRequest = async () => {
+    //         try {
+    //             const response = await axios.post(
+    //                 url,
+    //                 bodyLogin,
+    //             )
+    //             return response.data
+    //         } catch (err) {
+    //             // Handle Error Here
+    //             console.error(err)
+    //             return null
+    //         }
+    //     }
+    //     const finalResponse = await sendMessageRequest()
+    //     return finalResponse.ok
+    // }
+
 
     function validateForm() {
         return user.length > 0 && password.length > 0;
@@ -89,7 +124,9 @@ const Login = () => {
 
             }else{
                 if (ok && decodeado.tipoUsuario === "cliente") {
+                    await getToken(setTokenFound, decodeado.idUsuario)
                     window.location = '/home'
+
                 } else {
                     Swal.fire(
                         {

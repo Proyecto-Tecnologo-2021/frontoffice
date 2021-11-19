@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {NavLink, useLocation} from "react-router-dom";
 
 import {Nav} from "react-bootstrap";
+import {getToken, onMessageListener} from "../../firebase/Firebase";
 
 function Sidebar({color, image, routes}) {
+
     const location = useLocation();
     const activeRoute = (routeName) => {
         return location.pathname.indexOf(routeName) > -1 ? "active" : "";
