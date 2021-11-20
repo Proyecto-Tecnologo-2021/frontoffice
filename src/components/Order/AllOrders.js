@@ -67,7 +67,7 @@ const AllOrders = () => {
                         </Modal.Header>
                         <hr/>
                         <Modal.Body className="">
-                            <OrderCalification/>
+                            <OrderCalification orderId={orderId.id}/>
                         </Modal.Body>
                     </div>
                 }

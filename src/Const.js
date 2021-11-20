@@ -86,3 +86,7 @@ export const firebaseConfig = {
     appId: "1:915134390722:web:8eb3d2db096d258ce7f65b",
     measurementId: "G-DMYX46ND1P"
 }
+
+// SERVICIO DE  CALIFICACIONES
+export const newCalification = '/pedido/calificar/' //PUT
+export const updCalification = '/pedido/calificarUPD/' //PUT

@@ -33,6 +33,7 @@ function User() {
         }
         // console.log(bodyLogin)
         const sendMessageRequest = async () => {
+            console.log(bodyLogin)
             try {
                 const response = await axios.put(
                     url,

@@ -60,8 +60,6 @@ const OrderProgress = () => {
 
     const timeMs = 60000
 
-
-
     const checkState = () => {
 
         const stateOrder = {
