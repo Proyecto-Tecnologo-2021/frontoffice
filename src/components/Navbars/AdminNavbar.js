@@ -40,16 +40,16 @@ function Header() {
             ),
             type: "warning",
             icon: "nc-icon nc-bell-55",
-            autoDismiss: 90,
+            autoDismiss: 10,
         };
         notificationAlertRef.current.notificationAlert(options);
     };
 
     const [notification, setNotification] = useState({title: '', body: ''});
-    const [isTokenFound, setTokenFound] = useState(false);
+
     const [show, setShow] = useState(false);
 
-    getToken(setTokenFound);
+
 
     onMessageListener().then(payload => {
         setShow(true);

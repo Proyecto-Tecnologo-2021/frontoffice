@@ -7,7 +7,7 @@ import {
     URL_AltaRestaurante,
     URL_IndexBackoffice,
     URL_Services,
-    Usuario_Login
+    Usuario_Login, Usuario_Login_Google
 } from "../../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -17,6 +17,7 @@ import FloatingLabel from "react-bootstrap-floating-label";
 import {setSession} from "../SessionService";
 import jwt from "jsonwebtoken";
 import {getToken} from "../../firebase/Firebase";
+import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
     const [user, setUser] = useState('')
@@ -68,31 +69,59 @@ const Login = () => {
         }
     }
 
-    // const setClientTokenWeb = async (clientId, tokenWeb) => {
-    //     const url = URL_Services() + Set_Token
-    //     const axios = require('axios').default
-    //
-    //
-    //     const bodyLogin = {
-    //         clientId: clientId,
-    //         tokenWeb: tokenWeb,
-    //     }
-    //     const sendMessageRequest = async () => {
-    //         try {
-    //             const response = await axios.post(
-    //                 url,
-    //                 bodyLogin,
-    //             )
-    //             return response.data
-    //         } catch (err) {
-    //             // Handle Error Here
-    //             console.error(err)
-    //             return null
-    //         }
-    //     }
-    //     const finalResponse = await sendMessageRequest()
-    //     return finalResponse.ok
-    // }
+    const clickSignInGoogle = async (email, name) => {
+        //CONSUMO LA API Y CHEQUEO SI PERMITE ACCESO
+        // const url = '/usuarios/login'
+        const url = URL_Services() + Usuario_Login_Google
+
+        const axios = require('axios').default
+
+        const bodyLogin = {
+            correo: email,
+            nombre: name
+        }
+
+        const sendMessageRequest = async () => {
+            try {
+                const response = await axios.post(
+                    url,
+                    bodyLogin,
+                )
+                return response.data
+            } catch (err) {
+                // Handle Error Here
+                console.error(err)
+                return null
+            }
+        }
+
+        const finalResponse = await sendMessageRequest()
+
+        if(finalResponse !== null){
+            console.log(finalResponse.cuerpo)
+            setSession(jwt.decode(finalResponse.cuerpo))
+            return finalResponse
+        }else{
+            return false
+        }
+    }
+
+    const responseGoogle = async (response) => {
+        const obj = await clickSignInGoogle(response.profileObj.email, response.profileObj.givenName )
+        const decodeado = jwt.decode(obj.cuerpo)
+        await getToken(setTokenFound, decodeado.idUsuario)
+        window.location = '/home'
+
+
+        console.log(response);
+        const googleSession = {
+            nombre: response.profileObj.givenName,
+            apellido: response.profileObj.familyName,
+            correo: response.profileObj.email,
+            userName: response.profileObj.givenName
+        }
+        console.log(googleSession)
+    }
 
 
     function validateForm() {
@@ -262,13 +291,34 @@ const Login = () => {
                                             &nbsp;|
                                             ¿Nuevo Restaurante?
                                         </Button>
-                                        <Button
-                                            className="btn-fill pull-right"
-                                            variant="danger">
-                                            <i className="fab fa-google"></i>
-                                            &nbsp;|
-                                            Ingresar con Google
-                                        </Button>
+                                        <GoogleLogin
+                                            clientId="813641537629-4c0gvuccrrutpa9rqssu8eaej8kcdjns.apps.googleusercontent.com"
+                                            render={renderProps => (
+                                                // <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
+                                                <Button
+                                                    className="btn-fill pull-right"
+                                                    variant="danger"
+                                                    onClick={renderProps.onClick}
+                                                    disabled={renderProps.disabled}>
+                                                    <i className="fab fa-google"></i>
+                                                    &nbsp;|
+                                                    Ingresar con Google
+                                                </Button>
+                                            )}
+                                            buttonText="Login"
+                                            onSuccess={responseGoogle}
+                                            onFailure={ () => {
+                                                Swal.fire(
+                                                {
+                                                    title: 'Ups...',
+                                                    confirmButtonColor: '#c00e0e',
+                                                    icon: "error",
+                                                    text: 'Ha sucedido un error'
+                                                },
+                                            )}}
+                                            // isSignedIn={true}
+                                            cookiePolicy={'single_host_origin'}
+                                        />
                                     </ButtonGroup>
                                 </ListGroup.Item>
                             </ListGroup>
