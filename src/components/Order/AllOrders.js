@@ -5,6 +5,7 @@ import CartItem from "../Cart/CartItem";
 import LineOrder from "./LineOrder";
 import {Modal} from "react-bootstrap";
 import OrderDetail from "./OrderDetail";
+import OrderCalification from "./OrderCalification";
 
 const AllOrders = () => {
     const [loading, setLoading] = useState(true)
@@ -48,15 +49,29 @@ const AllOrders = () => {
                 show={showModal}
                 onHide={() => setShowModal(false)}
             >
-                <div className="imgTrns cardOpacity">
-                    <Modal.Header className="pedidoTitulo justify-content-center" as="h4" style={{marginTop: 20}}>
-                        Mi Pedido
-                    </Modal.Header>
-                    <hr/>
-                    <Modal.Body className="">
-                        <OrderDetail orderId={orderId}/>
-                    </Modal.Body>
-                </div>
+                {orderId !== undefined && !orderId.isCalification
+                ?
+                    <div className="imgTrns cardOpacity">
+                        <Modal.Header className="pedidoTitulo justify-content-center" as="h4" style={{marginTop: 20}}>
+                            Mi Pedido
+                        </Modal.Header>
+                        <hr/>
+                        <Modal.Body className="">
+                            <OrderDetail orderId={orderId.id}/>
+                        </Modal.Body>
+                    </div>
+                :
+                    <div className="imgTrns cardOpacity">
+                        <Modal.Header className="pedidoTitulo justify-content-center" as="h4" style={{marginTop: 20}}>
+                            Calificación
+                        </Modal.Header>
+                        <hr/>
+                        <Modal.Body className="">
+                            <OrderCalification/>
+                        </Modal.Body>
+                    </div>
+                }
+
             </Modal>
         </>
     )

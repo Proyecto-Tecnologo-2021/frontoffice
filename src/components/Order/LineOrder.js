@@ -165,18 +165,13 @@ const LineOrder = ({order, selectedOrder}) => {
             setLoading(false)
         })
 
-        // setLoading(false)
-
     }, [])
 
-    // const select = (id) => {
-    //     // selectOrder(id)
-    //     alert(id)
-    // }
+    // "{id: 0, isCalification: true,}"
+
 
     return (
         <>
-            {/*{restaurant === undefined || address === undefined*/}
             {loading
                 ? <></>
                 :
@@ -193,11 +188,10 @@ const LineOrder = ({order, selectedOrder}) => {
                         <Card.Body>
                             <Row>
                                 {/*Logo*/}
-
                                 <Col
                                     md="1"
                                     onClick={() => {
-                                        selectedOrder(order.id)
+                                        selectedOrder({id: order.id, isCalification: false,})
                                     }}>
                                     {getImage()}
                                 </Col>
@@ -207,7 +201,7 @@ const LineOrder = ({order, selectedOrder}) => {
                                     md="5"
                                     className="orderRestaurantStack ms-2"
                                     onClick={() => {
-                                        selectedOrder(order.id)
+                                        selectedOrder({id: order.id, isCalification: false,})
                                     }}>
                                     <Stack>
                                         <div>
@@ -225,7 +219,7 @@ const LineOrder = ({order, selectedOrder}) => {
                                 <Col
                                     md="4"
                                     onClick={() => {
-                                        selectedOrder(order.id)
+                                        selectedOrder({id: order.id, isCalification: false,})
                                     }}>
                                     <Stack>
                                         <div>
@@ -248,12 +242,19 @@ const LineOrder = ({order, selectedOrder}) => {
                                 <Col>
                                     <Stack>
                                         <div>
-                                            <Button className="w-100 mb-1 btn-fill" variant="warning">
+                                            <Button
+                                                className="w-100 mb-1 btn-fill"
+                                                variant="warning"
+                                                onClick={() => {
+                                                    selectedOrder({id: order.id, isCalification: true,})
+                                                }}>
                                                 Calificar pedido
                                             </Button>
                                         </div>
                                         <div>
-                                            <Button className="w-100 btn-fill mb-1" variant="warning">
+                                            <Button
+                                                className="w-100 btn-fill mb-1"
+                                                variant="warning">
                                                 Reclamar
                                             </Button>
                                         </div>
