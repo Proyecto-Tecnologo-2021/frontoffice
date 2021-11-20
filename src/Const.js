@@ -18,8 +18,16 @@ export const URL_AltaRestaurante = () => {
 }
 
 export const URL_IndexBackoffice = () => {
-    if (!prod){ //LOCAL
+    if (!prod) { //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
+    } else { //ES PROD
+        return "[PROD]";
+    }
+}
+
+export const Login_Google_Id = () => {
+    if (!prod){ //LOCAL
+        return "813641537629-4c0gvuccrrutpa9rqssu8eaej8kcdjns.apps.googleusercontent.com";
     }else{ //ES PROD
         return "[PROD]";
     }

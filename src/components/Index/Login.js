@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../../assets/css/Login.css";
 import {
-    localDevelopment,
+    localDevelopment, Login_Google_Id,
     Set_Token,
     URL_AltaRestaurante,
     URL_IndexBackoffice,
@@ -292,7 +292,7 @@ const Login = () => {
                                             ¿Nuevo Restaurante?
                                         </Button>
                                         <GoogleLogin
-                                            clientId="813641537629-4c0gvuccrrutpa9rqssu8eaej8kcdjns.apps.googleusercontent.com"
+                                            clientId={Login_Google_Id()}
                                             render={renderProps => (
                                                 // <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
                                                 <Button
