@@ -45,6 +45,7 @@ export const orderById = '/pedido/listar/' //GET (AGREGAR EL ID DEL PEDIDO AL FI
 // SERVICIOS DE USUARIO
 export const Usuario_Login = '/usuarios/login' // POST
 export const Usuario_Login_Google = '/usuarios/loginGoogle' // POST
+export const Usuario_Login_Redirect = '/usuarios/loginRedirect' // POST
 export const Usuario_Nuevo = "/usuarios"; // POST
 export const Usuario_Modificar = "/usuarios/editar/" // PUT (AGREGAR EL ID DEL USUARIO A MODIFICAR AL FINAL)
 export const Pass_Recover = "/usuarios/requestMailLink"; // POST

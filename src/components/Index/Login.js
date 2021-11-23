@@ -7,7 +7,7 @@ import {
     URL_AltaRestaurante,
     URL_IndexBackoffice,
     URL_Services,
-    Usuario_Login, Usuario_Login_Google
+    Usuario_Login, Usuario_Login_Google, Usuario_Login_Redirect
 } from "../../Const";
 import {Button, ButtonGroup, Card, Col, Container, Form, ListGroup, Row,} from "react-bootstrap";
 import {Link} from "react-router-dom";
@@ -112,7 +112,6 @@ const Login = () => {
         await getToken(setTokenFound, decodeado.idUsuario)
         window.location = '/home'
 
-
         console.log(response);
         const googleSession = {
             nombre: response.profileObj.givenName,
@@ -121,6 +120,13 @@ const Login = () => {
             userName: response.profileObj.givenName
         }
         console.log(googleSession)
+    }
+
+    const loginRedirect = async (userId, userType, token) => {
+        const url = URL_Services() + Usuario_Login_Redirect + "?idUsuario=" + userId + "&tipoUsuario=" + userType + "&jwtToken=" + token
+        const axios = require('axios').default
+        window.location = url
+
     }
 
 
@@ -147,10 +153,8 @@ const Login = () => {
         }
         if(obj !== null){
             const decodeado = jwt.decode(obj.cuerpo)
-            console.log(decodeado)
-            if (ok && decodeado.tipoUsuario === "restaurante") {
-                window.location = URL_IndexBackoffice()
-
+            if ((ok && decodeado.tipoUsuario === "restaurante") || (ok && decodeado.tipoUsuario === "administrador") ) {
+                loginRedirect(decodeado.idUsuario, decodeado.tipoUsuario, obj.cuerpo)
             }else{
                 if (ok && decodeado.tipoUsuario === "cliente") {
                     await getToken(setTokenFound, decodeado.idUsuario)
