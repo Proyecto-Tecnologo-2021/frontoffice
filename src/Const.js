@@ -33,14 +33,6 @@ export const Login_Google_Id = () => {
     }
 }
 
-export const googleCookiePolicy = () => {
-    if (!prod){ //LOCAL
-        return 'single_host_origin';
-    }else{ //ES PROD
-        return "https://appetit.brazilsouth.cloudapp.azure.com:3000/";
-    }
-}
-
 //Utils de pedidos
 export const paypalClientId = 'AX1tidD2Nabve-nXf9dR6UqFx6LtKK4-FJZ9QCzXJgoM8pjYrDNCCPF6KzOLgDDrGZSpaDA2psnjfP5l'
 

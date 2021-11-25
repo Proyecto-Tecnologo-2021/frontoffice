@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../../assets/css/Login.css";
 import {
-    googleCookiePolicy,
     localDevelopment, Login_Google_Id,
     Set_Token,
     URL_AltaRestaurante,
