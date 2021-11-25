@@ -1,9 +1,13 @@
 // Scripts for firebase and firebase messaging
 // eslint-disable-next-line no-undef
-const {firebaseConfig} = "../src/Const";
-importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js');
+// const {firebaseConfig} = require("../src/Const");
+// importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js');
 // eslint-disable-next-line no-undef
-importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
+// importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
+import { getMessaging } from "firebase/messaging/sw";
+import { onBackgroundMessage } from "firebase/messaging/sw";
+import { initializeApp } from "firebase/app";
+import {firebaseConfig} from "../Const";
 
 // Initialize the Firebase app in the service worker by passing the generated config
 // var firebaseConfig = {
@@ -16,14 +20,15 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
 //     measurementId: "G-DMYX46ND1P"
 // };
 
-// eslint-disable-next-line no-undef
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 
 // Retrieve firebase messaging
-// eslint-disable-next-line no-undef
-const messaging = firebase.messaging();
+// const messaging = firebase.messaging();
+const messaging = getMessaging(app);
 
-messaging.onBackgroundMessage(function(payload) {
+onBackgroundMessage(messaging, (payload) => {
+// messaging.onBackgroundMessage(function(payload) {
     console.log('Received background message ', payload);
 
     const notificationTitle = payload.notification.title;
@@ -31,7 +36,6 @@ messaging.onBackgroundMessage(function(payload) {
         body: payload.notification.body,
     };
 
-    // eslint-disable-next-line no-undef,no-restricted-globals
     self.registration.showNotification(notificationTitle,
         notificationOptions);
 });

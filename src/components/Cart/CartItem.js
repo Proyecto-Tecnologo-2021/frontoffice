@@ -31,8 +31,6 @@ const CartItem = ({itemData}) => {
         dispatch(removeFromCart(id))
     }
 
-    console.log(itemData)
-
     return (
         <div className="d-flex align-items-center justify-content-start">
             <Col md="3">

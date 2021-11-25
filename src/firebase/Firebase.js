@@ -1,9 +1,14 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/messaging'
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/messaging'
 
 // import 'firebase/compat';
 // import firebase from "firebase/compat"
+
+import { initializeApp } from "firebase/app";
+import { getMessaging, getToken as getTok, onMessage } from "firebase/messaging";
+
 import {Set_Token, URL_Services, vapidKey, firebaseConfig} from "../Const";
+// import {Set_Token, URL_Services, vapidKey} from "../Const";
 import {default as axios} from "axios";
 
 
@@ -18,15 +23,21 @@ import {default as axios} from "axios";
 // };
 // Initialize Firebase
 
-firebase.initializeApp(firebaseConfig);
+// const vapidKey = 'BJSMnaFwEFT0-p9n623Bgogrpe9eTE7IIbYkmUlSFJCFKmyHwKDwaJS6feUiGwuv1bR7zZB5l4LeLXpTsqokaUQ'
 
-const messaging = firebase.messaging();
+// firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 
+const messaging = getMessaging(app);
+
+// const messaging = firebase.messaging();
 
 export const getToken = (setTokenFound, clientId) => {
-    return messaging.getToken({vapidKey: vapidKey}).then((currentToken) => {
+    console.log(vapidKey)
+    return getTok(messaging, {vapidKey: vapidKey}).then((currentToken) => {
         if (currentToken) {
             setClientTokenWeb(clientId, currentToken)
+            // alert(currentToken)
             console.log('current token for client: ', currentToken);
             setTokenFound(true);
             // Track the token -> client mapping, by sending to backend server
@@ -44,9 +55,12 @@ export const getToken = (setTokenFound, clientId) => {
 
 export const onMessageListener = () =>
     new Promise((resolve) => {
-        messaging.onMessage((payload) => {
+        onMessage(messaging, (payload) => {
             resolve(payload);
-        });
+        })
+        // messaging.onMessage((payload) => {
+        //     resolve(payload);
+        // });
     });
 
 const setClientTokenWeb = async (clientId, tokenWeb) => {
