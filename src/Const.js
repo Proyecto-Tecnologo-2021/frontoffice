@@ -21,7 +21,7 @@ export const URL_IndexBackoffice = () => {
     if (!prod) { //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
     } else { //ES PROD
-        return "\"http://20.197.240.46:8080/appettit-web/restaurante/home.xhtml\"";
+        return "http://20.197.240.46:8080/appettit-web/restaurante/home.xhtml";
     }
 }
 
