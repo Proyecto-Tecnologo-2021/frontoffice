@@ -1,11 +1,11 @@
-const prod = false;
+const prod = true;
 export const localDevelopment = false;
 
 export const URL_Services = () => {
     if (!prod){ //LOCAL
         return "http://localhost:8080/appettit-web/rest";
     }else{ //ES PROD
-        return "[LA DIRECCIÓN DE PRODUCCIÓN]";
+        return "http://20.197.240.46:8080/appettit-web/rest";
     }
 }
 
@@ -13,7 +13,7 @@ export const URL_AltaRestaurante = () => {
     if (!prod){ //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/addrestaurante.xhtml";
     }else{ //ES PROD
-        return "[PROD]";
+        return "http://20.197.240.46:8080/appettit-web/restaurante/addrestaurante.xhtml";
     }
 }
 
@@ -21,7 +21,7 @@ export const URL_IndexBackoffice = () => {
     if (!prod) { //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
     } else { //ES PROD
-        return "[PROD]";
+        return "\"http://20.197.240.46:8080/appettit-web/restaurante/home.xhtml\"";
     }
 }
 
@@ -29,7 +29,7 @@ export const Login_Google_Id = () => {
     if (!prod){ //LOCAL
         return "813641537629-4c0gvuccrrutpa9rqssu8eaej8kcdjns.apps.googleusercontent.com";
     }else{ //ES PROD
-        return "[PROD]";
+        return "915134390722-1id25om864mqooa1rka2rhf3j6qivgag.apps.googleusercontent.com";
     }
 }
 
