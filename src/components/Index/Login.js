@@ -311,13 +311,13 @@ const Login = () => {
                                             )}
                                             buttonText="Login"
                                             onSuccess={responseGoogle}
-                                            onFailure={ () => {
+                                            onFailure={ (err) => {
                                                 Swal.fire(
                                                 {
                                                     title: 'Ups...',
                                                     confirmButtonColor: '#c00e0e',
                                                     icon: "error",
-                                                    text: 'Ha sucedido un error'
+                                                    text: 'Ha sucedido un error ' + err.details
                                                 },
                                             )}}
                                             // isSignedIn={true}
