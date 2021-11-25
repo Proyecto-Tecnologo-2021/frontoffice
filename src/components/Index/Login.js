@@ -322,7 +322,7 @@ const Login = () => {
                                                 },
                                             )}}
                                             // isSignedIn={true}
-                                            cookiePolicy={googleCookiePolicy()}
+                                            cookiePolicy={'single_host_origin'}
                                         />
                                     </ButtonGroup>
                                 </ListGroup.Item>
