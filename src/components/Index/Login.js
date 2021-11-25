@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Redirect} from "react-router";
 import "../../assets/css/Login.css";
 import {
+    googleCookiePolicy,
     localDevelopment, Login_Google_Id,
     Set_Token,
     URL_AltaRestaurante,
@@ -321,7 +322,7 @@ const Login = () => {
                                                 },
                                             )}}
                                             // isSignedIn={true}
-                                            cookiePolicy={'single_host_origin'}
+                                            cookiePolicy={googleCookiePolicy()}
                                         />
                                     </ButtonGroup>
                                 </ListGroup.Item>
