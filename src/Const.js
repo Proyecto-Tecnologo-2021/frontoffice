@@ -5,7 +5,7 @@ export const URL_Services = () => {
     if (!prod){ //LOCAL
         return "http://localhost:8080/appettit-web/rest";
     }else{ //ES PROD
-        return "http://20.197.240.46:8080/appettit-web/rest";
+        return "https://appetit.brazilsouth.cloudapp.azure.com:8443/appettit-web/rest";
     }
 }
 
@@ -13,7 +13,7 @@ export const URL_AltaRestaurante = () => {
     if (!prod){ //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/addrestaurante.xhtml";
     }else{ //ES PROD
-        return "http://20.197.240.46:8080/appettit-web/restaurante/addrestaurante.xhtml";
+        return "https://appetit.brazilsouth.cloudapp.azure.com:8443/appettit-web/restaurante/addrestaurante.xhtml";
     }
 }
 
@@ -21,7 +21,7 @@ export const URL_IndexBackoffice = () => {
     if (!prod) { //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
     } else { //ES PROD
-        return "http://20.197.240.46:8080/appettit-web/restaurante/home.xhtml";
+        return "https://appetit.brazilsouth.cloudapp.azure.com:8443/appettit-web/restaurante/home.xhtml";
     }
 }
 
