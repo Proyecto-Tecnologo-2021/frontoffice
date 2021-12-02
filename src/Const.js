@@ -17,11 +17,19 @@ export const URL_AltaRestaurante = () => {
     }
 }
 
-export const URL_IndexBackoffice = () => {
+export const URL_RestauranteIndexBackoffice = () => {
     if (!prod) { //LOCAL
         return "http://127.0.0.1:8080/appettit-web/restaurante/home.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
     } else { //ES PROD
         return "https://appetit.brazilsouth.cloudapp.azure.com:8443/appettit-web/restaurante/home.xhtml";
+    }
+}
+
+export const URL_AdministradorIndexBackoffice = () => {
+    if (!prod) { //LOCAL
+        return "http://127.0.0.1:8080/appettit-web/admin/administradores.xhtml"; //ALGO ASÍ: http://localhost:8080/appettit-web/restaurante/index.xhtml
+    } else { //ES PROD
+        return "https://appetit.brazilsouth.cloudapp.azure.com:8443/appettit-web/admin/home.xhtml";
     }
 }
 
