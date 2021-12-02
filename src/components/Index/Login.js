@@ -5,7 +5,7 @@ import {
     localDevelopment, Login_Google_Id,
     Set_Token,
     URL_AltaRestaurante,
-    URL_IndexBackoffice,
+    URL_AdministradorIndexBackoffice, URL_RestauranteIndexBackoffice,
     URL_Services,
     Usuario_Login, Usuario_Login_Google, Usuario_Login_Redirect
 } from "../../Const";
@@ -153,22 +153,26 @@ const Login = () => {
         }
         if(obj !== null){
             const decodeado = jwt.decode(obj.cuerpo)
-            if ((ok && decodeado.tipoUsuario === "restaurante") || (ok && decodeado.tipoUsuario === "administrador") ) {
-                loginRedirect(decodeado.idUsuario, decodeado.tipoUsuario, obj.cuerpo)
+            if (ok && decodeado.tipoUsuario === "restaurante"){
+                window.location = URL_RestauranteIndexBackoffice()
             }else{
-                if (ok && decodeado.tipoUsuario === "cliente") {
-                    await getToken(setTokenFound, decodeado.idUsuario)
-                    window.location = '/home'
+                if(ok && decodeado.tipoUsuario === "administrador"){
+                    window.location = URL_AdministradorIndexBackoffice()
+                }else{
+                    if (ok && decodeado.tipoUsuario === "cliente") {
+                        await getToken(setTokenFound, decodeado.idUsuario)
+                        window.location = '/home'
 
-                } else {
-                    Swal.fire(
-                        {
-                            title: 'Ups...',
-                            confirmButtonColor: '#c00e0e',
-                            icon: "error",
-                            text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
-                        },
-                    )
+                    } else {
+                        Swal.fire(
+                            {
+                                title: 'Ups...',
+                                confirmButtonColor: '#c00e0e',
+                                icon: "error",
+                                text: 'Credenciales incorrectas' //Este texto se cargaría con lo que responde el servicio
+                            },
+                        )
+                    }
                 }
             }
         }
