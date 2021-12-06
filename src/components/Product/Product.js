@@ -111,7 +111,7 @@ const Product = ({product, onClick}) => {
                             :
                             <div>
                                 <div id="divPriceWODisc">
-                                    <b>${product.precioSimple}</b>
+                                    <b>${product.precioTotal}</b>
                                 </div>
                             </div>}
                     </div>
