@@ -62,13 +62,6 @@ const dashboardRoutes = [
     layout: "/home",
   },
   {
-    path: "/user",
-    name: "Mi perfil",
-    icon: "fas fa-user",
-    component: UserProfile,
-    layout: "/home",
-  },
-  {
     path: "/restaurants",
     name: "Restaurantes",
     icon: "fas fa-utensils",
@@ -88,6 +81,13 @@ const dashboardRoutes = [
     name: "Mis pedidos",
     icon: "fas fa-list-ol",
     component: AllOrders,
+    layout: "/home",
+  },
+  {
+    path: "/user",
+    name: "Mi perfil",
+    icon: "fas fa-user",
+    component: UserProfile,
     layout: "/home",
   },
 ];
