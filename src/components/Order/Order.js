@@ -210,7 +210,7 @@ const Order = () => {
                             className="">
                             <Col md="12">
                                 <b>Dirección seleccionada</b>
-                                <label>{address}</label>
+                                <label>&nbsp;{address}</label>
                             </Col>
                         </Row>
                     </div>
