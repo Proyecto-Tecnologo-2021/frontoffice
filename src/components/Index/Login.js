@@ -160,8 +160,10 @@ const Login = () => {
                     window.location = URL_AdministradorIndexBackoffice()
                 }else{
                     if (ok && decodeado.tipoUsuario === "cliente") {
+                        console.log("VOY A GET TOKEN")
                         await getToken(setTokenFound, decodeado.idUsuario)
-                        window.location = '/home'
+                        console.log("Salgo de GETTOKEN")
+                        // window.location = '/home'
 
                     } else {
                         Swal.fire(
