@@ -14,7 +14,10 @@ import {useCookies} from "react-cookie";
 import {useHistory} from "react-router";
 import {getUserAddresses} from "../Services/getUserAddresses";
 import Order from "../Order/Order";
-import {getToken, onMessageListener} from "../../firebase/Firebase";
+import {onMessageListener} from "../../firebase/Firebase";
+import {getMessaging, onMessage} from "firebase/messaging";
+import {initializeApp} from "firebase/app";
+import {firebaseConfig} from "../../Const";
 
 function Header() {
     const [showModal, setShowModal] = useState(false)
@@ -49,18 +52,21 @@ function Header() {
 
     const [show, setShow] = useState(false);
 
-
-
     onMessageListener().then(payload => {
         setShow(true);
         setNotification({title: payload.notification.title, body: payload.notification.body})
-        console.log(payload)
         notify(payload.notification.title, payload.notification.body)
-        console.log(payload)
     }).catch(err => console.log('failed: ', err));
 
+    const app = initializeApp(firebaseConfig)
 
+    const messaging = getMessaging(app);
 
+    onMessage(messaging, (payload) => {
+        setShow(true);
+        setNotification({title: payload.notification.title, body: payload.notification.body})
+        notify(payload.notification.title, payload.notification.body)
+    });
 
     let history = useHistory();
 

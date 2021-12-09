@@ -34,7 +34,7 @@ const messaging = getMessaging(app);
 
 export const getToken = (setTokenFound, clientId) => {
     console.log(vapidKey)
-    return getTok(messaging, {vapidKey: vapidKey}).then((currentToken) => {
+    return getTok(messaging, {vapidKey}).then((currentToken) => {
         if (currentToken) {
             setClientTokenWeb(clientId, currentToken)
             // alert(currentToken)
@@ -58,15 +58,11 @@ export const onMessageListener = () =>
         onMessage(messaging, (payload) => {
             resolve(payload);
         })
-        // messaging.onMessage((payload) => {
-        //     resolve(payload);
-        // });
     });
 
 const setClientTokenWeb = async (clientId, tokenWeb) => {
     const url = URL_Services() + Set_Token
     const axios = require('axios').default
-
 
     const bodyLogin = {
         clientId: clientId,
