@@ -205,7 +205,7 @@ function updateLatLng(la, lo) {
 	lon = lo;
 }
 
-function toProj32721(lat, lon) {
+export function toProj32721(lat, lon) {
 
 	Proj4.defs("EPSG:32721", "+title=Uruguay EPSG:32721 +proj=utm +zone=21 +south +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
 
@@ -248,6 +248,23 @@ export function toProj4326(lat, lon) {
 	return point32721;
 }
 
+export function testCord(x, y) {
+
+	Proj4.defs("EPSG:32721", "+title=Uruguay EPSG:32721 +proj=utm +zone=21 +south +ellps=WGS84 +datum=WGS84 +units=m +no_defs");
+
+	var proj4326 = new Proj4.Proj('EPSG:4326');    //source coordinates will be in Longitude/Latitude
+	var proj32721 = new Proj4.Proj('EPSG:32721');     //destination coordinates in LCC, south of France
+
+	x = parseFloat(x)
+	y = parseFloat(y)
+
+	var point = new Proj4.Point(x,y);   //any object will do as long as it has 'x' and 'y' properties
+	// var point = new Proj4.Point(x, y);
+
+	var point4326 = Proj4.transform(proj32721, proj4326, point);      //do the transformation.  x and y are modified in place
+
+	return point4326;
+}
 
 export function initMapSelectRegion() {
 

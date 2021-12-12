@@ -1,10 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
-import {getLocation, initMap, setLocation, toProj32721, toProj4326, updateLatLng} from '../../assets/mapjs/appetitmap.js'
+import {getLocation, initMap, setLocation, toProj32721, toProj4326, updateLatLng, testCord} from '../../assets/mapjs/appetitmap.js'
 import Swal from "sweetalert2";
 import {Direccion_Nueva, Dirreccion_Modificar, URL_Services} from "../../Const";
 import {useCookies} from "react-cookie";
 import {default as axios} from "axios";
+import proj4 from "proj4";
+import Proj4 from "proj4";
+
 
 export default function UserAddress({address, mode, onAdd, updDel }) {
     const [alias, setAlias] = useState('')
@@ -35,13 +38,19 @@ export default function UserAddress({address, mode, onAdd, updDel }) {
                 getLocation();
             } else { //mode === 'U'
                 let geom = address.geometry
-
                 geom = geom.replace("POINT(", "")
                 geom = geom.replace(')', '')
                 const latlng = geom.split(' ')
-                // setLocation(latlng[0], latlng[1], address.alias)
-                const cuatrotre = toProj4326(latlng[0], latlng[1])
-                setLocation(cuatrotre.x, cuatrotre.y)
+
+                //ACA METER EL X A LAT Y EL Y A LONG
+                const x = latlng[0]
+                const y = latlng[1]
+
+                const testCor = testCord(latlng[0], latlng[1])
+                // const cuatrotre = toProj4326(latlng[0], latlng[1])
+                setLocation(testCor.y, testCor.x)
+
+
 
                 setAlias(address.alias)
                 setCalle(address.calle)
